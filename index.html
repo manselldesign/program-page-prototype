@@ -238,20 +238,20 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 body.drawer-open{overflow:hidden}
 body.drawer-open .scrim{opacity:1;visibility:visible}
 body.drawer-open .drawer{transform:none;visibility:visible}
-.drawer-head{background:var(--background-default);color:var(--text-strong);padding:var(--spacing-24) var(--spacing-24) 0;position:relative;flex-shrink:0}
+.drawer-head{background:var(--background-default);color:var(--text-strong);padding:var(--spacing-24);position:relative;flex-shrink:0;border-bottom:1px solid transparent;transition:border-color .2s,box-shadow .2s}
+.drawer-head.scrolled{border-bottom-color:var(--border-default);box-shadow:var(--shadow-sm)}
 .drawer-head h2{color:var(--color-base-main);padding-right:var(--spacing-48)}
 .drawer-head .count{margin-top:var(--spacing-4);color:var(--color-base-body)}
 .drawer-close{position:absolute;top:var(--spacing-24);right:var(--spacing-24);width:40px;height:40px;border:1px solid var(--color-base-main);background:var(--background-default);color:var(--icon-strong);display:grid;place-items:center}
 .drawer-close:hover{background:var(--background-inverse);color:var(--icon-inverse)}
-.add-btn{margin-top:var(--spacing-24);height:var(--component-button-height-md);padding:0 var(--spacing-12);background:var(--component-button-form-background);color:var(--text-on-brand-alt);border:1px solid var(--component-button-form-border)}
-.add-btn:hover{background:var(--component-button-form-background-hover);border-color:var(--component-button-form-border-hover)}
+.add-btn{margin-top:var(--spacing-24);height:var(--component-button-height-md);padding:0 var(--spacing-12);display:inline-flex;align-items:center;gap:var(--spacing-8);cursor:default;background:var(--component-button-form-background);color:var(--text-on-brand-alt);border:1px solid var(--component-button-form-border)}
 .add-btn[disabled]{opacity:.5;cursor:not-allowed}
 .picker{display:none;position:absolute;left:var(--spacing-24);top:calc(100% + var(--spacing-4));z-index:3;width:360px;max-width:calc(100vw - 48px);background:var(--background-raised);color:var(--text-strong);box-shadow:var(--shadow-lg);border:1px solid var(--border-default)}
 .picker.open{display:block}
 .picker p{padding:var(--spacing-12) var(--spacing-16) var(--spacing-4);color:var(--text-default)}
 .picker button{display:block;width:100%;text-align:left;background:none;border:0;padding:10px var(--spacing-16)}
 .picker button:hover{background:var(--background-strong);color:var(--text-brand)}
-.drawer-body{overflow-y:auto;flex:1;overscroll-behavior:contain;padding-top:var(--spacing-24)}
+.drawer-body{overflow-y:auto;flex:1;overscroll-behavior:contain}
 .picked{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-16);padding:0 var(--spacing-24) var(--spacing-40)}
 .pick{position:relative;border:1px solid var(--color-brand-light);background:var(--background-raised);padding:var(--spacing-16)}
 .pick h3{margin:0 var(--spacing-16) var(--spacing-8) 0;color:var(--text-strong)}
@@ -575,7 +575,7 @@ body.drawer-open .drawer{transform:none;visibility:visible}
   <div class="drawer-head">
     <h2 class="t-heading-2xl-strong" id="drawer-title">Program comparison</h2>
     <div class="count t-tag-lg-regular" id="drawer-count" aria-live="polite"></div>
-    <div class="add-wrap" style="position:relative;display:inline-block"><button class="add-btn t-action-sm-strong" id="add-btn" aria-expanded="false" aria-controls="picker">Add another program</button>
+    <div class="add-wrap" style="position:relative;display:inline-block"><button class="add-btn t-action-sm-strong" id="add-btn" type="button" aria-disabled="true" title="Not available in this prototype"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 7V.5h2V7h6.5v2H9v6.5H7V9H.5V7H7Z"/></svg>Add another program</button>
     <div class="picker" id="picker" style="left:0"></div></div>
     <button class="drawer-close" data-close-drawer aria-label="Close program comparison"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button>
   </div>
@@ -675,7 +675,7 @@ const ROWS=[
 function render(){
   const ps=picked.map(k=>({k,...PROGRAMS[k]}));
   document.getElementById('drawer-count').textContent=`Showing ${ps.length} program${ps.length===1?'':'s'}`;
-  const add=document.getElementById('add-btn');add.disabled=ps.length>=MAX;add.title=ps.length>=MAX?`Compare up to ${MAX} programs. Remove one to add another.`:'';
+  const add=document.getElementById('add-btn');
   document.getElementById('picked').innerHTML=ps.length?ps.map(p=>`<div class="pick"><h3 class="t-action-sm-strong">${p.name}</h3><a class="see t-action-sm-strong" href="#" data-toast="Prototype: this would open the ${p.name} program page.">See details</a><button class="rm" data-remove="${p.k}" aria-label="Remove ${p.name}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button></div>`).join(''):`<div class="picks-empty t-body-sm-regular">No programs selected. Use “Add another program” to start comparing.</div>`;
   const best=document.getElementById('best');
   if(ps.length>=2){
@@ -690,6 +690,7 @@ function render(){
   document.getElementById('picker').innerHTML=`<p class="t-tag-sm-regular">Choose a program</p>`+avail.map(k=>`<button class="t-action-sm-regular" data-add="${k}">${PROGRAMS[k].name}</button>`).join('');
 }
 const drawer=document.getElementById('drawer');let lastFocus=null;
+drawer.querySelector('.drawer-body').addEventListener('scroll',e=>drawer.querySelector('.drawer-head').classList.toggle('scrolled',e.currentTarget.scrollTop>0));
 function openDrawer(){lastFocus=document.activeElement;document.body.classList.add('drawer-open');render();setTimeout(()=>drawer.querySelector('.drawer-close').focus(),50);}
 function closeDrawer(){document.body.classList.remove('drawer-open');closePicker();lastFocus&&lastFocus.focus();}
 function closePicker(){document.getElementById('picker').classList.remove('open');document.getElementById('add-btn').setAttribute('aria-expanded','false');}
@@ -698,7 +699,7 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-close-drawer]'))closeDrawer();
   const rm=e.target.closest('[data-remove]');if(rm){const name=PROGRAMS[rm.dataset.remove].name;picked=picked.filter(k=>k!==rm.dataset.remove);render();toast(`Removed ${name}`);drawer.querySelector('#add-btn').focus();}
   const ad=e.target.closest('[data-add]');if(ad){picked.push(ad.dataset.add);closePicker();render();toast(`Added ${PROGRAMS[ad.dataset.add].name}`);}
-  if(e.target.closest('#add-btn')){const p=document.getElementById('picker');const o=!p.classList.contains('open');p.classList.toggle('open',o);e.target.closest('#add-btn').setAttribute('aria-expanded',String(o));if(o)p.querySelector('button')?.focus();}
+  if(false&&e.target.closest('#add-btn')){const p=document.getElementById('picker');const o=!p.classList.contains('open');p.classList.toggle('open',o);e.target.closest('#add-btn').setAttribute('aria-expanded',String(o));if(o)p.querySelector('button')?.focus();}
 });
 document.addEventListener('keydown',e=>{
   if(!document.body.classList.contains('drawer-open'))return;
