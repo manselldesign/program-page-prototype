@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informatics, B.S. | IU Online — Program page prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crimson:#990000; --crimson-dark:#510606; --ink:#1f2528; --body:#343c42;
+  --cream:#fdfaf7; --cream-2:#faf6ef; --tan:#efdfc8; --white:#fff;
+  --mono:'Roboto Mono',ui-monospace,monospace; --sans:'Roboto Flex',system-ui,sans-serif; --serif:'Crimson Pro',Georgia,serif;
+  --gutter:80px; --max:1440px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit}
+img{max-width:100%;display:block}
+button{font:inherit;cursor:pointer}
+svg{flex-shrink:0}
+.wrap{max-width:calc(var(--max) + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--crimson);outline-offset:2px}
+.mono-label{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:2px;text-transform:uppercase;color:var(--crimson)}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--cream-2);border:1px solid var(--tan);color:var(--crimson);font-weight:700;font-size:14px;line-height:20px;padding:1px 11px;border-radius:999px;white-space:nowrap}
+.badge--dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.sticker{display:inline-grid;place-items:center;border-radius:50%;background:var(--tan);color:var(--crimson)}
+.sticker svg [fill="#fff"]{fill:transparent}
+.sticker--48{width:48px;height:48px}.sticker--48 svg{width:48px;height:48px}
+.sticker--64{width:64px;height:64px}.sticker--64 svg{width:64px;height:64px}
+.sticker--80{width:80px;height:80px}.sticker--80 svg{width:80px;height:80px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;line-height:24px;padding:12px 16px;border:1px solid transparent;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+.btn svg{transition:transform .15s}
+.btn:hover svg.arrow{transform:translateX(3px)}
+.btn--primary{background:var(--crimson);color:#fff}
+.btn--primary:hover{background:var(--crimson-dark)}
+.btn--dark{background:var(--ink);color:#fff}
+.btn--dark:hover{background:#000}
+.btn--outline{border-color:var(--crimson);color:var(--crimson);background:transparent}
+.btn--outline:hover{background:var(--crimson);color:#fff}
+.btn--small{font-size:14px;line-height:20px;padding:5px 11px;border-color:var(--ink);color:var(--ink);font-weight:500;background:#fff}
+.btn--small:hover{background:var(--ink);color:#fff}
+
+/* ---------- Header ---------- */
+.site-header{background:var(--cream)}
+.site-header .wrap{height:96px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.lockup{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
+.lockup .tri{width:41px;height:48px;background:var(--crimson);display:grid;place-items:center}
+.lockup b{display:block;font-size:16px;line-height:18px;font-weight:700;font-variation-settings:'wdth' 85;letter-spacing:.2px}
+.lockup span{display:block;font-size:14px;line-height:16px;font-variation-settings:'wdth' 85;color:var(--body)}
+.main-nav{display:flex;align-items:center;gap:20px}
+.main-nav>ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.nav-item{position:relative}
+.nav-item>button{background:none;border:0;padding:8px 8px;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:6px}
+.nav-item>button[aria-current]{color:var(--crimson);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.nav-item>button svg{transition:transform .2s}
+.nav-item>button[aria-expanded=true] svg{transform:rotate(180deg)}
+.nav-menu{position:absolute;top:100%;left:0;min-width:200px;background:#fff;box-shadow:0 8px 24px rgba(31,37,40,.15);padding:8px 0;margin:4px 0 0;list-style:none;z-index:20;display:none}
+.nav-item>button[aria-expanded=true]+.nav-menu{display:block}
+.nav-menu a{display:block;padding:8px 16px;font-size:14px;text-decoration:none}
+.nav-menu a:hover{background:var(--cream-2);color:var(--crimson)}
+.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--ink);background:none;color:var(--ink)}
+.icon-btn:hover{background:var(--ink);color:#fff}
+.menu-toggle{display:none}
+
+/* ---------- Hero ---------- */
+.hero{background:var(--cream);padding:96px 0 40px}
+.hero-grid{display:grid;grid-template-columns:672px 656px;justify-content:space-between;align-items:start}
+.hero h1{margin:16px 0 24px;font-size:54px;line-height:56px;text-transform:uppercase;color:var(--crimson);font-weight:900;font-variation-settings:'wdth' 151,'slnt' -10;letter-spacing:-.5px}
+.hero .teaser{font-size:18px;line-height:28px;color:var(--body);margin:0 0 40px;max-width:640px}
+.toc{margin-top:64px}
+.toc ul{list-style:none;margin:16px 0 0;padding:0}
+.toc li{border-top:1px solid var(--tan)}
+.toc a{display:flex;align-items:center;gap:8px;height:47px;font-weight:600;text-decoration:none;color:var(--ink)}
+.toc a:hover{color:var(--crimson)}
+.toc a svg{width:12px;height:12px;transition:transform .15s}
+.toc a:hover svg{transform:translateY(2px)}
+.rfi{margin-top:104px;background:#fff;box-shadow:0 4px 8px rgba(31,37,40,.1)}
+.rfi-head{background:var(--crimson);color:#fff;padding:24px 32px 26px;display:flex;justify-content:space-between;gap:24px}
+.rfi-head h2{margin:0;font-size:23px;line-height:28px;font-weight:700;max-width:340px}
+.rfi-head p{margin:8px 0 0;font-size:14px;font-style:italic;font-weight:700;font-variation-settings:'slnt' -10}
+.rank-badge{width:80px;height:80px;flex-shrink:0;border:1px solid #fff;background:var(--crimson-dark);display:grid;place-items:center;text-align:center;color:#fff;overflow:hidden}
+.rank-badge img{width:100%;height:100%;object-fit:cover}
+.rank-badge .fallback{font-weight:900;font-size:22px;line-height:1;font-variation-settings:'wdth' 120}
+.rank-badge .fallback small{display:block;font-size:8px;letter-spacing:.5px;margin-top:4px;font-weight:800}
+.rfi form{padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:20px 16px}
+.field label{display:block;font-weight:600;margin-bottom:8px}
+.field label .req{color:var(--crimson)}
+.field input,.field select{width:100%;height:40px;border:1px solid var(--ink);padding:0 11px;font:inherit;font-size:14px;background:#fff;color:var(--ink);border-radius:0}
+.field input:focus,.field select:focus{outline:2px solid var(--crimson);outline-offset:-1px}
+.field.invalid input{border-color:var(--crimson);border-width:2px}
+.field .err{display:none;color:var(--crimson);font-size:13px;margin-top:4px;font-weight:500}
+.field.invalid .err{display:block}
+.rfi .actions{grid-column:1/-1;margin-top:12px}
+.rfi-success{padding:40px 32px;display:none}
+.rfi-success h3{margin:12px 0 8px;font-size:20px}
+.rfi-success p{margin:0;color:var(--body)}
+.rfi.sent form{display:none}.rfi.sent .rfi-success{display:block}
+.facts{margin-top:40px;border:1px solid var(--tan);display:grid;grid-template-columns:720px 1fr;background:var(--cream)}
+.fact{padding:24px 23px;border-color:var(--tan);border-style:solid;border-width:0}
+.fact:nth-child(odd){border-right-width:1px}
+.fact:nth-child(-n+2){border-bottom-width:1px}
+.fact dt{font-family:var(--mono);font-size:14px;line-height:14px;letter-spacing:1px;color:var(--ink);margin-bottom:12px}
+.fact dd{margin:0;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+
+/* ---------- Breadcrumbs ---------- */
+.crumbs{padding-top:48px;padding-bottom:52px}
+.crumbs ol{list-style:none;display:flex;align-items:center;gap:6px;margin:0;padding:0;font-size:14px}
+.crumbs li{display:flex;align-items:center;gap:6px}
+.crumbs a{color:var(--body);text-decoration:none}.crumbs a:hover{color:var(--crimson);text-decoration:underline}
+.crumbs svg.chev{width:12px;height:12px;color:var(--crimson)}
+.crumbs [aria-current]{font-weight:600}
+
+/* ---------- Body layout ---------- */
+.layout{display:grid;grid-template-columns:920px 424px;justify-content:space-between;align-items:start}
+.content>section{margin-bottom:96px}
+.content h2{font-size:36px;line-height:44px;font-weight:700;margin:0 0 24px}
+.content h3{font-size:29px;line-height:36px;font-weight:700;margin:48px 0 24px}
+.lead{font-size:18px;line-height:28px;color:var(--body);margin:0 0 24px}
+.lead strong{color:var(--ink)}
+.feature-img{width:100%;aspect-ratio:2/1;background:var(--cream-2) center/cover;margin-bottom:64px;display:grid;place-items:center;color:var(--body);font-family:var(--mono);font-size:12px;overflow:hidden}
+.feature-img img{width:100%;height:100%;object-fit:cover}
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:32px 32px;margin-top:40px}
+.hl{display:flex;gap:16px;padding:16px;background:#fff;box-shadow:0 2px 8px rgba(31,37,40,.08)}
+.hl h4{margin:0 0 8px;font-size:16px;line-height:24px;font-weight:600}
+.hl p{margin:0;font-size:14px;line-height:20px;color:var(--body)}
+details.disclosure{border:1px solid var(--tan);background:var(--cream);margin-top:8px}
+details.disclosure summary{list-style:none;cursor:pointer;padding:12px 16px;color:var(--crimson);font-weight:600;display:flex;align-items:center;gap:8px}
+details.disclosure summary::-webkit-details-marker{display:none}
+details.disclosure summary svg{width:12px;height:12px;transition:transform .2s}
+details.disclosure[open] summary svg{transform:rotate(90deg)}
+details.disclosure .body{padding:0 16px 16px 36px;color:var(--body);font-size:16px}
+.courses{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--tan);border-top:1px solid var(--tan)}
+.course{padding:16px;border-right:1px solid var(--tan);border-bottom:1px solid var(--tan)}
+.course .badge{margin-bottom:12px}
+.course p{margin:0;font-weight:600}
+.text-link{display:inline-flex;align-items:center;gap:8px;color:var(--crimson);font-weight:600;text-decoration:none;margin-top:32px}
+.text-link:hover{text-decoration:underline}
+.takeaways{list-style:none;margin:0;padding:0}
+.takeaway{display:grid;grid-template-columns:32px 1fr;gap:12px 28px;border-top:1px solid var(--tan);padding:28px 16px 28px 16px}
+.check{width:32px;height:32px;border-radius:50%;background:var(--crimson);color:#fff;display:grid;place-items:center}
+.takeaway h4{margin:4px 0 12px;font-size:20px;line-height:24px;font-weight:600}
+.takeaway>div>p{margin:0;font-size:18px;line-height:28px;color:var(--body)}
+.takeaway strong{color:var(--ink);font-weight:600}
+.takeaway a{color:var(--crimson)}
+.sublist{list-style:none;margin:20px 0 0 20px;padding:0;display:grid;gap:20px}
+.sublist h5{margin:0 0 4px;font-size:16px;line-height:24px;font-weight:600;display:flex;align-items:center;gap:8px}
+.sublist h5 svg{width:12px;height:12px}
+.sublist p{margin:0 0 0 20px;font-size:14px;line-height:20px;color:var(--body)}
+.sublist .salary{margin-top:8px}
+.quick-links{list-style:none;margin:32px 0 0;padding:0}
+.quick-links li{border-top:1px solid var(--tan)}
+.quick-links a,.quick-links .ql{display:flex;align-items:center;gap:12px;padding:20px 16px;font-size:20px;line-height:24px;font-weight:600;text-decoration:none}
+.quick-links a:hover{color:var(--crimson)}
+.quick-links a svg,.quick-links .ql svg{width:16px;height:16px}
+.quick-links .ql-sub{margin:-12px 0 0 44px;padding-bottom:16px;font-size:18px;color:var(--body)}
+.quick-links .ql-sub a{display:inline;padding:0;font-size:18px;font-weight:400;color:var(--crimson);text-decoration:underline}
+
+/* Sidebar */
+.details-card{border:1px solid var(--tan);background:#fff}
+.details-card header{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--cream);border-bottom:1px solid var(--tan)}
+.details-card header h2{margin:0;font-size:23px;line-height:28px;color:var(--crimson);font-weight:700}
+.details-card .grp{padding:24px;border-bottom:1px solid var(--tan)}
+.details-card .grp:last-child{border-bottom:0}
+.details-card h3{margin:0 0 16px;font-size:20px;line-height:24px;font-weight:700}
+.details-card h4{margin:16px 0 8px;font-size:16px;font-weight:700}
+.sq-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.sq-list li{position:relative;padding-left:14px;color:var(--body)}
+.sq-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--crimson)}
+.sq-list.small li{font-size:14px;line-height:20px}
+.kv{margin:0;display:grid;gap:8px;color:var(--body)}
+.kv strong{color:var(--ink)}
+.compare-card{margin-top:40px;background:var(--crimson);color:#fff;padding:16px 16px 20px;display:block;width:100%;text-align:left;border:0}
+.compare-card:hover{background:var(--crimson-dark)}
+.compare-card .sticker{background:var(--tan);color:var(--crimson)}
+.compare-card .eyebrow{display:block;font-family:var(--mono);font-size:12px;letter-spacing:1px;margin:12px 0 4px}
+.compare-card .title{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:600}
+.compare-card .title svg{transition:transform .15s}
+.compare-card:hover .title svg{transform:translateX(3px)}
+.compare-card .desc{display:block;font-size:14px;line-height:20px;margin-top:12px}
+.sidebar .rvt-card{margin-top:40px;border:1px solid var(--tan);padding:24px;background:#fff}
+
+/* Stats */
+.stats{border-top:1px solid var(--tan);border-bottom:1px solid var(--tan);margin-top:32px}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:64px 32px 64px 0}
+.stat+.stat{border-left:1px solid var(--tan);padding-left:52px}
+.stat .num{display:block;font-size:42px;line-height:44px;color:var(--crimson);font-weight:800;font-variation-settings:'wdth' 151;margin:20px 0 16px}
+.stat .lbl{font-family:var(--mono);font-size:16px;line-height:20px;letter-spacing:.5px;color:var(--crimson);max-width:320px;display:block}
+
+/* Quote */
+.quote{padding-top:96px;padding-bottom:96px}
+.quote figure{margin:0;max-width:860px}
+.quote blockquote{margin:24px 0 32px;font-family:var(--serif);font-size:29px;line-height:36px;color:var(--crimson)}
+.quote figcaption{color:var(--crimson)}
+.quote figcaption b{display:block;font-weight:600}
+
+/* Contacts */
+.contacts{padding-top:64px}
+.contact-grid{display:grid;grid-template-columns:440px 440px;gap:24px}
+.contact{background:#fff;box-shadow:0 2px 8px rgba(31,37,40,.1);padding:32px}
+.avatar{width:80px;height:80px;border-radius:50%;background:#e6edf2;overflow:hidden;display:grid;place-items:center;font-weight:700;color:var(--body);font-size:24px;margin-bottom:24px}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.contact .dept{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--crimson)}
+.contact h3{margin:4px 0 4px;font-size:20px;line-height:24px;font-weight:700}
+.contact .role{margin:0 0 28px;font-size:18px;color:var(--body)}
+.contact .lines{display:grid;gap:12px;margin-bottom:24px}
+.contact .lines a{display:inline-flex;align-items:center;gap:8px;color:var(--crimson)}
+.contact .lines svg{color:var(--ink)}
+.hours-btn{background:none;border:0;padding:0;color:var(--crimson);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+.hours-btn .chev{transition:transform .2s}
+.hours-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
+.hours{display:none;margin:12px 0 0 24px;font-size:14px;color:var(--body);line-height:22px}
+.hours.open{display:block}
+.contact .help{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--body);margin:0 0 12px}
+.contact .chips{margin-bottom:24px}
+
+/* Callout */
+.callout{margin:64px 0 96px;max-width:904px;background:var(--cream-2);padding:80px}
+.callout h2{margin:24px 0 16px;font-size:29px;line-height:32px;color:var(--crimson);font-weight:700}
+.callout p{margin:0 0 32px;font-size:18px;line-height:28px;color:var(--crimson);max-width:700px}
+.callout .btns{display:flex;flex-wrap:wrap;gap:16px}
+
+/* Footer */
+.site-footer{background:var(--crimson);color:#fff}
+.site-footer .social{display:flex;gap:8px;padding-top:16px;padding-bottom:16px}
+.site-footer .social a{width:24px;height:24px;border-radius:50%;background:var(--crimson-dark);display:grid;place-items:center}
+.site-footer .social a:hover{background:#000}
+.site-footer .social svg{width:12px;height:12px;fill:#fff}
+.site-footer hr{border:0;border-top:1px solid rgba(255,255,255,.12);margin:0}
+.site-footer .bottom{display:flex;align-items:center;gap:16px;padding-top:16px;padding-bottom:20px;flex-wrap:wrap;font-size:14px}
+.site-footer .bottom a{text-decoration:none}.site-footer .bottom a:hover{text-decoration:underline}
+
+/* ---------- Drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(31,37,40,.72);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:50}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:600px;max-width:100%;background:#fff;z-index:51;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;visibility:hidden}
+body.drawer-open{overflow:hidden}
+body.drawer-open .scrim{opacity:1;visibility:visible}
+body.drawer-open .drawer{transform:none;visibility:visible}
+.drawer-head{background:var(--crimson);color:#fff;padding:24px;position:relative;flex-shrink:0}
+.drawer-head h2{margin:0;font-size:29px;line-height:36px;font-weight:700}
+.drawer-head .count{font-family:var(--mono);font-size:16px;letter-spacing:1.5px;margin:2px 0 24px}
+.drawer-close{position:absolute;top:24px;right:24px;width:40px;height:40px;border:1px solid #fff;background:none;color:#fff;display:grid;place-items:center}
+.drawer-close:hover{background:#fff;color:var(--crimson)}
+.add-btn{background:#fff;color:var(--crimson);border:0;padding:6px 12px;font-size:14px;font-weight:600}
+.add-btn:hover{background:var(--cream-2)}
+.add-btn[disabled]{opacity:.6;cursor:not-allowed}
+.picker{display:none;position:absolute;left:24px;top:146px;z-index:3;width:360px;max-width:calc(100% - 48px);background:#fff;color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:360px}
+.picker.open{display:block}
+.picker p{margin:0;padding:12px 16px 4px;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--body)}
+.picker button{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 16px;font-size:14px;font-weight:500}
+.picker button:hover{background:var(--cream-2);color:var(--crimson)}
+.drawer-body{overflow-y:auto;flex:1;overscroll-behavior:contain}
+.picked{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;padding:24px 24px 0}
+.pick{position:relative;border:1px solid var(--tan);padding:16px;min-height:84px}
+.pick h3{margin:0 24px 8px 0;font-size:14px;font-weight:600}
+.pick .rm{position:absolute;top:4px;right:6px;background:none;border:0;width:24px;height:24px;display:grid;place-items:center;color:var(--ink)}
+.pick .rm:hover{color:var(--crimson)}
+.pick .see{display:inline-block;border:1px solid var(--crimson);color:var(--crimson);font-size:14px;font-weight:600;padding:0 7px;line-height:22px;text-decoration:none}
+.pick .see:hover{background:var(--crimson);color:#fff}
+.picks-empty{grid-column:1/-1;padding:24px;border:1px dashed var(--tan);color:var(--body);text-align:center}
+.best{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:38px 24px 32px}
+.best-card{padding:16px;border:1px solid}
+.best-card.green{background:#f1fcec;border-color:#9fd98a}
+.best-card.blue{background:#eef8fd;border-color:#8ec9e6}
+.best-card .sticker{width:48px;height:48px;margin-bottom:12px}
+.best-card .sticker svg{width:48px;height:48px}
+.best-card.green .sticker{background:#d7f2cb;color:#14532d}
+.best-card.blue .sticker{background:#d3ebf8;color:#123a63}
+.best-card b{display:block;font-size:14px}
+.best-card span.name{display:block;color:var(--body);margin-bottom:12px}
+.best-card .pill{display:inline-block;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:2px 12px;border-radius:999px}
+.rows{border-top:0}
+.row{padding:20px 24px;border-bottom:1px solid #f1e7da}
+.row:nth-child(even){background:#fdf8f3}
+.row h3{margin:0 0 12px;font-size:20px;line-height:24px;font-weight:700}
+.row p{margin:4px 0;color:var(--body)}
+.row p b{color:var(--ink);font-weight:600}
+.row p.win b::after{content:"";}
+.row p .win{color:#14532d;font-weight:600;font-size:12px;background:#d7f2cb;border-radius:999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;visibility:hidden;transition:transform .25s,opacity .25s,visibility .25s;background:var(--ink);color:#fff;padding:12px 20px;font-size:14px;z-index:60}
+.toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
+.proto-note{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:6px 16px}
+.proto-note a{color:#fff}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1500px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:48px}
+  .facts{grid-template-columns:1fr 1fr}
+  .layout{grid-template-columns:minmax(0,1fr) 360px;gap:64px}
+}
+@media (max-width:1100px){
+  :root{--gutter:40px}
+  .main-nav>ul{display:none}
+  .menu-toggle{display:grid}
+  .main-nav.open>ul{display:flex;flex-direction:column;position:absolute;top:96px;left:0;right:0;background:#fff;padding:12px var(--gutter);box-shadow:0 8px 16px rgba(0,0,0,.1);z-index:30}
+  .site-header{position:relative}
+  .nav-menu{position:static;box-shadow:none;padding-left:12px}
+  .hero-grid,.layout{grid-template-columns:1fr}
+  .rfi{margin-top:48px}
+  .sidebar{order:-1;margin-bottom:64px}
+  .contact-grid{grid-template-columns:1fr 1fr}
+  .stats .wrap{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--tan)}
+}
+@media (max-width:720px){
+  :root{--gutter:16px}
+  .hero{padding-top:48px}
+  .hero h1{font-size:40px;line-height:44px}
+  .rfi form{grid-template-columns:1fr;padding:24px}
+  .rfi-head{padding:20px 24px}
+  .facts{grid-template-columns:1fr}
+  .fact{border-right-width:0!important;border-bottom-width:1px!important}
+  .fact:last-child{border-bottom-width:0!important}
+  .highlights,.contact-grid,.courses{grid-template-columns:1fr}
+  .content h2{font-size:29px;line-height:36px}
+  .takeaway{padding:24px 0;gap:12px 16px}
+  .sublist{margin-left:0}
+  .stats .wrap{grid-template-columns:1fr}
+  .stat,.stat+.stat{border-left:0;padding:40px 0;border-top:1px solid var(--tan)}
+  .stat:first-child{border-top:0}
+  .callout{padding:40px 24px}
+  .picked,.best{grid-template-columns:1fr}
+  .lockup b{font-size:14px}
+}
+</style>
+</head>
+<body>
+<div class="proto-note">Prototype for review · sample content · not the live IU website</div>
+<a class="sr-only" href="#main">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="lockup" href="#top" aria-label="Indiana University Online home">
+      <span class="tri"><svg aria-hidden="true" width="26" height="32" viewBox="0 0 28 34" fill="#fff"><path d="M9 0h10v2.2h-2v20.3h3.4V7.6h-1.6V5.4h7v2.2h-1.6v16.6l-2.4 2.4h-4.8V30h2v2.2H9V30h2v-3.8H6.2l-2.4-2.4V7.6H2.2V5.4h7v2.2H7.6v14.9H11V2.2H9V0z"/></svg></span>
+      <span><b>INDIANA UNIVERSITY</b><span>ONLINE</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main">
+      <ul id="nav-list"></ul>
+      <button class="icon-btn menu-toggle" aria-expanded="false" aria-controls="nav-list" aria-label="Menu"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M15 4H1V2h14v2Zm0 5H1V7h14v2ZM1 14h14v-2H1v2Z"/></svg></button>
+      <button class="icon-btn" aria-label="Search"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M7 2a5 5 0 1 0 0 10A5 5 0 0 0 7 2ZM0 7a7 7 0 1 1 12.606 4.192l3.101 3.1-1.414 1.415-3.1-3.1A7 7 0 0 1 0 7Z"/></svg></button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="badge">100% online</span>
+      <h1>Informatics</h1>
+      <p class="teaser">Level up your tech career with a Bachelor of Science in Informatics from IU Online. Designed to be fast and flexible, in this program you’ll learn how to put information technology to work solving today’s problems in healthcare, privacy, security, education, poverty, and the environment.</p>
+      <a class="btn btn--primary" href="#apply">Apply to this program <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+      <nav class="toc" aria-labelledby="toc-label">
+        <div class="mono-label" id="toc-label">On this page</div>
+        <ul>
+          <li><a href="#about"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>About the program</a></li>
+          <li><a href="#requirements"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Degree requirements</a></li>
+          <li><a href="#takeaways"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Key takeaways</a></li>
+          <li><a href="#finances"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Plan your finances</a></li>
+          <li><a href="#advisors"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Chat with an advisor</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="rfi" id="rfi">
+      <div class="rfi-head">
+        <div>
+          <h2>Have all your degree-related questions answered</h2>
+          <p>* Indicates a required field.</p>
+        </div>
+        <div class="rank-badge" aria-label="Ranked #19 nationally, U.S. News &amp; World Report 2025">
+          <img src="assets/ranking-badge.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'fallback',innerHTML:'#19<small>NATIONALLY<br>RANKED</small>'}))">
+        </div>
+      </div>
+      <form novalidate>
+        <div class="field">
+          <label for="f-program">Program</label>
+          <select id="f-program"><option>Informatics</option><option>Computer science</option><option>Data science</option><option>Cybersecurity</option></select>
+        </div>
+        <div class="field">
+          <label for="f-email">Email <span class="req">*</span></label>
+          <input id="f-email" type="email" autocomplete="email" required>
+          <div class="err">Enter a valid email address.</div>
+        </div>
+        <div class="field">
+          <label for="f-first">First name <span class="req">*</span></label>
+          <input id="f-first" autocomplete="given-name" required>
+          <div class="err">Enter your first name.</div>
+        </div>
+        <div class="field">
+          <label for="f-last">Last name <span class="req">*</span></label>
+          <input id="f-last" autocomplete="family-name" required>
+          <div class="err">Enter your last name.</div>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone</label>
+          <input id="f-phone" type="tel" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="f-zip">Zip code</label>
+          <input id="f-zip" inputmode="numeric" autocomplete="postal-code" maxlength="10">
+        </div>
+        <div class="actions"><button class="btn btn--dark" type="submit">Get Informatics program info</button></div>
+      </form>
+      <div class="rfi-success" role="status" tabindex="-1">
+        <span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M40 16c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24Z"/><path fill="currentColor" d="m34.951 49.463 16.756-16.756-1.414-1.414-15.244 15.244-6.296-7.195-1.506 1.317 7.704 8.804Z"/><path fill="currentColor" d="M40 16c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24ZM18 40c0-12.15 9.85-22 22-22s22 9.85 22 22-9.85 22-22 22-22-9.85-22-22Z"/></svg></span>
+        <h3>Thanks, <span data-first></span> — you’re all set.</h3>
+        <p>An advisor will email you about the Informatics program within 1 business day. (Prototype: nothing was sent.)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <dl class="facts">
+      <div class="fact"><dt>Host schools</dt><dd class="chips">
+        <span class="badge">Bloomington</span><span class="badge">East</span><span class="badge">Indianapolis</span><span class="badge">Kokomo</span><span class="badge">Northwest</span><span class="badge">Southeast</span></dd></div>
+      <div class="fact"><dt>Total credits</dt><dd>120 credits</dd></div>
+      <div class="fact"><dt>Enrollment</dt><dd>Fall</dd></div>
+      <div class="fact"><dt>Qualifies for financial aid</dt><dd>Yes</dd></div>
+    </dl>
+  </div>
+</section>
+
+<nav class="crumbs wrap" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="#top" aria-label="Home"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="m8 .798 7 4.667V15H9v-4.444H7V15H1V5.465L8 .798ZM3 6.535V13h2V8.556h6V13h2V6.535L8 3.202 3 6.535Z"/></svg></a><svg aria-hidden="true" focusable="false" class=" chev"xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg></li>
+    <li><a href="#top">Degrees</a><svg aria-hidden="true" focusable="false" class=" chev"xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg></li>
+    <li><span aria-current="page">Informatics</span></li>
+  </ol>
+</nav>
+
+<div class="wrap layout">
+  <div class="content">
+    <div class="feature-img"><img src="assets/feature.jpg" alt="Two students adjust equipment in an engineering lab." onerror="this.parentNode.textContent='Feature photo — export from Figma to assets/feature.jpg'"></div>
+
+    <section id="about" aria-labelledby="about-h">
+      <h2 id="about-h">About the program</h2>
+      <p class="lead">The accelerated B.S. Informatics program at Indiana University is perfect for students who want to understand how technology affects society. This degree teaches you to create innovative solutions for today and tomorrow through hands-on projects that connect theory with real-world applications, focusing on data analysis, user experience design, and software development. You’ll collaborate with classmates from different backgrounds to solve complex problems. The program also enhances your critical thinking and problem-solving skills, preparing you for the fast-paced tech world. Plus, you’ll network with industry professionals through internships and events, giving you an advantage in the job market. By graduation, you’ll be ready for various tech careers, from software engineering to data science, while making a positive impact on society.</p>
+      <div class="highlights">
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M52.217 18.024c-9.143-2.032-15.291-2.032-24.434 0l-.783.174V21h-7v13a7 7 0 0 0 7 7h1.464c2.023 3.88 5.946 6.613 10.536 6.962V51h-6v6h-5v7h24v-7h-5v-6h-6v-3.038c4.59-.349 8.513-3.081 10.536-6.962H53a7 7 0 0 0 7-7V21h-7v-2.802l-.783-.174ZM27.627 39H27a5 5 0 0 1-5-5V23h5v12c0 1.396.22 2.74.627 4ZM53 39h-.627A12.99 12.99 0 0 0 53 35V23h5v11a5 5 0 0 1-5 5Z"/><path fill="currentColor" d="M52.217 18.024c-9.143-2.032-15.291-2.032-24.434 0l-.783.174V21h-7v13a7 7 0 0 0 7 7h1.464c2.023 3.88 5.946 6.613 10.536 6.962V51h-6v6h-5v7h24v-7h-5v-6h-6v-3.038c4.59-.349 8.513-3.081 10.536-6.962H53a7 7 0 0 0 7-7V21h-7v-2.802l-.783-.174ZM29 35V19.806c8.167-1.741 13.833-1.741 22 0V35c0 6.075-4.925 11-11 11s-11-4.925-11-11Zm-1.373 4H27a5 5 0 0 1-5-5V23h5v12c0 1.396.22 2.74.627 4ZM53 39h-.627A12.99 12.99 0 0 0 53 35V23h5v11a5 5 0 0 1-5 5ZM30 59h20v3H30v-3Zm15-2H35v-4h10v4Z"/></svg></span><div><h4>Top 20 national ranking</h4><p>Consistently ranked among the nation’s best informatics programs, ensuring your degree is recognized by employers worldwide.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M40 15a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm15 9a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-35 5a5 5 0 1 1 10 0 5 5 0 0 1-10 0Zm32.065 8H57a7 7 0 0 1 7 7v11H53v4H27v-4H16V44a7 7 0 0 1 7-7h4.936A9 9 0 0 1 36 32h8a9 9 0 0 1 8.065 5Z"/><path fill="currentColor" d="M40 15a7 7 0 1 0 0 14 7 7 0 0 0 0-14Zm-5 7a5 5 0 1 1 10 0 5 5 0 0 1-10 0Zm20 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm-3 5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm-32 0a5 5 0 1 1 10 0 5 5 0 0 1-10 0Zm5-3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm14 22v-9h2v9h2v-7h2v8l-1 1h-3v2h-2v-2h-3l-1-1v-8h2v7h2Z"/><path fill="currentColor" d="M52.065 37H57a7 7 0 0 1 7 7v11H53v4H27v-4H16V44a7 7 0 0 1 7-7h4.936A9 9 0 0 1 36 32h8a9 9 0 0 1 8.065 5Zm.712 2c.146.643.223 1.313.223 2v12h9v-9a5 5 0 0 0-5-5h-4.223Zm-25.554 0H23a5 5 0 0 0-5 5v9h9V41c0-.687.077-1.357.223-2ZM29 41v16h22V41a7 7 0 0 0-7-7h-8a7 7 0 0 0-7 7Z"/></svg></span><div><h4>Expert faculty</h4><p>Learn from seasoned professors who are active researchers and industry consultants, offering you the latest insights in the field.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M23 20a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h7v38H16V21h7v-1Z"/><path fill="currentColor" d="M35 37a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-2 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm2 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm5-12a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm2 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-2 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9-16a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-2 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm9-9a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-2 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm-26-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm-2 9a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path fill="currentColor" d="M23 20a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h6v-1a1 1 0 1 1 2 0v1h7v38H16V21h7v-1Zm26 3v1a1 1 0 1 1-2 0v-1h-6v1a1 1 0 1 1-2 0v-1h-6v1a1 1 0 1 1-2 0v-1h-6v1a1 1 0 1 1-2 0v-1h-5v6h44v-6h-5v1a1 1 0 1 1-2 0v-1h-6Zm-31 8v26h44V31H18Z"/></svg></span><div><h4>Flexible schedule</h4><p>Complete your degree in 18–36 months as a part-time or full-time student.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M17 22a5 5 0 0 1 5-5h32a5 5 0 0 1 5 5v31h2v5a5 5 0 0 1-5 5H30a5 5 0 0 1-5-5V27h-8v-5Z"/><path fill="currentColor" d="M17 22a5 5 0 0 1 5-5h32a5 5 0 0 1 5 5v31h2v5a5 5 0 0 1-5 5H30a5 5 0 0 1-5-5V27h-8v-5Zm10 36a3 3 0 1 0 6 0v-5h24V22a3 3 0 0 0-3-3H26c.628.836 1 1.874 1 3v36Zm-5-39a3 3 0 0 0-3 3v3h6v-3a3 3 0 0 0-3-3Zm37 36H35v3a4.978 4.978 0 0 1-1 3h22a3 3 0 0 0 3-3v-3Zm-7-28H32v-2h20v2Zm0 5H32v-2h20v2Zm-10 4.109 1.58 1.528 2.177-.308.38 2.166 1.941 1.03-.965 1.975.965 1.975-1.941 1.03-.38 2.166-2.177-.308L42 48.89l-1.58-1.528-2.177.308-.38-2.166-1.941-1.03.965-1.975-.965-1.975 1.941-1.03.38-2.166 2.177.308L42 36.11Zm0 2.782-.892.863-1.23-.173-.214 1.222-1.096.582.545 1.115-.545 1.115 1.096.582.215 1.222 1.229-.173.892.863.892-.863 1.23.173.214-1.222 1.096-.582-.545-1.115.545-1.115-1.096-.582-.215-1.222-1.229.173-.892-.863Z"/></svg></span><div><h4>Same IU degree</h4><p>Your diploma is identical to those earned by on-campus graduates. Leverage the powerful IU alumni network and brand.</p></div></div>
+      </div>
+    </section>
+
+    <section id="requirements" aria-labelledby="req-h">
+      <h2 id="req-h">Degree requirements</h2>
+      <p class="lead">To earn your B.S. in Informatics, you’ll need to <strong>complete 120 semester credit hours</strong>. Here’s a detailed breakdown of the required course structure and some core courses.</p>
+      <details class="disclosure">
+        <summary><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg>HLC dual-credit standards for instructors</summary>
+        <div class="body">Instructors teaching dual-credit courses meet the Higher Learning Commission’s faculty qualification standards: a master’s degree in the discipline, or a master’s degree in another field plus at least 18 graduate credit hours in the discipline. (Sample copy.)</div>
+      </details>
+      <h3>Required courses</h3>
+      <div class="courses">
+        <div class="course"><span class="badge">36 credit hours</span><p>Informatics core courses</p></div>
+        <div class="course"><span class="badge">15–18 credit hours</span><p>Cognate courses</p></div>
+        <div class="course"><span class="badge">30–42 credit hours</span><p>General education courses</p></div>
+        <div class="course"><span class="badge">9 credit hours</span><p>Informatics electives</p></div>
+        <div class="course"><span class="badge">2–27 credit hours</span><p>General electives</p></div>
+      </div>
+      <a class="text-link" href="https://bulletins.iu.edu/" target="_blank" rel="noopener">See full course list <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg><span class="sr-only">(opens in a new tab)</span></a>
+    </section>
+
+    <section id="takeaways" aria-labelledby="kt-h">
+      <h2 id="kt-h">Key takeaways</h2>
+      <ul class="takeaways">
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Core focus</h4><p>The curriculum connects people, information, and technology to solve problems in areas like healthcare, privacy, and security.</p></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Practical skills</h4><p id="skills-sentence"></p></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Specializations &amp; concentrations</h4><p>Choose a concentration that matches your interests and career goals such as:</p>
+          <ul class="sublist">
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Business</h5><p>Learn the foundational principles of economics, management, and marketing to lead organizations and drive global commerce.</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Health Information Management</h5><p>Master the systems and technologies necessary to manage and secure patient health data, bridging healthcare and information technology.</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Legal Informatics</h5><p>Explore the intersection of law and technology, using computational methods to solve legal problems, manage information, and streamline judicial processes.</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Sustainability</h5><p>Gain the knowledge to develop and implement practices that balance environmental, social, and economic needs for a resilient future.</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Enterprise Resource Planning</h5><p>Focus on integrating and optimizing a company’s core business processes—like finance, HR, and supply chain—using comprehensive software systems.</p></li>
+          </ul></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Career pathways</h4><p>The degree prepares graduates for diverse career opportunities, including:</p>
+          <ul class="sublist">
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>User Experience Designer</h5><p>A user experience designer creates intuitive and engaging digital experiences by researching user needs and designing user-friendly interfaces.</p><p class="salary">$85k – $130k</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Digital Library Specialist</h5><p>A digital library specialist curates and manages digital resources, ensuring easy access to information while supporting users in navigating technology and data.</p><p class="salary">$90k – $160k</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Network Manager</h5><p>A network manager oversees the design, implementation, and maintenance of an organization’s computer networks, ensuring optimal performance and security.</p><p class="salary">$75k – $140k</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Web Developer</h5><p>A web developer creates and maintains websites, ensuring they are user-friendly, visually appealing, and function smoothly across various devices.</p><p class="salary">$85k – $130k</p></li>
+            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Information Architect</h5><p>An information architect designs and organizes information systems to enhance user experience and ensure efficient data flow within an organization.</p><p class="salary">$90k – $160k</p></li>
+          </ul></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Experiential learning</h4><p><span id="exp-sentence"></span> Those accepted into IU Online benefit from comprehensive personalized <a href="#advisors">support services</a>.</p></div></li>
+      </ul>
+    </section>
+
+    <section id="finances" aria-labelledby="fin-h">
+      <h2 id="fin-h">Plan your finances</h2>
+      <span class="badge badge--dark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg>Program qualifies for aid</span>
+      <p class="lead" style="margin-top:32px">Program cost can vary by campus, resident status, and type of program. Use the resources below to get accurate cost estimates for your specific situation. International students, please check with the <a href="#finances" style="color:var(--crimson)">international student admissions office</a> at your IU campus for more information about cost and financial aid.</p>
+      <ul class="quick-links">
+        <li><a href="https://bursar.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Campus tuition &amp; fee breakdown</a></li>
+        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Net price &amp; cost calculator</a></li>
+        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Financial aid options</a></li>
+        <li><div class="ql"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2v12h16V2H0Zm2 2.023V4h12v.023L8 7.356 2 4.023ZM2 6.31l6 3.333 6-3.333V12H2V6.31Z"/></svg>Questions about cost?</div><p class="ql-sub">Email Student Financial Services at <a href="mailto:iuosfs@iu.edu">iuosfs@iu.edu</a></p></li>
+      </ul>
+    </section>
+  </div>
+
+  <aside class="sidebar" aria-label="Important details">
+    <div class="details-card">
+      <header><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M36 17a4 4 0 0 1 8 0v.504C50.9 19.28 56 25.544 56 33v11a4 4 0 0 0 4 4h2v10H43.874a4.002 4.002 0 0 1-7.748 0H18V48h2a4 4 0 0 0 4-4V33c0-7.455 5.1-13.72 12-15.496V17Z"/><path fill="currentColor" d="M32 33c0-4.694 3.306-8 8-8v-2c-5.799 0-10 4.201-10 10h2Z"/><path fill="currentColor" d="M36 17a4 4 0 0 1 8 0v.504C50.9 19.28 56 25.544 56 33v11a4 4 0 0 0 4 4h2v10H43.874a4.002 4.002 0 0 1-7.748 0H18V48h2a4 4 0 0 0 4-4V33c0-7.455 5.1-13.72 12-15.496V17ZM20 50v6h40v-6H20Zm4.472-2h31.056A5.978 5.978 0 0 1 54 44V33c0-7.732-6.268-14-14-14s-14 6.268-14 14v11a5.978 5.978 0 0 1-1.528 4ZM42 17a2 2 0 1 0-4 0v.124a16.158 16.158 0 0 1 4 0V17Z"/></svg></span><h2>Important details</h2></header>
+      <div class="grp">
+        <h3>Entry requirements</h3>
+        <ul class="sq-list"><li>Bachelor’s degree in CS or related field</li><li>GPA 3.0 or higher</li><li>GRE scores (recommended)</li><li>2 letters of recommendation</li><li>Personal statement</li><li>Resume/CV</li></ul>
+        <h4>International students</h4>
+        <ul class="sq-list small"><li>Must pay a $65 application fee per campus</li><li>Must submit official transcripts, proof of English proficiency, and other required documents listed by each campus.</li></ul>
+      </div>
+      <div class="grp"><h3>Transferable credits</h3>
+        <p class="kv"><span><strong>Associate degree:</strong> may be transferable</span><span><strong>2-year college:</strong> up to 64 credits</span><span><strong>4-year college:</strong> up to 90 credits</span></p></div>
+      <div class="grp"><h3>Application deadline</h3>
+        <p class="kv"><span><strong>Final:</strong> Mar 15, 2026</span><span><strong>Earliest:</strong> Jan 15, 2026</span><span><strong>Note:</strong> always confirm the exact time zone on the official application portal or confirm with the admissions office.</span></p></div>
+      <div class="grp"><h3>Start date</h3>
+        <p class="kv"><span><strong>Start:</strong> August 2026</span><span><strong>Earliest:</strong> Spring admission available</span></p></div>
+    </div>
+    <button class="compare-card" type="button" data-open-drawer aria-haspopup="dialog">
+      <span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Z"/><path fill="currentColor" d="M34.48 39.81 27.618 47l6.862 7.19 1.447-1.38-4.59-4.81H52v-2H31.337l4.59-4.81-1.447-1.38Zm11.04-14L52.382 33l-6.862 7.19-1.447-1.38 4.59-4.81H28v-2h20.663l-4.59-4.81 1.447-1.38Z"/><path fill="currentColor" d="M40 18c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22ZM16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Z"/></svg></span>
+      <span class="eyebrow">Program comparison</span>
+      <span class="title">See how IU degrees stack up <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></span>
+      <span class="desc">Compare annual tuition, program length, admission criteria, and employment rates and more to find your best fit.</span>
+    </button>
+  </aside>
+</div>
+
+<section class="stats" aria-label="Program by the numbers">
+  <div class="wrap">
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M57 16v5.586l-2.167 2.167A21.92 21.92 0 0 0 40 18c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22a21.92 21.92 0 0 0-5.752-14.833L58.413 23H64v-2h-5v-5h-2Z"/><path fill="currentColor" d="M57 16v5.586l-2.167 2.167A21.92 21.92 0 0 0 40 18c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22a21.92 21.92 0 0 0-5.752-14.833L58.413 23H64v-2h-5v-5h-2Zm-3.583 9.168-2.124 2.125A16.936 16.936 0 0 0 40 23c-9.389 0-17 7.611-17 17s7.611 17 17 17 17-7.611 17-17c0-4.335-1.622-8.29-4.293-11.293l2.125-2.124A19.926 19.926 0 0 1 60 40c0 11.046-8.954 20-20 20s-20-8.954-20-20 8.954-20 20-20c5.163 0 9.87 1.956 13.417 5.168Zm-3.54 3.542-2.128 2.127A11.952 11.952 0 0 0 40 28c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12c0-2.954-1.067-5.658-2.837-7.749l2.127-2.127A14.943 14.943 0 0 1 55 40c0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15 3.782 0 7.238 1.4 9.876 3.71Zm-3.548 3.547-2.137 2.137a7 7 0 1 0 1.414 1.414l2.137-2.137A9.959 9.959 0 0 1 50 40c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10c2.401 0 4.605.846 6.329 2.257Zm-3.572 3.571-3.464 3.465 1.414 1.414 3.465-3.464a5 5 0 1 1-1.414-1.414Z"/></svg></span><span class="num">500+</span><span class="lbl">IU tech alumni working in top industry companies worldwide</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M40 18.815 63.863 34 56 39.004v18.264a2 2 0 1 1-2 0v-6.502l-14 8.4-16-9.6V39.003L16.137 34 40 18.815Z"/><path fill="currentColor" d="M40 18.815 63.863 34 56 39.004v18.264a2 2 0 1 1-2 0v-6.502l-14 8.4-16-9.6V39.003L16.137 34 40 18.815ZM60.137 34 40 21.185 19.863 34 40 46.815l13.64-8.68A5.002 5.002 0 0 0 49 35h-9v-2h9a7 7 0 0 1 6.349 4.047L60.137 34ZM54 40.276l-14 8.91-14-8.91v8.158l14 8.4 14-8.4v-8.158Z"/></svg></span><span class="num">95%</span><span class="lbl">Employment rate for Informatics graduates within 6 months</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Z"/><path fill="currentColor" d="M39 28h-7.5a6.5 6.5 0 1 0 0 13H39v9h-8.133a2 2 0 0 1-2-2h-2a4 4 0 0 0 4 4H39v3h2v-3h7.5a6.5 6.5 0 1 0 0-13H41v-9h8a2 2 0 0 1 2 2h2a4 4 0 0 0-4-4h-8v-3h-2v3Zm-7.5 2H39v9h-7.5a4.5 4.5 0 1 1 0-9ZM41 41h7.5a4.5 4.5 0 1 1 0 9H41v-9Z"/><path fill="currentColor" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Zm24-22c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22Z"/></svg></span><span class="num">$85,000</span><span class="lbl">Average starting salary for program graduates</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M64 40c0 13.255-10.745 24-24 24S16 53.255 16 40s10.745-24 24-24 24 10.745 24 24Z"/><path fill="currentColor" d="M64 40c0 13.255-10.745 24-24 24S16 53.255 16 40s10.745-24 24-24 24 10.745 24 24ZM39 18.078c-2.712.426-5.299 2.572-7.322 6.15C29.547 28 28.156 33.193 28.012 39H39V18.078ZM26.012 39c.144-6.099 1.6-11.641 3.925-15.756.896-1.585 1.94-2.985 3.104-4.12C24.603 21.933 18.438 29.718 18.023 39h7.99Zm-7.99 2c.416 9.28 6.58 17.066 15.02 19.877-1.166-1.136-2.209-2.536-3.105-4.122-2.326-4.114-3.781-9.657-3.925-15.755h-7.99Zm9.99 0c.144 5.808 1.535 11 3.666 14.771 2.023 3.58 4.61 5.725 7.322 6.15V41H28.012ZM41 61.922c2.712-.426 5.299-2.572 7.322-6.15C50.453 52 51.844 46.807 51.988 41H41v20.922ZM53.988 41c-.144 6.099-1.6 11.641-3.925 15.755-.896 1.586-1.94 2.986-3.105 4.122C55.398 58.065 61.564 50.28 61.978 41h-7.99Zm7.99-2c-.416-9.28-6.58-17.066-15.02-19.877 1.166 1.136 2.209 2.536 3.105 4.121 2.325 4.115 3.781 9.657 3.925 15.756h7.99Zm-9.99 0c-.144-5.808-1.535-11-3.666-14.771-2.023-3.58-4.61-5.725-7.322-6.15V39h10.988Z"/></svg></span><span class="num">100%</span><span class="lbl">Online coursework with global access from anywhere</span></div>
+  </div>
+</section>
+
+<section class="quote wrap" aria-label="Student testimonial">
+  <figure>
+    <svg width="78" height="58" viewBox="0 0 78 58" fill="none" stroke="#990000" stroke-width="2" aria-hidden="true"><path d="M1 57V22L9 1h12l-6 21h8v35H1zM41 57V22L49 1h12l-6 21h8v35H41z"/></svg>
+    <blockquote>IU Online offered so many resources, so many personal contacts, all at my fingertips. Even though I was going to school online, I felt I was part of the bigger context of Indiana University.</blockquote>
+    <figcaption><b>Claire Parks</b>IU Online Student</figcaption>
+  </figure>
+</section>
+
+<section class="contacts wrap" id="advisors" aria-label="Chat with an advisor">
+  <h2 class="sr-only">Chat with an advisor</h2>
+  <div class="contact-grid" id="contact-grid"></div>
+  <div class="callout" id="apply">
+    <span class="sticker sticker--80"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M24 61V19h32v42H24Zm15-25V25h2v11h3v-9h2v10l-1 1h-4v3h-2v-3h-4l-1-1V27h2v9h3Zm-9 14h20v-2H30v2Zm20 5H30v-2h20v2Z"/><path fill="currentColor" d="M50 50H30v-2h20v2Zm-20 5h20v-2H30v2Zm9-19V25h2v11h3v-9h2v10l-1 1h-4v3h-2v-3h-4l-1-1V27h2v9h3Z"/><path fill="currentColor" d="M22 17h36v46H22V17Zm2 2v42h32V19H24Z"/></svg></span>
+    <h2>Apply to the Informatics program</h2>
+    <p>Embark on your exciting journey today by applying to our degree program, where you can unlock your potential and shape your future!</p>
+    <div class="btns">
+      <a class="btn btn--outline" href="https://admissions.indiana.edu/apply/" target="_blank" rel="noopener">Apply now <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+      <a class="btn btn--outline" href="#top">Explore related programs <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap social">
+    <a href="#" aria-label="Bluesky"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg></a><a href="#" aria-label="Facebook"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="#" aria-label="Instagram"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.5Z"/></svg></a><a href="#" aria-label="YouTube"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a><a href="#" aria-label="X"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a>
+  </div>
+  <hr>
+  <div class="wrap bottom">
+    <span aria-hidden="true"><svg aria-hidden="true" width="22" height="27" viewBox="0 0 28 34" fill="#fff"><path d="M9 0h10v2.2h-2v20.3h3.4V7.6h-1.6V5.4h7v2.2h-1.6v16.6l-2.4 2.4h-4.8V30h2v2.2H9V30h2v-3.8H6.2l-2.4-2.4V7.6H2.2V5.4h7v2.2H7.6v14.9H11V2.2H9V0z"/></svg></span>
+    <a href="https://accessibility.iu.edu/">Accessibility</a>
+    <a href="https://collegescorecard.ed.gov/">College Scorecard</a>
+    <a href="https://www.iu.edu/open-to-all/">Open to all</a>
+    <a href="https://www.iu.edu/privacy/">Privacy Notice</a>
+    <span>Copyright © 2026 The Trustees of Indiana University</span>
+  </div>
+</footer>
+
+<!-- ---------- Program comparison drawer ---------- -->
+<div class="scrim" data-close-drawer></div>
+<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" id="drawer">
+  <div class="drawer-head">
+    <h2 id="drawer-title">Program comparison</h2>
+    <div class="count" id="drawer-count" aria-live="polite"></div>
+    <button class="add-btn" id="add-btn" aria-expanded="false" aria-controls="picker">Add another program</button>
+    <div class="picker" id="picker"></div>
+    <button class="drawer-close" data-close-drawer aria-label="Close program comparison"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button>
+  </div>
+  <div class="drawer-body">
+    <div class="picked" id="picked"></div>
+    <div class="best" id="best"></div>
+    <div class="rows" id="rows"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* ---------- Template-driven sentences (match the CMS spec) ---------- */
+const listify = a => a.length<2 ? (a[0]||'') : a.length===2 ? `${a[0]} and ${a[1]}` : `${a.slice(0,-1).join(', ')}, and ${a[a.length-1]}`;
+const bold = a => a.map(s=>`<strong>${s}</strong>`);
+const PRACTICAL_SKILLS=['design','programming','building of information technology solutions'];
+document.getElementById('skills-sentence').innerHTML=`Students gain practical expertise in the ${listify(bold(PRACTICAL_SKILLS))}.`;
+const EXPERIENTIAL=['an honors program','internships','study abroad'];
+document.getElementById('exp-sentence').innerHTML=`Students have opportunities for professional development through ${listify(EXPERIENTIAL.map(s=>s.replace(/^(an?\s)?(.*)$/,(m,a,b)=>(a||'')+`<strong>${b}</strong>`)))}.`;
+
+/* ---------- Header nav ---------- */
+const NAV=['Degrees','Admissions','Tuition & aid','Student experience','About IU Online','Resources','News','Contact'];
+const navList=document.getElementById('nav-list');
+NAV.forEach((label,i)=>{
+  const li=document.createElement('li');li.className='nav-item';
+  li.innerHTML=`<button aria-expanded="false" ${label==='Degrees'?'aria-current="true"':''}>${label} <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg></button><ul class="nav-menu">${['Overview','Popular programs','Browse all'].map(s=>`<li><a href="#top">${s}</a></li>`).join('')}</ul>`;
+  navList.appendChild(li);
+});
+navList.addEventListener('click',e=>{const b=e.target.closest('.nav-item>button');if(!b)return;const open=b.getAttribute('aria-expanded')==='true';navList.querySelectorAll('.nav-item>button').forEach(x=>x.setAttribute('aria-expanded','false'));b.setAttribute('aria-expanded',String(!open));});
+document.addEventListener('click',e=>{if(!e.target.closest('.nav-item'))navList.querySelectorAll('.nav-item>button').forEach(x=>x.setAttribute('aria-expanded','false'));});
+document.querySelector('.menu-toggle').addEventListener('click',e=>{const nav=document.querySelector('.main-nav');const o=nav.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(o));});
+
+/* ---------- RFI form ---------- */
+const form=document.querySelector('.rfi form');
+form.addEventListener('submit',e=>{
+  e.preventDefault();let firstBad=null;
+  form.querySelectorAll('input[required]').forEach(inp=>{
+    const ok=inp.type==='email'?/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inp.value.trim()):inp.value.trim()!=='';
+    inp.closest('.field').classList.toggle('invalid',!ok);inp.setAttribute('aria-invalid',String(!ok));
+    if(!ok&&!firstBad)firstBad=inp;
+  });
+  if(firstBad){firstBad.focus();return;}
+  const rfi=document.getElementById('rfi');rfi.querySelector('[data-first]').textContent=document.getElementById('f-first').value.trim();
+  rfi.classList.add('sent');rfi.querySelector('.rfi-success').focus();
+});
+form.addEventListener('input',e=>{const f=e.target.closest('.field');if(f&&f.classList.contains('invalid')&&e.target.value.trim())f.classList.remove('invalid');});
+
+/* ---------- Advisors ---------- */
+const ADVISORS=[
+  {img:'assets/advisor-1.jpg',dept:'Computer Science Programs',name:'Jessica Martinez',role:'Senior Admissions Advisor',email:'jmartinez@iu.edu',phone:'(555) 123-4567',hours:['Mon–Thu: 9 a.m.–5 p.m. ET','Fri: 9 a.m.–3 p.m. ET'],topics:['Program selection','Application timeline','Financial aid','Career transition planning']},
+  {img:'assets/advisor-2.jpg',dept:'Student Success & Wellness',name:'Dr. Michael Chen',role:'Academic Counselor',email:'mchen@iu.edu',phone:'(555) 123-4589',hours:['Mon–Fri: 10 a.m.–6 p.m. ET','Evening appointments by request'],topics:['Academic planning','Study strategies','Goal setting','Career counseling']},
+];
+document.getElementById('contact-grid').innerHTML=ADVISORS.map((a,i)=>{
+  const initials=a.name.replace('Dr. ','').split(' ').map(s=>s[0]).join('');
+  return `<article class="contact">
+    <div class="avatar"><img src="${a.img}" alt="" onerror="this.replaceWith('${initials}')"></div>
+    <div class="dept">${a.dept}</div><h3>${a.name}</h3><p class="role">${a.role}</p>
+    <div class="lines">
+      <a href="mailto:${a.email}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2v12h16V2H0Zm2 2.023V4h12v.023L8 7.356 2 4.023ZM2 6.31l6 3.333 6-3.333V12H2V6.31Z"/></svg>${a.email}</a>
+      <a href="tel:${a.phone.replace(/\D/g,'')}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1h1l1.5 5L5 7c0 2 2 4 4 4l1-1.5 5 1.5v1a3 3 0 0 1-3 3C5 15 1 10 1 4a3 3 0 0 1 3-3Z"/></svg>${a.phone}</a>
+      <div><button class="hours-btn" aria-expanded="false" aria-controls="hours-${i}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9 7.586V4H7v4.414l2.5 2.5L10.914 9.5 9 7.586Z"/><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z"/></svg>Hours <span class="chev"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg></span></button>
+      <div class="hours" id="hours-${i}">${a.hours.join('<br>')}</div></div>
+    </div>
+    <p class="help">Can help with:</p>
+    <div class="chips">${a.topics.map(t=>`<span class="badge">${t}</span>`).join('')}</div>
+    <a class="btn btn--small" href="#" data-toast="Prototype: this would open ${a.name.split(' ').slice(-2).join(' ')}’s booking page.">Schedule a consultation</a>
+  </article>`;}).join('');
+document.addEventListener('click',e=>{
+  const h=e.target.closest('.hours-btn');
+  if(h){const o=h.getAttribute('aria-expanded')!=='true';h.setAttribute('aria-expanded',String(o));document.getElementById(h.getAttribute('aria-controls')).classList.toggle('open',o);}
+  const t=e.target.closest('[data-toast]');if(t){e.preventDefault();toast(t.dataset.toast);}
+});
+let toastTimer;function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),3200);}
+
+/* ---------- Program comparison drawer ---------- */
+const PROGRAMS={
+  mcs:{name:'Master of computer science',short:'Master of computer science',tuition:45000,months:24,format:'Full-time/Part-time',gpa:'3.0+',deadline:'Mar 15, 2026',employment:95,salary:95000,specs:'AI/ML, software engineering, cybersecurity',careers:'Software architect, research scientist, tech lead'},
+  msds:{name:'MS in data science',short:'MS in data science',tuition:52000,months:18,format:'Full-time',gpa:'3.2+',deadline:'Feb 1, 2026',employment:92,salary:88000,specs:'Big data, analytics, machine learning',careers:'Data scientist, analytics manager, ML engineer'},
+  mscy:{name:'MS in cybersecurity',short:'MS in cybersecurity',tuition:38000,months:20,format:'Full-time/Online',gpa:'2.8+',deadline:'Apr 1, 2026',employment:97,salary:85000,specs:'Network security, digital forensics, risk management',careers:'Security analyst, CISO, penetration tester'},
+  bsi:{name:'B.S. in informatics',short:'B.S. in informatics',tuition:11000,months:48,format:'Online',gpa:'2.5+',deadline:'Mar 15, 2026',employment:95,salary:85000,specs:'Business, health information management, legal informatics',careers:'UX designer, web developer, information architect'},
+  mshci:{name:'MS in human-computer interaction',short:'MS in human-computer interaction',tuition:41000,months:24,format:'Full-time',gpa:'3.0+',deadline:'Jan 15, 2026',employment:93,salary:90000,specs:'Interaction design, UX research, accessibility',careers:'UX researcher, product designer, design lead'},
+};
+const MAX=3;let picked=['mcs','msds','mscy'];
+const money=n=>'$'+n.toLocaleString('en-US');
+const dur=m=>m%12===0?`${m/12} ${m/12===1?'year':'years'}`:`${m} months`;
+const ROWS=[
+  ['Annual tuition',p=>`${money(p.tuition)} /year`,'tuition','min'],
+  ['Duration',p=>dur(p.months),'months','min'],
+  ['Format',p=>p.format],
+  ['GPA requirement',p=>p.gpa],
+  ['Application deadline',p=>p.deadline],
+  ['Employment rate',p=>p.employment+'%','employment','max'],
+  ['Average starting salary',p=>money(p.salary),'salary','max'],
+  ['Specializations',p=>p.specs],
+  ['Career outcomes',p=>p.careers],
+];
+function render(){
+  const ps=picked.map(k=>({k,...PROGRAMS[k]}));
+  document.getElementById('drawer-count').textContent=`Showing ${ps.length} program${ps.length===1?'':'s'}`;
+  const add=document.getElementById('add-btn');add.disabled=ps.length>=MAX;add.title=ps.length>=MAX?`Compare up to ${MAX} programs. Remove one to add another.`:'';
+  document.getElementById('picked').innerHTML=ps.length?ps.map(p=>`<div class="pick"><h3>${p.name}</h3><a class="see" href="#" data-toast="Prototype: this would open the ${p.name} program page.">See details</a><button class="rm" data-remove="${p.k}" aria-label="Remove ${p.name}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button></div>`).join(''):`<div class="picks-empty">No programs selected. Use “Add another program” to start comparing.</div>`;
+  const best=document.getElementById('best');
+  if(ps.length>=2){
+    const cheap=ps.reduce((a,b)=>b.tuition<a.tuition?b:a), fast=ps.reduce((a,b)=>b.months<a.months?b:a);
+    best.innerHTML=`<div class="best-card green"><span class="sticker"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Z"/><path fill="currentColor" d="M39 28h-7.5a6.5 6.5 0 1 0 0 13H39v9h-8.133a2 2 0 0 1-2-2h-2a4 4 0 0 0 4 4H39v3h2v-3h7.5a6.5 6.5 0 1 0 0-13H41v-9h8a2 2 0 0 1 2 2h2a4 4 0 0 0-4-4h-8v-3h-2v3Zm-7.5 2H39v9h-7.5a4.5 4.5 0 1 1 0-9ZM41 41h7.5a4.5 4.5 0 1 1 0 9H41v-9Z"/><path fill="currentColor" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Zm24-22c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22Z"/></svg></span><b>Most affordable</b><span class="name">${cheap.name}</span><span class="pill">${money(cheap.tuition)} per year</span></div>
+    <div class="best-card blue"><span class="sticker"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Z"/><path fill="currentColor" d="m41 39.586 4.707 4.707-1.414 1.414L39 40.414V27h2v12.586Zm-9.5-9.5L30.086 31.5l1.414 1.414 1.414-1.414-1.414-1.414Zm17 0 1.414 1.414-1.414 1.414-1.414-1.414 1.414-1.414ZM53 39h-2v2h2v-2Zm-26 0h2v2h-2v-2Zm14 14v-2h-2v2h2Zm-9.5-5.914 1.414 1.414-1.414 1.414-1.414-1.414 1.414-1.414ZM49.914 48.5 48.5 47.086 47.086 48.5l1.414 1.414 1.414-1.414Z"/><path fill="currentColor" d="M21 40c0-10.493 8.507-19 19-19s19 8.507 19 19-8.507 19-19 19-19-8.507-19-19Zm19-17c-9.389 0-17 7.611-17 17s7.611 17 17 17 17-7.611 17-17-7.611-17-17-17Z"/><path fill="currentColor" d="M16 40c0-13.255 10.745-24 24-24s24 10.745 24 24-10.745 24-24 24-24-10.745-24-24Zm24-22c-12.15 0-22 9.85-22 22s9.85 22 22 22 22-9.85 22-22-9.85-22-22-22Z"/></svg></span><b>Shortest duration</b><span class="name">${fast.name}</span><span class="pill">${dur(fast.months)}</span></div>`;best.style.display='';
+  } else best.style.display='none';
+  document.getElementById('rows').innerHTML=ps.length?ROWS.map(([label,fmt,key,dir])=>{
+    let winner=null;if(key&&ps.length>=2){const vals=ps.map(p=>p[key]);const target=dir==='min'?Math.min(...vals):Math.max(...vals);if(vals.filter(v=>v===target).length===1)winner=target;}
+    return `<div class="row"><h3>${label}</h3>${ps.map(p=>`<p><b>${p.name}:</b> ${fmt(p)}${winner!==null&&p[key]===winner?`<span class="win">${dir==='min'?'Lowest':'Highest'}</span>`:''}</p>`).join('')}</div>`;}).join(''):'';
+  const avail=Object.keys(PROGRAMS).filter(k=>!picked.includes(k));
+  document.getElementById('picker').innerHTML=`<p>Choose a program</p>`+avail.map(k=>`<button data-add="${k}">${PROGRAMS[k].name}</button>`).join('');
+}
+const drawer=document.getElementById('drawer');let lastFocus=null;
+function openDrawer(){lastFocus=document.activeElement;document.body.classList.add('drawer-open');render();setTimeout(()=>drawer.querySelector('.drawer-close').focus(),50);}
+function closeDrawer(){document.body.classList.remove('drawer-open');closePicker();lastFocus&&lastFocus.focus();}
+function closePicker(){document.getElementById('picker').classList.remove('open');document.getElementById('add-btn').setAttribute('aria-expanded','false');}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-open-drawer]'))openDrawer();
+  if(e.target.closest('[data-close-drawer]'))closeDrawer();
+  const rm=e.target.closest('[data-remove]');if(rm){const name=PROGRAMS[rm.dataset.remove].name;picked=picked.filter(k=>k!==rm.dataset.remove);render();toast(`Removed ${name}`);drawer.querySelector('#add-btn').focus();}
+  const ad=e.target.closest('[data-add]');if(ad){picked.push(ad.dataset.add);closePicker();render();toast(`Added ${PROGRAMS[ad.dataset.add].name}`);}
+  if(e.target.closest('#add-btn')){const p=document.getElementById('picker');const o=!p.classList.contains('open');p.classList.toggle('open',o);e.target.closest('#add-btn').setAttribute('aria-expanded',String(o));if(o)p.querySelector('button')?.focus();}
+});
+document.addEventListener('keydown',e=>{
+  if(!document.body.classList.contains('drawer-open'))return;
+  if(e.key==='Escape'){document.getElementById('picker').classList.contains('open')?closePicker():closeDrawer();}
+  if(e.key==='Tab'){const f=[...drawer.querySelectorAll('button:not([disabled]),a[href]')].filter(el=>el.offsetParent!==null);if(!f.length)return;const first=f[0],last=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
+});
+if(location.hash==='#compare')openDrawer();
+</script>
+</body>
+</html>
