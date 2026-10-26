@@ -18,6 +18,7 @@ Open straight to the comparison drawer: https://manselldesign.github.io/program-
 ## Files
 
 - `index.html` is the whole prototype (HTML, CSS, and JS in one file). Icons and stickers are the official Rivet icons and stickers, inlined.
-- `assets/` holds the photos exported from Figma: `feature.jpg`, `ranking-badge.png`, `advisor-1.jpg`, `advisor-2.jpg`. If one is missing, the page shows a simple placeholder instead.
+- `rivet-tokens.css` holds every color, spacing, shadow, and type value, generated from the Rivet 3 Components Figma library (Foundation, Theme, and Shadows variables, plus one `.t-*` class per library text style). The page's own CSS only references these tokens.
+- `assets/` holds the photos exported from Figma: `feature.jpg`, `ranking-badge.png`, `advisor-1.jpg`, `advisor-2.jpg`. Stickers are exported straight from the design file.
 
 Content is sample content for review, not the live IU website.

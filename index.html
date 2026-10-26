@@ -6,338 +6,327 @@
 <title>Informatics, B.S. | IU Online — Program page prototype</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@200..900&family=Roboto+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Roboto+Mono:wght@100..700&display=swap" rel="stylesheet">
+<!-- All colors, spacing, shadows and type come from the Rivet 3 Components library -->
+<link rel="stylesheet" href="rivet-tokens.css">
 <style>
-:root{
-  --crimson:#990000; --crimson-dark:#510606; --ink:#1f2528; --body:#343c42;
-  --cream:#fdfaf7; --cream-2:#faf6ef; --tan:#efdfc8; --white:#fff;
-  --mono:'Roboto Mono',ui-monospace,monospace; --sans:'Roboto Flex',system-ui,sans-serif; --serif:'Crimson Pro',Georgia,serif;
-  --gutter:80px; --max:1440px;
-}
+/* Layout only. Every value below references a token from rivet-tokens.css. */
+:root{--gutter:var(--spacing-80);--max:1440px}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:24px}
+html{scroll-behavior:smooth;scroll-padding-top:var(--spacing-24)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
-body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--white);-webkit-font-smoothing:antialiased;line-height:1.5}
+body{margin:0;font-family:var(--font-family-sans),system-ui,sans-serif;font-weight:var(--font-weight-350);font-variation-settings:'wdth' 110;color:var(--text-default);background:var(--background-default);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,p,dl,dd,figure,blockquote{margin:0}
 a{color:inherit}
 img{max-width:100%;display:block}
-button{font:inherit;cursor:pointer}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
 svg{flex-shrink:0}
-.wrap{max-width:calc(var(--max) + var(--gutter)*2);margin:0 auto;padding:0 var(--gutter)}
+strong,b{font-weight:var(--font-weight-600);color:var(--text-strong)}
+.wrap{max-width:calc(var(--max) + var(--gutter)*2);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-:focus-visible{outline:2px solid var(--crimson);outline-offset:2px}
-.mono-label{font-family:var(--mono);font-size:12px;line-height:16px;letter-spacing:2px;text-transform:uppercase;color:var(--crimson)}
-.badge{display:inline-flex;align-items:center;gap:6px;background:var(--cream-2);border:1px solid var(--tan);color:var(--crimson);font-weight:700;font-size:14px;line-height:20px;padding:1px 11px;border-radius:999px;white-space:nowrap}
-.badge--dark{background:var(--ink);border-color:var(--ink);color:#fff}
+:focus-visible{outline:2px solid var(--border-accent);outline-offset:2px}
+
+/* Badge (Rivet badge, default subtle / strong) */
+.badge{display:inline-flex;align-items:center;gap:var(--spacing-4);background:var(--component-badge-default-subtle-background);border:1px solid var(--component-badge-default-subtle-border);color:var(--component-badge-default-subtle-text);padding:1px var(--spacing-12);border-radius:var(--border-radius-full);white-space:nowrap}
+.badge--strong{background:var(--component-badge-default-strong-background);border-color:var(--component-badge-default-strong-background);color:var(--component-badge-default-strong-text)}
 .sticker{display:inline-grid;place-items:center;border-radius:50%;flex-shrink:0}
-.sticker--pkg{background:var(--tan);color:var(--crimson)}
-.sticker--48{width:48px;height:48px}.sticker--48 svg{width:48px;height:48px}
-.sticker--64{width:64px;height:64px}.sticker--64 svg{width:64px;height:64px}
-.sticker--80{width:80px;height:80px}.sticker--80 svg{width:80px;height:80px}
-.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:16px;line-height:24px;padding:12px 16px;border:1px solid transparent;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+.sticker--48,.sticker--48 svg{width:48px;height:48px}
+.sticker--64,.sticker--64 svg{width:64px;height:64px}
+.sticker--80,.sticker--80 svg{width:80px;height:80px}
+.sticker--pkg{background:var(--background-accent-subtle);color:var(--icon-brand)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:var(--spacing-8);min-height:var(--component-button-height-lg);padding:0 var(--spacing-16);border:1px solid transparent;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
 .btn svg{transition:transform .15s}
 .btn:hover svg.arrow{transform:translateX(3px)}
-.btn--primary{background:var(--crimson);color:#fff}
-.btn--primary:hover{background:var(--crimson-dark)}
-.btn--dark{background:var(--ink);color:#fff}
-.btn--dark:hover{background:#000}
-.btn--outline{border-color:var(--crimson);color:var(--crimson);background:transparent}
-.btn--outline:hover{background:var(--crimson);color:#fff}
-.btn--small{font-size:14px;line-height:20px;padding:5px 11px;border-color:var(--ink);color:var(--ink);font-weight:500;background:#fff}
-.btn--small:hover{background:var(--ink);color:#fff}
+.btn--primary{background:var(--background-brand);color:var(--text-on-brand)}
+.btn--primary:hover{background:var(--color-brand-extra-dark)}
+.btn--form{background:var(--component-button-form-background);color:var(--text-inverse)}
+.btn--form:hover{background:var(--component-button-form-background-hover)}
+.btn--outline{border-color:var(--border-accent);color:var(--text-brand);background:transparent}
+.btn--outline:hover{background:var(--background-brand);color:var(--text-on-brand)}
+.btn--small{min-height:var(--component-button-height-md);padding:0 var(--spacing-12);border-color:var(--component-button-form-border);color:var(--component-button-form-text);background:var(--background-default)}
+.btn--small:hover{background:var(--component-button-form-background);color:var(--text-inverse)}
 
 /* ---------- Header ---------- */
-.site-header{background:var(--cream)}
-.site-header .wrap{height:96px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.lockup{display:flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink)}
-.lockup .tri{width:41px;height:48px;background:var(--crimson);display:grid;place-items:center}
-.lockup b{display:block;font-size:16px;line-height:18px;font-weight:700;font-variation-settings:'wdth' 85;letter-spacing:.2px}
-.lockup span{display:block;font-size:14px;line-height:16px;font-variation-settings:'wdth' 85;color:var(--body)}
-.main-nav{display:flex;align-items:center;gap:20px}
-.main-nav>ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+.site-header{background:var(--background-tint)}
+.site-header .wrap{height:96px;display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-24)}
+.lockup{display:flex;align-items:center;gap:var(--spacing-8);text-decoration:none;color:var(--text-strong)}
+.lockup .tri{width:41px;height:48px;background:var(--background-brand);display:grid;place-items:center}
+.lockup .tt{display:block;margin-bottom:2px}
+.lockup .tn{display:block;color:var(--text-default)}
+.main-nav{display:flex;align-items:center;gap:var(--spacing-20)}
+.main-nav>ul{display:flex;gap:var(--spacing-12);list-style:none;margin:0;padding:0}
 .nav-item{position:relative}
-.nav-item>button{background:none;border:0;padding:8px 8px;font-size:14px;color:var(--ink);display:flex;align-items:center;gap:6px}
-.nav-item>button[aria-current]{color:var(--crimson);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.nav-item>button{background:none;border:0;padding:var(--spacing-8);color:var(--text-strong);display:flex;align-items:center;gap:var(--spacing-8)}
+.nav-item>button:hover{color:var(--text-brand)}
+.nav-item>button[aria-current]{color:var(--text-brand);text-decoration:underline;text-underline-offset:3px}
 .nav-item>button svg{transition:transform .2s}
 .nav-item>button[aria-expanded=true] svg{transform:rotate(180deg)}
-.nav-menu{position:absolute;top:100%;left:0;min-width:200px;background:#fff;box-shadow:0 8px 24px rgba(31,37,40,.15);padding:8px 0;margin:4px 0 0;list-style:none;z-index:20;display:none}
+.nav-menu{position:absolute;top:100%;left:0;min-width:200px;background:var(--background-raised);box-shadow:var(--shadow-lg);padding:var(--spacing-8) 0;margin:var(--spacing-4) 0 0;list-style:none;z-index:20;display:none}
 .nav-item>button[aria-expanded=true]+.nav-menu{display:block}
-.nav-menu a{display:block;padding:8px 16px;font-size:14px;text-decoration:none}
-.nav-menu a:hover{background:var(--cream-2);color:var(--crimson)}
-.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--ink);background:none;color:var(--ink)}
-.icon-btn:hover{background:var(--ink);color:#fff}
+.nav-menu a{display:block;padding:var(--spacing-8) var(--spacing-16);text-decoration:none}
+.nav-menu a:hover{background:var(--background-strong);color:var(--text-brand)}
+.icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--border-strong);background:none;color:var(--icon-strong)}
+.icon-btn:hover{background:var(--background-inverse);color:var(--icon-inverse)}
 .menu-toggle{display:none}
 
 /* ---------- Hero ---------- */
-.hero{background:var(--cream);padding:96px 0 40px}
+.hero{background:var(--background-tint);padding:var(--spacing-96) 0 var(--spacing-40)}
 .hero-grid{display:grid;grid-template-columns:672px 656px;justify-content:space-between;align-items:start}
-.hero h1{margin:16px 0 24px;font-size:54px;line-height:56px;text-transform:uppercase;color:var(--crimson);font-weight:825;font-variation-settings:'wdth' 100,'slnt' -10,'opsz' 54;letter-spacing:0}
-.hero .teaser{font-size:18px;line-height:28px;color:var(--body);margin:0 0 40px;max-width:640px}
-.toc{margin-top:64px}
-.toc ul{list-style:none;margin:16px 0 0;padding:0}
-.toc li{border-top:1px solid var(--tan)}
-.toc a{display:flex;align-items:center;gap:8px;height:47px;font-weight:600;text-decoration:none;color:var(--ink)}
-.toc a:hover{color:var(--crimson)}
+.hero h1{margin:var(--spacing-16) 0 var(--spacing-24);color:var(--text-brand)}
+.hero .teaser{margin:0 0 var(--spacing-40);max-width:640px}
+.toc{margin-top:var(--spacing-64)}
+.toc .lbl{color:var(--text-brand)}
+.toc ul{list-style:none;margin:var(--spacing-16) 0 0;padding:0}
+.toc li{border-top:1px solid var(--border-default)}
+.toc a{display:flex;align-items:center;gap:var(--spacing-8);height:47px;text-decoration:none;color:var(--text-strong)}
+.toc a:hover{color:var(--text-brand)}
 .toc a svg{width:12px;height:12px;transition:transform .15s}
 .toc a:hover svg{transform:translateY(2px)}
-.rfi{margin-top:104px;background:#fff;box-shadow:0 4px 8px rgba(31,37,40,.1)}
-.rfi-head{background:var(--crimson);color:#fff;padding:24px 32px 26px;display:flex;justify-content:space-between;gap:24px}
-.rfi-head h2{margin:0;font-size:23px;line-height:28px;font-weight:700;max-width:340px}
-.rfi-head p{margin:8px 0 0;font-size:14px;font-style:italic;font-weight:700;font-variation-settings:'slnt' -10}
-.rank-badge{width:80px;height:80px;flex-shrink:0;border:1px solid #fff;background:var(--crimson);display:grid;place-items:center;text-align:center;color:#fff;overflow:hidden}
+.rfi{margin-top:104px;background:var(--background-raised);box-shadow:var(--shadow-md)}
+.rfi-head{background:var(--background-brand);color:var(--text-on-brand);padding:var(--spacing-24) var(--spacing-32) 26px;display:flex;justify-content:space-between;gap:var(--spacing-24)}
+.rfi-head h2{max-width:340px}
+.rfi-head p{margin-top:var(--spacing-8)}
+.rank-badge{width:80px;height:80px;flex-shrink:0;border:1px solid var(--component-badge-ring);background:var(--background-brand);overflow:hidden}
 .rank-badge img{width:100%;height:100%;object-fit:cover}
-.rank-badge .fallback{font-weight:900;font-size:22px;line-height:1;font-variation-settings:'wdth' 120}
-.rank-badge .fallback small{display:block;font-size:8px;letter-spacing:.5px;margin-top:4px;font-weight:800}
-.rfi form{padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:20px 16px}
-.field label{display:block;font-weight:600;margin-bottom:8px}
-.field label .req{color:var(--crimson)}
-.field input,.field select{width:100%;height:40px;border:1px solid var(--ink);padding:0 11px;font:inherit;font-size:14px;background:#fff;color:var(--ink);border-radius:0}
-.field input:focus,.field select:focus{outline:2px solid var(--crimson);outline-offset:-1px}
-.field.invalid input{border-color:var(--crimson);border-width:2px}
-.field .err{display:none;color:var(--crimson);font-size:13px;margin-top:4px;font-weight:500}
+.rfi form{padding:var(--spacing-32);display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-20) var(--spacing-16)}
+.field label{display:block;margin-bottom:var(--spacing-8);color:var(--text-strong)}
+.field .req{color:var(--text-required)}
+.field input{font-family:var(--font-family-sans);font-size:var(--type-size-14);line-height:var(--type-line-height-20);font-weight:var(--font-weight-350);font-variation-settings:'wdth' 110;width:100%;height:var(--component-input-height-md);border:1px solid var(--component-input-border);padding:0 11px;background:var(--background-default);color:var(--component-input-text);border-radius:0}
+.field input[readonly]{background:var(--background-default);cursor:default}
+.field input:focus{outline:2px solid var(--border-accent);outline-offset:-1px}
+.field.invalid input{border-color:var(--text-danger);border-width:2px}
+.field .err{display:none;color:var(--text-danger);margin-top:var(--spacing-4)}
 .field.invalid .err{display:block}
-.rfi .actions{grid-column:1/-1;margin-top:12px}
-.rfi-success{padding:40px 32px;display:none}
-.rfi-success h3{margin:12px 0 8px;font-size:20px}
-.rfi-success p{margin:0;color:var(--body)}
+.rfi .actions{grid-column:1/-1;margin-top:var(--spacing-12)}
+.rfi-success{padding:var(--spacing-40) var(--spacing-32);display:none}
+.rfi-success h3{margin:var(--spacing-12) 0 var(--spacing-8);color:var(--text-strong)}
 .rfi.sent form{display:none}.rfi.sent .rfi-success{display:block}
-.facts{margin-top:40px;border:1px solid var(--tan);display:grid;grid-template-columns:720px 1fr;background:var(--cream)}
-.fact{padding:24px 23px;border-color:var(--tan);border-style:solid;border-width:0}
+.facts{margin-top:var(--spacing-40);border:1px solid var(--border-default);display:grid;grid-template-columns:720px 1fr;background:var(--background-tint)}
+.fact{padding:var(--spacing-24) 23px;border-color:var(--border-default);border-style:solid;border-width:0}
 .fact:nth-child(odd){border-right-width:1px}
 .fact:nth-child(-n+2){border-bottom-width:1px}
-.fact dt{font-family:var(--mono);font-size:14px;line-height:14px;letter-spacing:1px;color:var(--ink);margin-bottom:12px}
-.fact dd{margin:0;font-weight:600}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
+.fact dt{color:var(--text-strong);margin-bottom:var(--spacing-8)}
+.fact dd{color:var(--text-strong)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--spacing-8)}
 
 /* ---------- Breadcrumbs ---------- */
-.crumbs{padding-top:48px;padding-bottom:52px}
-.crumbs ol{list-style:none;display:flex;align-items:center;gap:6px;margin:0;padding:0;font-size:14px}
-.crumbs li{display:flex;align-items:center;gap:6px}
-.crumbs a{color:var(--body);text-decoration:none}.crumbs a:hover{color:var(--crimson);text-decoration:underline}
-.crumbs svg.chev{width:12px;height:12px;color:var(--crimson)}
-.crumbs [aria-current]{font-weight:600}
+.crumbs{padding-top:var(--spacing-48);padding-bottom:52px}
+.crumbs ol{list-style:none;display:flex;align-items:center;gap:var(--spacing-4);margin:0;padding:0}
+.crumbs li{display:flex;align-items:center;gap:var(--spacing-4)}
+.crumbs a{color:var(--text-link-subtle);text-decoration:none}.crumbs a:hover{color:var(--text-link);text-decoration:underline}
+.crumbs svg.chev{width:12px;height:12px;color:var(--icon-brand)}
+.crumbs [aria-current]{color:var(--text-strong)}
 
 /* ---------- Body layout ---------- */
 .layout{display:grid;grid-template-columns:920px 424px;justify-content:space-between;align-items:start}
-.content>section{margin-bottom:96px}
-.content h2{font-size:36px;line-height:44px;font-weight:700;margin:0 0 24px}
-.content h3{font-size:29px;line-height:36px;font-weight:700;margin:48px 0 24px}
-.lead{font-size:18px;line-height:28px;color:var(--body);margin:0 0 24px}
-.lead strong{color:var(--ink)}
-.feature-img{width:100%;aspect-ratio:2/1;background:var(--cream-2) center/cover;margin-bottom:64px;display:grid;place-items:center;color:var(--body);font-family:var(--mono);font-size:12px;overflow:hidden}
+.content>section{margin-bottom:var(--spacing-96)}
+.content h2{margin:0 0 var(--spacing-24);color:var(--text-strong)}
+.content h3{margin:var(--spacing-48) 0 var(--spacing-24);color:var(--text-strong)}
+.lead{margin:0 0 var(--spacing-24)}
+.lead a{color:var(--text-link)}
+.feature-img{width:100%;aspect-ratio:2/1;background:var(--background-strong);margin-bottom:var(--spacing-64);overflow:hidden}
 .feature-img img{width:100%;height:100%;object-fit:cover}
-.highlights{display:grid;grid-template-columns:1fr 1fr;gap:32px 32px;margin-top:40px}
-.hl{display:flex;gap:16px;padding:16px;background:#fff;box-shadow:0 2px 8px rgba(31,37,40,.08)}
-.hl h4{margin:0 0 8px;font-size:16px;line-height:24px;font-weight:600}
-.hl p{margin:0;font-size:14px;line-height:20px;color:var(--body)}
-details.disclosure{border:1px solid var(--tan);background:var(--cream);margin-top:8px}
-details.disclosure summary{list-style:none;cursor:pointer;padding:12px 16px;color:var(--crimson);font-weight:600;display:flex;align-items:center;gap:8px}
+.highlights{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-32);margin-top:var(--spacing-40)}
+.hl{display:flex;gap:var(--spacing-16);padding:var(--spacing-16);background:var(--background-raised);box-shadow:var(--shadow-sm)}
+.hl h4{margin:0 0 var(--spacing-8);color:var(--text-strong)}
+details.disclosure{border:1px solid var(--border-default);background:var(--background-tint);margin-top:var(--spacing-8)}
+details.disclosure summary{list-style:none;cursor:pointer;padding:var(--spacing-12) var(--spacing-16);color:var(--text-brand);display:flex;align-items:center;gap:var(--spacing-8)}
 details.disclosure summary::-webkit-details-marker{display:none}
 details.disclosure summary svg{width:12px;height:12px;transition:transform .2s}
 details.disclosure[open] summary svg{transform:rotate(90deg)}
-details.disclosure .body{padding:0 16px 16px 36px;color:var(--body);font-size:16px}
-.courses{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--tan);border-top:1px solid var(--tan)}
-.course{padding:16px;border-right:1px solid var(--tan);border-bottom:1px solid var(--tan)}
-.course .badge{margin-bottom:12px}
-.course p{margin:0;font-weight:600}
-.text-link{display:inline-flex;align-items:center;gap:8px;color:var(--crimson);font-weight:600;text-decoration:none;margin-top:32px}
+details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
+.courses{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--border-default);border-top:1px solid var(--border-default)}
+.course{padding:var(--spacing-16);border-right:1px solid var(--border-default);border-bottom:1px solid var(--border-default)}
+.course .badge{margin-bottom:var(--spacing-12)}
+.course p{color:var(--text-strong)}
+.text-link{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-link);text-decoration:none;margin-top:var(--spacing-32)}
 .text-link:hover{text-decoration:underline}
 .takeaways{list-style:none;margin:0;padding:0}
-.takeaway{display:grid;grid-template-columns:32px 1fr;gap:12px 28px;border-top:1px solid var(--tan);padding:28px 16px 28px 16px}
-.check{width:32px;height:32px;border-radius:50%;background:var(--crimson);color:#fff;display:grid;place-items:center}
-.takeaway h4{margin:4px 0 12px;font-size:20px;line-height:24px;font-weight:600}
-.takeaway>div>p{margin:0;font-size:18px;line-height:28px;color:var(--body)}
-.takeaway strong{color:var(--ink);font-weight:600}
-.takeaway a{color:var(--crimson)}
-.sublist{list-style:none;margin:20px 0 0 20px;padding:0;display:grid;gap:20px}
-.sublist h5{margin:0 0 4px;font-size:16px;line-height:24px;font-weight:600;display:flex;align-items:center;gap:8px}
+.takeaway{display:grid;grid-template-columns:32px 1fr;gap:var(--spacing-12) 28px;border-top:1px solid var(--border-default);padding:28px var(--spacing-16)}
+.check{width:32px;height:32px;border-radius:50%;background:var(--component-list-hub-check-background);color:var(--component-list-hub-icon);display:grid;place-items:center}
+.takeaway h4{margin:var(--spacing-4) 0 var(--spacing-12);color:var(--text-strong)}
+.takeaway a{color:var(--text-link)}
+.sublist{list-style:none;margin:var(--spacing-20) 0 0 var(--spacing-20);padding:0;display:grid;gap:var(--spacing-20)}
+.sublist h5{margin:0 0 var(--spacing-4);display:flex;align-items:center;gap:var(--spacing-8);color:var(--text-strong)}
 .sublist h5 svg{width:12px;height:12px}
-.sublist p{margin:0 0 0 20px;font-size:14px;line-height:20px;color:var(--body)}
-.sublist .salary{margin-top:8px}
-.quick-links{list-style:none;margin:32px 0 0;padding:0}
-.quick-links li{border-top:1px solid var(--tan)}
-.quick-links a,.quick-links .ql{display:flex;align-items:center;gap:12px;padding:20px 16px;font-size:20px;line-height:24px;font-weight:600;text-decoration:none}
-.quick-links a:hover{color:var(--crimson)}
-.quick-links a svg,.quick-links .ql svg{width:16px;height:16px}
-.quick-links .ql-sub{margin:-12px 0 0 44px;padding-bottom:16px;font-size:18px;color:var(--body)}
-.quick-links .ql-sub a{display:inline;padding:0;font-size:18px;font-weight:400;color:var(--crimson);text-decoration:underline}
+.sublist p{margin:0 0 0 var(--spacing-20)}
+.sublist .salary{margin-top:var(--spacing-8)}
+.quick-links{list-style:none;margin:var(--spacing-32) 0 0;padding:0}
+.quick-links li{border-top:1px solid var(--border-default)}
+.quick-links a,.quick-links .ql{display:flex;align-items:center;gap:var(--spacing-12);padding:var(--spacing-20) var(--spacing-16);text-decoration:none;color:var(--text-strong)}
+.quick-links a:hover{color:var(--text-brand)}
+.quick-links svg{width:16px;height:16px}
+.quick-links .ql-sub{margin:-12px 0 0 44px;padding-bottom:var(--spacing-16)}
+.quick-links .ql-sub a{display:inline;padding:0;color:var(--text-link);text-decoration:underline}
 
 /* Sidebar */
-.details-card{border:1px solid var(--tan);background:#fff}
-.details-card header{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--cream);border-bottom:1px solid var(--tan)}
-.details-card header h2{margin:0;font-size:23px;line-height:28px;color:var(--crimson);font-weight:700}
-.details-card .grp{padding:24px;border-bottom:1px solid var(--tan)}
+.details-card{border:1px solid var(--border-default);background:var(--background-raised)}
+.details-card header{display:flex;align-items:center;gap:var(--spacing-16);padding:var(--spacing-16) var(--spacing-24);background:var(--background-tint);border-bottom:1px solid var(--border-default)}
+.details-card header h2{color:var(--text-brand)}
+.details-card .grp{padding:var(--spacing-24);border-bottom:1px solid var(--border-default)}
 .details-card .grp:last-child{border-bottom:0}
-.details-card h3{margin:0 0 16px;font-size:20px;line-height:24px;font-weight:700}
-.details-card h4{margin:16px 0 8px;font-size:16px;font-weight:700}
-.sq-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.sq-list li{position:relative;padding-left:14px;color:var(--body)}
-.sq-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--crimson)}
-.sq-list.small li{font-size:14px;line-height:20px}
-.kv{margin:0;display:grid;gap:8px;color:var(--body)}
-.kv strong{color:var(--ink)}
-.compare-card{margin-top:40px;background:var(--crimson);color:#fff;padding:16px 16px 20px;display:block;width:100%;text-align:left;border:0}
-.compare-card:hover{background:var(--crimson-dark)}
-.compare-card .eyebrow{display:block;font-family:var(--mono);font-size:12px;letter-spacing:1px;margin:12px 0 4px}
-.compare-card .title{display:flex;justify-content:space-between;align-items:center;font-size:16px;font-weight:600}
+.details-card h3{margin:0 0 var(--spacing-16);color:var(--text-strong)}
+.details-card h4{margin:var(--spacing-16) 0 var(--spacing-8);color:var(--text-strong)}
+.sq-list{list-style:none;margin:0;padding:0;display:grid;gap:var(--spacing-8)}
+.sq-list li{position:relative;padding-left:14px}
+.sq-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--icon-brand)}
+.kv{display:grid;gap:var(--spacing-8)}
+.compare-card{margin-top:var(--spacing-40);background:var(--background-brand);color:var(--text-on-brand);padding:var(--spacing-16) var(--spacing-16) var(--spacing-20);display:block;width:100%;text-align:left;border:0}
+.compare-card:hover{background:var(--color-brand-extra-dark)}
+.compare-card .eyebrow{display:block;margin:var(--spacing-12) 0 var(--spacing-4)}
+.compare-card .title{display:flex;justify-content:space-between;align-items:center}
 .compare-card .title svg{transition:transform .15s}
 .compare-card:hover .title svg{transform:translateX(3px)}
-.compare-card .desc{display:block;font-size:14px;line-height:20px;margin-top:12px}
-.sidebar .rvt-card{margin-top:40px;border:1px solid var(--tan);padding:24px;background:#fff}
+.compare-card .desc{display:block;margin-top:var(--spacing-12)}
 
 /* Stats */
-.stats{border-top:1px solid var(--tan);border-bottom:1px solid var(--tan);margin-top:32px}
+.stats{border-top:1px solid var(--border-default);border-bottom:1px solid var(--border-default);margin-top:var(--spacing-32)}
 .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
-.stat{padding:64px 32px 64px 0}
-.stat+.stat{border-left:1px solid var(--tan);padding-left:52px}
-.stat .num{display:block;font-size:42px;line-height:44px;color:var(--crimson);font-weight:825;font-variation-settings:'wdth' 150;margin:20px 0 16px}
-.stat .lbl{font-family:var(--mono);font-size:16px;line-height:20px;letter-spacing:.5px;color:var(--crimson);max-width:320px;display:block}
+.stat{padding:var(--spacing-64) var(--spacing-32) var(--spacing-64) 0;color:var(--text-brand)}
+.stat+.stat{border-left:1px solid var(--border-default);padding-left:52px}
+.stat .num{display:block;margin:var(--spacing-20) 0 var(--spacing-16)}
+.stat .lbl{display:block;max-width:320px}
 
 /* Quote */
-.quote{padding-top:96px;padding-bottom:96px}
-.quote figure{margin:0;max-width:860px}
-.quote blockquote{margin:24px 0 32px;font-family:var(--serif);font-size:29px;line-height:36px;color:var(--crimson)}
-.quote figcaption{color:var(--crimson)}
-.quote figcaption b{display:block;font-weight:600}
+.quote{padding-top:var(--spacing-96);padding-bottom:var(--spacing-96)}
+.quote figure{max-width:860px;color:var(--text-brand)}
+.quote blockquote{margin:var(--spacing-24) 0 var(--spacing-32)}
+.quote figcaption b{display:block;color:var(--text-brand)}
 
 /* Contacts */
-.contacts{padding-top:64px}
-.contact-grid{display:grid;grid-template-columns:440px 440px;gap:24px}
-.contact{background:#fff;box-shadow:0 2px 8px rgba(31,37,40,.1);padding:32px}
-.avatar{width:80px;height:80px;border-radius:50%;background:#e6edf2;overflow:hidden;display:grid;place-items:center;font-weight:700;color:var(--body);font-size:24px;margin-bottom:24px}
+.contacts{padding-top:var(--spacing-64)}
+.contact-grid{display:grid;grid-template-columns:440px 440px;gap:var(--spacing-24)}
+.contact{background:var(--background-raised);box-shadow:var(--shadow-sm);padding:var(--spacing-32)}
+.avatar{width:80px;height:80px;border-radius:50%;background:var(--color-base-extra-light);overflow:hidden;display:grid;place-items:center;color:var(--text-default);margin-bottom:var(--spacing-24)}
 .avatar img{width:100%;height:100%;object-fit:cover}
-.contact .dept{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--crimson)}
-.contact h3{margin:4px 0 4px;font-size:20px;line-height:24px;font-weight:700}
-.contact .role{margin:0 0 28px;font-size:18px;color:var(--body)}
-.contact .lines{display:grid;gap:12px;margin-bottom:24px}
-.contact .lines a{display:inline-flex;align-items:center;gap:8px;color:var(--crimson)}
-.contact .lines svg{color:var(--ink)}
-.hours-btn{background:none;border:0;padding:0;color:var(--crimson);font-weight:600;display:inline-flex;align-items:center;gap:8px}
-.hours-btn .chev{transition:transform .2s}
+.contact .dept{color:var(--text-brand)}
+.contact h3{margin:var(--spacing-4) 0}
+.contact .role{margin:0 0 28px}
+.contact .lines{display:grid;gap:var(--spacing-12);margin-bottom:var(--spacing-24)}
+.contact .lines a{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-link)}
+.contact .lines svg{color:var(--icon-strong)}
+.hours-btn{background:none;border:0;padding:0;color:var(--text-brand);display:inline-flex;align-items:center;gap:var(--spacing-8)}
+.hours-btn svg{color:var(--icon-brand)}
+.hours-btn .chev{transition:transform .2s;display:inline-flex}
 .hours-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
-.hours{display:none;margin:12px 0 0 24px;font-size:14px;color:var(--body);line-height:22px}
+.hours{display:none;margin:var(--spacing-12) 0 0 var(--spacing-24)}
 .hours.open{display:block}
-.contact .help{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--body);margin:0 0 12px}
-.contact .chips{margin-bottom:24px}
+.contact .help{margin:0 0 var(--spacing-12)}
+.contact .chips{margin-bottom:var(--spacing-24)}
 
 /* Callout */
-.callout{margin:64px 0 96px;max-width:904px;background:var(--cream-2);padding:80px}
-.callout h2{margin:24px 0 16px;font-size:29px;line-height:32px;color:var(--crimson);font-weight:700}
-.callout p{margin:0 0 32px;font-size:18px;line-height:28px;color:var(--crimson);max-width:700px}
-.callout .btns{display:flex;flex-wrap:wrap;gap:16px}
+.callout{margin:var(--spacing-64) 0 var(--spacing-96);max-width:904px;background:var(--background-strong);padding:var(--spacing-80);color:var(--text-brand)}
+.callout h2{margin:var(--spacing-24) 0 var(--spacing-16)}
+.callout p{margin:0 0 var(--spacing-32);max-width:700px}
+.callout .btns{display:flex;flex-wrap:wrap;gap:var(--spacing-16)}
 
 /* Footer */
-.site-footer{background:var(--crimson);color:#fff}
-.site-footer .social{display:flex;gap:8px;padding-top:16px;padding-bottom:16px}
-.site-footer .social a{width:24px;height:24px;border-radius:50%;background:var(--crimson-dark);display:grid;place-items:center}
-.site-footer .social a:hover{background:#000}
-.site-footer .social svg{width:12px;height:12px;fill:#fff}
-.site-footer hr{border:0;border-top:1px solid rgba(255,255,255,.12);margin:0}
-.site-footer .bottom{display:flex;align-items:center;gap:16px;padding-top:16px;padding-bottom:20px;flex-wrap:wrap;font-size:14px}
+.site-footer{background:var(--background-brand);color:var(--text-on-brand)}
+.site-footer .social{display:flex;gap:var(--spacing-8);padding-top:var(--spacing-16);padding-bottom:var(--spacing-16)}
+.site-footer .social a{width:24px;height:24px;border-radius:50%;background:var(--color-brand-extra-dark);display:grid;place-items:center}
+.site-footer .social a:hover{background:var(--color-base-ultra-dark)}
+.site-footer .social svg{width:12px;height:12px;fill:var(--icon-inverse)}
+.site-footer hr{border:0;border-top:1px solid var(--border-on-brand);margin:0}
+.site-footer .bottom{display:flex;align-items:center;gap:var(--spacing-16);padding-top:var(--spacing-16);padding-bottom:var(--spacing-20);flex-wrap:wrap}
 .site-footer .bottom a{text-decoration:none}.site-footer .bottom a:hover{text-decoration:underline}
 
-/* ---------- Drawer ---------- */
+/* ---------- Program comparison drawer ---------- */
 .scrim{position:fixed;inset:0;background:rgba(31,37,40,.72);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:50}
-.drawer{position:fixed;top:0;right:0;bottom:0;width:600px;max-width:100%;background:#fff;z-index:51;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;visibility:hidden}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:600px;max-width:100%;background:var(--background-default);z-index:51;transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;visibility:hidden}
 body.drawer-open{overflow:hidden}
 body.drawer-open .scrim{opacity:1;visibility:visible}
 body.drawer-open .drawer{transform:none;visibility:visible}
-.drawer-head{background:var(--crimson);color:#fff;padding:24px;position:relative;flex-shrink:0}
-.drawer-head h2{margin:0;font-size:29px;line-height:36px;font-weight:700}
-.drawer-head .count{font-family:var(--mono);font-size:16px;letter-spacing:1.5px;margin:2px 0 24px}
-.drawer-close{position:absolute;top:24px;right:24px;width:40px;height:40px;border:1px solid #fff;background:none;color:#fff;display:grid;place-items:center}
-.drawer-close:hover{background:#fff;color:var(--crimson)}
-.add-btn{background:#fff;color:var(--crimson);border:0;padding:6px 12px;font-size:14px;font-weight:600}
-.add-btn:hover{background:var(--cream-2)}
+.drawer-head{background:var(--background-brand);color:var(--text-on-brand);padding:var(--spacing-24);position:relative;flex-shrink:0}
+.drawer-head .count{margin:2px 0 var(--spacing-24)}
+.drawer-close{position:absolute;top:var(--spacing-24);right:var(--spacing-24);width:40px;height:40px;border:1px solid var(--border-on-brand-alt);background:none;color:var(--icon-on-brand-alt);display:grid;place-items:center}
+.drawer-close:hover{background:var(--background-default);color:var(--icon-brand)}
+.add-btn{background:var(--background-default);color:var(--text-brand);border:0;padding:6px var(--spacing-12)}
+.add-btn:hover{background:var(--background-strong)}
 .add-btn[disabled]{opacity:.6;cursor:not-allowed}
-.picker{display:none;position:absolute;left:24px;top:146px;z-index:3;width:360px;max-width:calc(100% - 48px);background:#fff;color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.2);max-width:360px}
+.picker{display:none;position:absolute;left:var(--spacing-24);top:146px;z-index:3;width:360px;max-width:calc(100% - 48px);background:var(--background-raised);color:var(--text-strong);box-shadow:var(--shadow-lg)}
 .picker.open{display:block}
-.picker p{margin:0;padding:12px 16px 4px;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--body)}
-.picker button{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 16px;font-size:14px;font-weight:500}
-.picker button:hover{background:var(--cream-2);color:var(--crimson)}
+.picker p{padding:var(--spacing-12) var(--spacing-16) var(--spacing-4);color:var(--text-default)}
+.picker button{display:block;width:100%;text-align:left;background:none;border:0;padding:10px var(--spacing-16)}
+.picker button:hover{background:var(--background-strong);color:var(--text-brand)}
 .drawer-body{overflow-y:auto;flex:1;overscroll-behavior:contain}
-.picked{display:grid;grid-template-columns:1fr 1fr;gap:16px 14px;padding:24px 24px 0}
-.pick{position:relative;border:1px solid var(--tan);padding:16px;min-height:84px}
-.pick h3{margin:0 24px 8px 0;font-size:14px;font-weight:600}
-.pick .rm{position:absolute;top:4px;right:6px;background:none;border:0;width:24px;height:24px;display:grid;place-items:center;color:var(--ink)}
-.pick .rm:hover{color:var(--crimson)}
-.pick .see{display:inline-block;border:1px solid var(--crimson);color:var(--crimson);font-size:14px;font-weight:600;padding:0 7px;line-height:22px;text-decoration:none}
-.pick .see:hover{background:var(--crimson);color:#fff}
-.picks-empty{grid-column:1/-1;padding:24px;border:1px dashed var(--tan);color:var(--body);text-align:center}
-.best{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:38px 24px 32px}
-.best-card{padding:16px;border:1px solid}
-.best-card.green{background:#f1fcec;border-color:#9fd98a}
-.best-card.blue{background:#eef8fd;border-color:#8ec9e6}
-.best-card .sticker{width:48px;height:48px;margin-bottom:12px}
-.best-card .sticker svg{width:48px;height:48px}
-.best-card b{display:block;font-size:14px}
-.best-card span.name{display:block;color:var(--body);margin-bottom:12px}
-.best-card .pill{display:inline-block;background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:2px 12px;border-radius:999px}
-.rows{border-top:0}
-.row{padding:20px 24px;border-bottom:1px solid #f1e7da}
-.row:nth-child(even){background:#fdf8f3}
-.row h3{margin:0 0 12px;font-size:20px;line-height:24px;font-weight:700}
-.row p{margin:4px 0;color:var(--body)}
-.row p b{color:var(--ink);font-weight:600}
-.row p.win b::after{content:"";}
-.row p .win{color:#14532d;font-weight:600;font-size:12px;background:#d7f2cb;border-radius:999px;padding:1px 8px;margin-left:6px;white-space:nowrap}
+.picked{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-16) 14px;padding:var(--spacing-24) var(--spacing-24) 0}
+.pick{position:relative;border:1px solid var(--border-default);padding:var(--spacing-16);min-height:84px}
+.pick h3{margin:0 var(--spacing-24) var(--spacing-8) 0;color:var(--text-strong)}
+.pick .rm{position:absolute;top:var(--spacing-4);right:6px;background:none;border:0;width:24px;height:24px;display:grid;place-items:center;color:var(--icon-strong)}
+.pick .rm:hover{color:var(--icon-brand)}
+.pick .see{display:inline-block;border:1px solid var(--border-accent);color:var(--text-brand);padding:0 7px;text-decoration:none}
+.pick .see:hover{background:var(--background-brand);color:var(--text-on-brand)}
+.picks-empty{grid-column:1/-1;padding:var(--spacing-24);border:1px dashed var(--border-default);text-align:center}
+.best{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:38px var(--spacing-24) var(--spacing-32)}
+.best-card{padding:var(--spacing-16);border:1px solid}
+.best-card.green{background:var(--background-success-subtle);border-color:var(--border-success)}
+.best-card.blue{background:var(--background-info-subtle);border-color:var(--border-info)}
+.best-card .sticker{margin-bottom:var(--spacing-12)}
+.best-card b{display:block}
+.best-card .name{display:block;margin-bottom:var(--spacing-12)}
+.best-card .pill{display:inline-block;background:var(--component-badge-default-strong-background);color:var(--component-badge-default-strong-text);padding:2px var(--spacing-12);border-radius:var(--border-radius-full)}
+.row{padding:var(--spacing-20) var(--spacing-24);border-bottom:1px solid var(--border-default)}
+.row:nth-child(even){background:var(--background-tint)}
+.row h3{margin:0 0 var(--spacing-12);color:var(--text-strong)}
+.row p{margin:var(--spacing-4) 0}
+.row .win{margin-left:6px;white-space:nowrap;background:var(--component-badge-success-subtle-background);border:1px solid var(--component-badge-success-subtle-border);color:var(--component-badge-success-subtle-text);border-radius:var(--border-radius-full);padding:0 var(--spacing-8)}
 
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;visibility:hidden;transition:transform .25s,opacity .25s,visibility .25s;background:var(--ink);color:#fff;padding:12px 20px;font-size:14px;z-index:60}
+.toast{position:fixed;left:50%;bottom:var(--spacing-24);transform:translate(-50%,16px);opacity:0;visibility:hidden;transition:transform .25s,opacity .25s,visibility .25s;background:var(--background-inverse);color:var(--text-inverse);padding:var(--spacing-12) var(--spacing-20);z-index:60}
 .toast.show{transform:translate(-50%,0);opacity:1;visibility:visible}
-.proto-note{background:var(--ink);color:#fff;font-size:13px;text-align:center;padding:6px 16px}
-.proto-note a{color:#fff}
+.proto-note{background:var(--background-inverse);color:var(--text-inverse);text-align:center;padding:6px var(--spacing-16)}
 
 /* ---------- Responsive ---------- */
 @media (max-width:1500px){
-  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:48px}
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:var(--spacing-48)}
   .facts{grid-template-columns:1fr 1fr}
-  .layout{grid-template-columns:minmax(0,1fr) 360px;gap:64px}
+  .layout{grid-template-columns:minmax(0,1fr) 360px;gap:var(--spacing-64)}
 }
 @media (max-width:1100px){
-  :root{--gutter:40px}
+  :root{--gutter:var(--spacing-40)}
   .main-nav>ul{display:none}
   .menu-toggle{display:grid}
-  .main-nav.open>ul{display:flex;flex-direction:column;position:absolute;top:96px;left:0;right:0;background:#fff;padding:12px var(--gutter);box-shadow:0 8px 16px rgba(0,0,0,.1);z-index:30}
+  .main-nav.open>ul{display:flex;flex-direction:column;position:absolute;top:96px;left:0;right:0;background:var(--background-raised);padding:var(--spacing-12) var(--gutter);box-shadow:var(--shadow-md);z-index:30}
   .site-header{position:relative}
-  .nav-menu{position:static;box-shadow:none;padding-left:12px}
+  .nav-menu{position:static;box-shadow:none;padding-left:var(--spacing-12)}
   .hero-grid,.layout{grid-template-columns:1fr}
-  .rfi{margin-top:48px}
-  .sidebar{order:-1;margin-bottom:64px}
+  .rfi{margin-top:var(--spacing-48)}
+  .sidebar{order:-1;margin-bottom:var(--spacing-64)}
   .contact-grid{grid-template-columns:1fr 1fr}
   .stats .wrap{grid-template-columns:1fr 1fr}
   .stat:nth-child(3){border-left:0;padding-left:0}
-  .stat:nth-child(n+3){border-top:1px solid var(--tan)}
+  .stat:nth-child(n+3){border-top:1px solid var(--border-default)}
 }
 @media (max-width:720px){
-  :root{--gutter:16px}
-  .hero{padding-top:48px}
-  .hero h1{font-size:40px;line-height:44px}
-  .rfi form{grid-template-columns:1fr;padding:24px}
-  .rfi-head{padding:20px 24px}
+  :root{--gutter:var(--spacing-16)}
+  .hero{padding-top:var(--spacing-48)}
+  .rfi form{grid-template-columns:1fr;padding:var(--spacing-24)}
+  .rfi-head{padding:var(--spacing-20) var(--spacing-24)}
   .facts{grid-template-columns:1fr}
   .fact{border-right-width:0!important;border-bottom-width:1px!important}
   .fact:last-child{border-bottom-width:0!important}
   .highlights,.contact-grid,.courses{grid-template-columns:1fr}
-  .content h2{font-size:29px;line-height:36px}
-  .takeaway{padding:24px 0;gap:12px 16px}
+  .takeaway{padding:var(--spacing-24) 0;gap:var(--spacing-12) var(--spacing-16)}
   .sublist{margin-left:0}
   .stats .wrap{grid-template-columns:1fr}
-  .stat,.stat+.stat{border-left:0;padding:40px 0;border-top:1px solid var(--tan)}
+  .stat,.stat+.stat{border-left:0;padding:var(--spacing-40) 0;border-top:1px solid var(--border-default)}
   .stat:first-child{border-top:0}
-  .callout{padding:40px 24px}
+  .callout{padding:var(--spacing-40) var(--spacing-24)}
   .picked,.best{grid-template-columns:1fr}
-  .lockup b{font-size:14px}
 }
 </style>
 </head>
 <body>
-<div class="proto-note">Prototype for review · sample content · not the live IU website</div>
+<div class="proto-note t-action-sm-regular">Prototype for review · sample content · not the live IU website</div>
 <a class="sr-only" href="#main">Skip to main content</a>
 
 <header class="site-header">
   <div class="wrap">
     <a class="lockup" href="#top" aria-label="Indiana University Online home">
       <span class="tri"><svg aria-hidden="true" width="27" height="34" viewBox="0 0 27 34" fill="#fff"><path d="M18 4.5V7H20V21.5H16V2.5H18V0H9V2.5H11V21.5H7V7H9V4.5H0V7H2V23.5L5.5 27H11V30.5H9V34H18V30.5H16V27H21.5L25 23.5V7H27V4.5H18Z"/></svg></span>
-      <span><b>INDIANA UNIVERSITY</b><span>ONLINE</span></span>
+      <span><span class="tt t-component-lockup-campus-title">Indiana University</span><span class="tn t-component-lockup-campus-name">Online</span></span>
     </a>
     <nav class="main-nav" aria-label="Main">
       <ul id="nav-list"></ul>
@@ -351,18 +340,18 @@ body.drawer-open .drawer{transform:none;visibility:visible}
 <section class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="badge">100% online</span>
-      <h1>Informatics</h1>
-      <p class="teaser">Level up your tech career with a Bachelor of Science in Informatics from IU Online. Designed to be fast and flexible, in this program you’ll learn how to put information technology to work solving today’s problems in healthcare, privacy, security, education, poverty, and the environment.</p>
-      <a class="btn btn--primary" href="#apply">Apply to this program <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+      <span class="badge t-heading-xs-strong">100% online</span>
+      <h1 class="t-display-xl-caps">Informatics</h1>
+      <p class="teaser t-body-base-regular">Level up your tech career with a Bachelor of Science in Informatics from IU Online. Designed to be fast and flexible, in this program you’ll learn how to put information technology to work solving today’s problems in healthcare, privacy, security, education, poverty, and the environment.</p>
+      <a class="btn btn--primary t-action-lg-strong" href="#apply">Apply to this program <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
       <nav class="toc" aria-labelledby="toc-label">
-        <div class="mono-label" id="toc-label">On this page</div>
+        <div class="lbl t-tag-sm-caps" id="toc-label">On this page</div>
         <ul>
-          <li><a href="#about"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>About the program</a></li>
-          <li><a href="#requirements"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Degree requirements</a></li>
-          <li><a href="#takeaways"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Key takeaways</a></li>
-          <li><a href="#finances"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Plan your finances</a></li>
-          <li><a href="#advisors"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Chat with an advisor</a></li>
+          <li><a class="t-action-lg-strong" href="#about"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>About the program</a></li>
+          <li><a class="t-action-lg-strong" href="#requirements"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Degree requirements</a></li>
+          <li><a class="t-action-lg-strong" href="#takeaways"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Key takeaways</a></li>
+          <li><a class="t-action-lg-strong" href="#finances"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Plan your finances</a></li>
+          <li><a class="t-action-lg-strong" href="#advisors"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M7 1v10.844L2.146 7.737.854 9.263 8 15.31l7.146-6.047-1.292-1.526L9 11.844V1H7Z"/></svg>Chat with an advisor</a></li>
         </ul>
       </nav>
     </div>
@@ -370,8 +359,8 @@ body.drawer-open .drawer{transform:none;visibility:visible}
     <div class="rfi" id="rfi">
       <div class="rfi-head">
         <div>
-          <h2>Have all your degree-related questions answered</h2>
-          <p>* Indicates a required field.</p>
+          <h2 class="t-heading-lg-strong">Have all your degree-related questions answered</h2>
+          <p class="t-component-required-required-field">* Indicates a required field.</p>
         </div>
         <div class="rank-badge" aria-label="Ranked #19 nationally, U.S. News &amp; World Report 2025">
           <img src="assets/ranking-badge.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'fallback',innerHTML:'#19<small>NATIONALLY<br>RANKED</small>'}))">
@@ -379,171 +368,171 @@ body.drawer-open .drawer{transform:none;visibility:visible}
       </div>
       <form novalidate>
         <div class="field">
-          <label for="f-program">Program</label>
+          <label class="t-heading-sm-strong" for="f-program">Program</label>
           <input id="f-program" value="Informatics" readonly>
         </div>
         <div class="field">
-          <label for="f-email">Email <span class="req">*</span></label>
+          <label class="t-heading-sm-strong" for="f-email">Email <span class="req">*</span></label>
           <input id="f-email" type="email" autocomplete="email" required>
           <div class="err">Enter a valid email address.</div>
         </div>
         <div class="field">
-          <label for="f-first">First name <span class="req">*</span></label>
+          <label class="t-body-sm-strong" for="f-first">First name <span class="req">*</span></label>
           <input id="f-first" autocomplete="given-name" required>
           <div class="err">Enter your first name.</div>
         </div>
         <div class="field">
-          <label for="f-last">Last name <span class="req">*</span></label>
+          <label class="t-body-sm-strong" for="f-last">Last name <span class="req">*</span></label>
           <input id="f-last" autocomplete="family-name" required>
           <div class="err">Enter your last name.</div>
         </div>
         <div class="field">
-          <label for="f-phone">Phone</label>
+          <label class="t-body-sm-strong" for="f-phone">Phone</label>
           <input id="f-phone" type="tel" autocomplete="tel">
         </div>
         <div class="field">
-          <label for="f-zip">Zip code</label>
+          <label class="t-body-sm-strong" for="f-zip">Zip code</label>
           <input id="f-zip" inputmode="numeric" autocomplete="postal-code" maxlength="10">
         </div>
-        <div class="actions"><button class="btn btn--dark" type="submit">Get Informatics program info</button></div>
+        <div class="actions"><button class="btn btn--form t-action-lg-strong" type="submit">Get Informatics program info</button></div>
       </form>
       <div class="rfi-success" role="status" tabindex="-1">
         <span class="sticker sticker--48 sticker--pkg"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" viewBox="0 0 80 80"><path fill="#fff" d="M40 16c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24Z"/><path fill="currentColor" d="m34.951 49.463 16.756-16.756-1.414-1.414-15.244 15.244-6.296-7.195-1.506 1.317 7.704 8.804Z"/><path fill="currentColor" d="M40 16c-13.255 0-24 10.745-24 24s10.745 24 24 24 24-10.745 24-24-10.745-24-24-24ZM18 40c0-12.15 9.85-22 22-22s22 9.85 22 22-9.85 22-22 22-22-9.85-22-22Z"/></svg></span>
-        <h3>Thanks, <span data-first></span> — you’re all set.</h3>
-        <p>An advisor will email you about the Informatics program within 1 business day. (Prototype: nothing was sent.)</p>
+        <h3 class="t-heading-md-strong">Thanks, <span data-first></span> — you’re all set.</h3>
+        <p class="t-body-sm-regular">An advisor will email you about the Informatics program within 1 business day. (Prototype: nothing was sent.)</p>
       </div>
     </div>
   </div>
 
   <div class="wrap">
     <dl class="facts">
-      <div class="fact"><dt>Host schools</dt><dd class="chips">
-        <span class="badge">Bloomington</span><span class="badge">East</span><span class="badge">Indianapolis</span><span class="badge">Kokomo</span><span class="badge">Northwest</span><span class="badge">Southeast</span></dd></div>
-      <div class="fact"><dt>Total credits</dt><dd>120 credits</dd></div>
-      <div class="fact"><dt>Enrollment</dt><dd>Fall</dd></div>
-      <div class="fact"><dt>Qualifies for financial aid</dt><dd>Yes</dd></div>
+      <div class="fact"><dt class="t-tag-md-regular">Host schools</dt><dd class="chips">
+        <span class="badge t-heading-xs-strong">Bloomington</span><span class="badge t-heading-xs-strong">East</span><span class="badge t-heading-xs-strong">Indianapolis</span><span class="badge t-heading-xs-strong">Kokomo</span><span class="badge t-heading-xs-strong">Northwest</span><span class="badge t-heading-xs-strong">Southeast</span></dd></div>
+      <div class="fact"><dt class="t-tag-md-regular">Total credits</dt><dd class="t-body-sm-strong">120 credits</dd></div>
+      <div class="fact"><dt class="t-tag-md-regular">Enrollment</dt><dd class="t-body-sm-strong">Fall</dd></div>
+      <div class="fact"><dt class="t-tag-md-regular">Qualifies for financial aid</dt><dd class="t-body-sm-strong">Yes</dd></div>
     </dl>
   </div>
 </section>
 
 <nav class="crumbs wrap" aria-label="Breadcrumb">
-  <ol>
+  <ol class="t-action-sm-regular">
     <li><a href="#top" aria-label="Home"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="m8 .798 7 4.667V15H9v-4.444H7V15H1V5.465L8 .798ZM3 6.535V13h2V8.556h6V13h2V6.535L8 3.202 3 6.535Z"/></svg></a><svg aria-hidden="true" focusable="false" class=" chev"xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg></li>
     <li><a href="#top">Degrees</a><svg aria-hidden="true" focusable="false" class=" chev"xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg></li>
-    <li><span aria-current="page">Informatics</span></li>
+    <li><span class="t-action-sm-strong" aria-current="page">Informatics</span></li>
   </ol>
 </nav>
 
 <div class="wrap layout">
   <div class="content">
-    <div class="feature-img"><img src="assets/feature.jpg" alt="Two students adjust equipment in an engineering lab." onerror="this.parentNode.textContent='Feature photo — export from Figma to assets/feature.jpg'"></div>
+    <div class="feature-img"><img src="assets/feature.jpg" alt="Two students adjust equipment in an engineering lab." ></div>
 
     <section id="about" aria-labelledby="about-h">
-      <h2 id="about-h">About the program</h2>
-      <p class="lead">The accelerated B.S. Informatics program at Indiana University is perfect for students who want to understand how technology affects society. This degree teaches you to create innovative solutions for today and tomorrow through hands-on projects that connect theory with real-world applications, focusing on data analysis, user experience design, and software development. You’ll collaborate with classmates from different backgrounds to solve complex problems. The program also enhances your critical thinking and problem-solving skills, preparing you for the fast-paced tech world. Plus, you’ll network with industry professionals through internships and events, giving you an advantage in the job market. By graduation, you’ll be ready for various tech careers, from software engineering to data science, while making a positive impact on society.</p>
+      <h2 class="t-heading-2xl-strong" id="about-h">About the program</h2>
+      <p class="lead t-body-base-regular">The accelerated B.S. Informatics program at Indiana University is perfect for students who want to understand how technology affects society. This degree teaches you to create innovative solutions for today and tomorrow through hands-on projects that connect theory with real-world applications, focusing on data analysis, user experience design, and software development. You’ll collaborate with classmates from different backgrounds to solve complex problems. The program also enhances your critical thinking and problem-solving skills, preparing you for the fast-paced tech world. Plus, you’ll network with industry professionals through internships and events, giving you an advantage in the job market. By graduation, you’ll be ready for various tech careers, from software engineering to data science, while making a positive impact on society.</p>
       <div class="highlights">
-        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s1_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M17.4 11.8838V21.0004C17.4 24.6455 20.3549 27.6004 24 27.6004C27.6451 27.6004 30.6 24.6455 30.6 21.0004V11.8838C25.7 10.8392 22.3 10.8393 17.4 11.8838Z" fill="white"/><path d="M18 37.2004V35.4004H30V37.2004H18Z" fill="white"/><path d="M27 31.8004V34.2004H21V31.8004H27Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.3302 10.8147C25.8444 9.59561 22.1556 9.59562 16.6698 10.8147L16.2 10.9191V12.6004H12V20.4004C12 22.72 13.8804 24.6004 16.2 24.6004H17.0786C18.2922 26.9288 20.6463 28.5682 23.4 28.7777V30.6004H19.8V34.2004H16.8V38.4004H31.2V34.2004H28.2V30.6004H24.6V28.7777C27.3537 28.5682 29.7078 26.9288 30.9214 24.6004H31.8C34.1196 24.6004 36 22.72 36 20.4004V12.6004H31.8V10.9191L31.3302 10.8147ZM17.4 21.0004V11.8838C22.3 10.8393 25.7 10.8392 30.6 11.8838V21.0004C30.6 24.6455 27.6451 27.6004 24 27.6004C20.3549 27.6004 17.4 24.6455 17.4 21.0004ZM16.5762 23.4004H16.2C14.5431 23.4004 13.2 22.0572 13.2 20.4004V13.8004H16.2V21.0004C16.2 21.8378 16.3319 22.6443 16.5762 23.4004ZM31.8 23.4004H31.4238C31.6681 22.6443 31.8 21.8378 31.8 21.0004V13.8004H34.8V20.4004C34.8 22.0572 33.4569 23.4004 31.8 23.4004ZM18 35.4004V37.2004H30V35.4004H18ZM27 34.2004V31.8004H21V34.2004H27Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s1_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4>Top 20 national ranking</h4><p>Consistently ranked among the nation’s best informatics programs, ensuring your degree is recognized by employers worldwide.</p></div></div>
-        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s2_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M21.0001 13.2C21.0001 11.5431 22.3432 10.2 24.0001 10.2C25.657 10.2 27.0001 11.5431 27.0001 13.2C27.0001 14.8569 25.657 16.2 24.0001 16.2C22.3432 16.2 21.0001 14.8569 21.0001 13.2Z" fill="white"/><path d="M31.2001 17.4C31.2001 16.4059 32.006 15.6 33.0001 15.6C33.9942 15.6 34.8001 16.4059 34.8001 17.4C34.8001 18.3941 33.9942 19.2 33.0001 19.2C32.006 19.2 31.2001 18.3941 31.2001 17.4Z" fill="white"/><path d="M13.2001 17.4C13.2001 16.4059 14.006 15.6 15.0001 15.6C15.9942 15.6 16.8001 16.4059 16.8001 17.4C16.8001 18.3941 15.9942 19.2 15.0001 19.2C14.006 19.2 13.2001 18.3941 13.2001 17.4Z" fill="white"/><path d="M34.2001 23.4H31.6663C31.7539 23.7859 31.8001 24.1876 31.8001 24.6V31.8H37.2001V26.4C37.2001 24.7431 35.857 23.4 34.2001 23.4Z" fill="white"/><path d="M13.8001 23.4H16.3339C16.2463 23.7859 16.2001 24.1876 16.2001 24.6V31.8H10.8001V26.4C10.8001 24.7431 12.1432 23.4 13.8001 23.4Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.6001 20.4C19.2805 20.4 17.4001 22.2804 17.4001 24.6V34.2H30.6001V24.6C30.6001 22.2804 28.7197 20.4 26.4001 20.4H21.6001ZM23.4001 28.8V23.4H24.6001V28.8H25.8001V24.6H27.0001V29.4L26.4001 30H24.6001V31.2H23.4001V30H21.6001L21.0001 29.4V24.6H22.2001V28.8H23.4001Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 9C21.6805 9 19.8001 10.8804 19.8001 13.2C19.8001 15.5196 21.6805 17.4 24.0001 17.4C26.3197 17.4 28.2001 15.5196 28.2001 13.2C28.2001 10.8804 26.3197 9 24.0001 9ZM21.0001 13.2C21.0001 11.5431 22.3432 10.2 24.0001 10.2C25.657 10.2 27.0001 11.5431 27.0001 13.2C27.0001 14.8569 25.657 16.2 24.0001 16.2C22.3432 16.2 21.0001 14.8569 21.0001 13.2Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M33.0001 14.4C31.3432 14.4 30.0001 15.7431 30.0001 17.4C30.0001 19.0569 31.3432 20.4 33.0001 20.4C34.657 20.4 36.0001 19.0569 36.0001 17.4C36.0001 15.7431 34.657 14.4 33.0001 14.4ZM31.2001 17.4C31.2001 16.4059 32.006 15.6 33.0001 15.6C33.9942 15.6 34.8001 16.4059 34.8001 17.4C34.8001 18.3941 33.9942 19.2 33.0001 19.2C32.006 19.2 31.2001 18.3941 31.2001 17.4Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 17.4C12.0001 15.7431 13.3432 14.4 15.0001 14.4C16.657 14.4 18.0001 15.7431 18.0001 17.4C18.0001 19.0569 16.657 20.4 15.0001 20.4C13.3432 20.4 12.0001 19.0569 12.0001 17.4ZM15.0001 15.6C14.006 15.6 13.2001 16.4059 13.2001 17.4C13.2001 18.3941 14.006 19.2 15.0001 19.2C15.9942 19.2 16.8001 18.3941 16.8001 17.4C16.8001 16.4059 15.9942 15.6 15.0001 15.6Z" fill="#990000"/><path d="M23.4001 28.8V23.4H24.6001V28.8H25.8001V24.6H27.0001V29.4L26.4001 30H24.6001V31.2H23.4001V30H21.6001L21.0001 29.4V24.6H22.2001V28.8H23.4001Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.2388 22.2H34.2001C36.5197 22.2 38.4001 24.0804 38.4001 26.4V33H31.8001V35.4H16.2001V33H9.6001V26.4C9.6001 24.0804 11.4805 22.2 13.8001 22.2H16.7614C17.645 20.4219 19.4799 19.2 21.6001 19.2H26.4001C28.5203 19.2 30.3552 20.4219 31.2388 22.2ZM31.6663 23.4H34.2001C35.857 23.4 37.2001 24.7431 37.2001 26.4V31.8H31.8001V24.6C31.8001 24.1876 31.7539 23.7859 31.6663 23.4ZM16.3339 23.4H13.8001C12.1432 23.4 10.8001 24.7431 10.8001 26.4V31.8H16.2001V24.6C16.2001 24.1876 16.2463 23.7859 16.3339 23.4ZM17.4001 24.6C17.4001 22.2804 19.2805 20.4 21.6001 20.4H26.4001C28.7197 20.4 30.6001 22.2804 30.6001 24.6V34.2H17.4001V24.6Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s2_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4>Expert faculty</h4><p>Learn from seasoned professors who are active researchers and industry consultants, offering you the latest insights in the field.</p></div></div>
-        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s3_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M33.0001 13.8004H29.4001V14.4004C29.4001 14.7318 29.1315 15.0004 28.8001 15.0004C28.4687 15.0004 28.2001 14.7318 28.2001 14.4004V13.8004H24.6001V14.4004C24.6001 14.7318 24.3315 15.0004 24.0001 15.0004C23.6687 15.0004 23.4001 14.7318 23.4001 14.4004V13.8004H19.8001V14.4004C19.8001 14.7318 19.5315 15.0004 19.2001 15.0004C18.8687 15.0004 18.6001 14.7318 18.6001 14.4004V13.8004H15.0001V14.4004C15.0001 14.7318 14.7315 15.0004 14.4001 15.0004C14.0687 15.0004 13.8001 14.7318 13.8001 14.4004V13.8004H10.8001V17.4004H37.2001V13.8004H34.2001V14.4004C34.2001 14.7318 33.9315 15.0004 33.6001 15.0004C33.2687 15.0004 33.0001 14.7318 33.0001 14.4004V13.8004Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 34.2004V18.6004H37.2001V34.2004H10.8001ZM21.0001 22.2004C21.0001 22.8631 20.4628 23.4004 19.8001 23.4004C19.1374 23.4004 18.6001 22.8631 18.6001 22.2004C18.6001 21.5376 19.1374 21.0004 19.8001 21.0004C20.4628 21.0004 21.0001 21.5376 21.0001 22.2004ZM19.8001 27.6004C20.4628 27.6004 21.0001 27.0631 21.0001 26.4004C21.0001 25.7376 20.4628 25.2004 19.8001 25.2004C19.1374 25.2004 18.6001 25.7376 18.6001 26.4004C18.6001 27.0631 19.1374 27.6004 19.8001 27.6004ZM19.8001 31.8004C20.4628 31.8004 21.0001 31.2631 21.0001 30.6004C21.0001 29.9377 20.4628 29.4004 19.8001 29.4004C19.1374 29.4004 18.6001 29.9377 18.6001 30.6004C18.6001 31.2631 19.1374 31.8004 19.8001 31.8004ZM24.0001 23.4004C24.6628 23.4004 25.2001 22.8631 25.2001 22.2004C25.2001 21.5376 24.6628 21.0004 24.0001 21.0004C23.3374 21.0004 22.8001 21.5376 22.8001 22.2004C22.8001 22.8631 23.3374 23.4004 24.0001 23.4004ZM24.0001 27.6004C24.6628 27.6004 25.2001 27.0631 25.2001 26.4004C25.2001 25.7376 24.6628 25.2004 24.0001 25.2004C23.3374 25.2004 22.8001 25.7376 22.8001 26.4004C22.8001 27.0631 23.3374 27.6004 24.0001 27.6004ZM24.0001 31.8004C24.6628 31.8004 25.2001 31.2631 25.2001 30.6004C25.2001 29.9377 24.6628 29.4004 24.0001 29.4004C23.3374 29.4004 22.8001 29.9377 22.8001 30.6004C22.8001 31.2631 23.3374 31.8004 24.0001 31.8004ZM28.2001 23.4004C28.8628 23.4004 29.4001 22.8631 29.4001 22.2004C29.4001 21.5376 28.8628 21.0004 28.2001 21.0004C27.5374 21.0004 27.0001 21.5376 27.0001 22.2004C27.0001 22.8631 27.5374 23.4004 28.2001 23.4004ZM28.2001 27.6004C28.8628 27.6004 29.4001 27.0631 29.4001 26.4004C29.4001 25.7376 28.8628 25.2004 28.2001 25.2004C27.5374 25.2004 27.0001 25.7376 27.0001 26.4004C27.0001 27.0631 27.5374 27.6004 28.2001 27.6004ZM32.4001 23.4004C33.0628 23.4004 33.6001 22.8631 33.6001 22.2004C33.6001 21.5376 33.0628 21.0004 32.4001 21.0004C31.7374 21.0004 31.2001 21.5376 31.2001 22.2004C31.2001 22.8631 31.7374 23.4004 32.4001 23.4004ZM32.4001 27.6004C33.0628 27.6004 33.6001 27.0631 33.6001 26.4004C33.6001 25.7376 33.0628 25.2004 32.4001 25.2004C31.7374 25.2004 31.2001 25.7376 31.2001 26.4004C31.2001 27.0631 31.7374 27.6004 32.4001 27.6004ZM15.6001 27.6004C16.2628 27.6004 16.8001 27.0631 16.8001 26.4004C16.8001 25.7376 16.2628 25.2004 15.6001 25.2004C14.9374 25.2004 14.4001 25.7376 14.4001 26.4004C14.4001 27.0631 14.9374 27.6004 15.6001 27.6004ZM15.6001 31.8004C16.2628 31.8004 16.8001 31.2631 16.8001 30.6004C16.8001 29.9377 16.2628 29.4004 15.6001 29.4004C14.9374 29.4004 14.4001 29.9377 14.4001 30.6004C14.4001 31.2631 14.9374 31.8004 15.6001 31.8004Z" fill="white"/><path d="M21.0001 22.2004C21.0001 22.8631 20.4628 23.4004 19.8001 23.4004C19.1374 23.4004 18.6001 22.8631 18.6001 22.2004C18.6001 21.5376 19.1374 21.0004 19.8001 21.0004C20.4628 21.0004 21.0001 21.5376 21.0001 22.2004Z" fill="#990000"/><path d="M19.8001 27.6004C20.4628 27.6004 21.0001 27.0631 21.0001 26.4004C21.0001 25.7376 20.4628 25.2004 19.8001 25.2004C19.1374 25.2004 18.6001 25.7376 18.6001 26.4004C18.6001 27.0631 19.1374 27.6004 19.8001 27.6004Z" fill="#990000"/><path d="M21.0001 30.6004C21.0001 31.2631 20.4628 31.8004 19.8001 31.8004C19.1374 31.8004 18.6001 31.2631 18.6001 30.6004C18.6001 29.9377 19.1374 29.4004 19.8001 29.4004C20.4628 29.4004 21.0001 29.9377 21.0001 30.6004Z" fill="#990000"/><path d="M24.0001 23.4004C24.6628 23.4004 25.2001 22.8631 25.2001 22.2004C25.2001 21.5376 24.6628 21.0004 24.0001 21.0004C23.3374 21.0004 22.8001 21.5376 22.8001 22.2004C22.8001 22.8631 23.3374 23.4004 24.0001 23.4004Z" fill="#990000"/><path d="M25.2001 26.4004C25.2001 27.0631 24.6628 27.6004 24.0001 27.6004C23.3374 27.6004 22.8001 27.0631 22.8001 26.4004C22.8001 25.7376 23.3374 25.2004 24.0001 25.2004C24.6628 25.2004 25.2001 25.7376 25.2001 26.4004Z" fill="#990000"/><path d="M24.0001 31.8004C24.6628 31.8004 25.2001 31.2631 25.2001 30.6004C25.2001 29.9377 24.6628 29.4004 24.0001 29.4004C23.3374 29.4004 22.8001 29.9377 22.8001 30.6004C22.8001 31.2631 23.3374 31.8004 24.0001 31.8004Z" fill="#990000"/><path d="M29.4001 22.2004C29.4001 22.8631 28.8628 23.4004 28.2001 23.4004C27.5374 23.4004 27.0001 22.8631 27.0001 22.2004C27.0001 21.5376 27.5374 21.0004 28.2001 21.0004C28.8628 21.0004 29.4001 21.5376 29.4001 22.2004Z" fill="#990000"/><path d="M28.2001 27.6004C28.8628 27.6004 29.4001 27.0631 29.4001 26.4004C29.4001 25.7376 28.8628 25.2004 28.2001 25.2004C27.5374 25.2004 27.0001 25.7376 27.0001 26.4004C27.0001 27.0631 27.5374 27.6004 28.2001 27.6004Z" fill="#990000"/><path d="M33.6001 22.2004C33.6001 22.8631 33.0628 23.4004 32.4001 23.4004C31.7374 23.4004 31.2001 22.8631 31.2001 22.2004C31.2001 21.5376 31.7374 21.0004 32.4001 21.0004C33.0628 21.0004 33.6001 21.5376 33.6001 22.2004Z" fill="#990000"/><path d="M32.4001 27.6004C33.0628 27.6004 33.6001 27.0631 33.6001 26.4004C33.6001 25.7376 33.0628 25.2004 32.4001 25.2004C31.7374 25.2004 31.2001 25.7376 31.2001 26.4004C31.2001 27.0631 31.7374 27.6004 32.4001 27.6004Z" fill="#990000"/><path d="M16.8001 26.4004C16.8001 27.0631 16.2628 27.6004 15.6001 27.6004C14.9374 27.6004 14.4001 27.0631 14.4001 26.4004C14.4001 25.7376 14.9374 25.2004 15.6001 25.2004C16.2628 25.2004 16.8001 25.7376 16.8001 26.4004Z" fill="#990000"/><path d="M15.6001 31.8004C16.2628 31.8004 16.8001 31.2631 16.8001 30.6004C16.8001 29.9377 16.2628 29.4004 15.6001 29.4004C14.9374 29.4004 14.4001 29.9377 14.4001 30.6004C14.4001 31.2631 14.9374 31.8004 15.6001 31.8004Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.8001 12.0004C13.8001 11.669 14.0687 11.4004 14.4001 11.4004C14.7315 11.4004 15.0001 11.669 15.0001 12.0004V12.6004H18.6001V12.0004C18.6001 11.669 18.8687 11.4004 19.2001 11.4004C19.5315 11.4004 19.8001 11.669 19.8001 12.0004V12.6004H23.4001V12.0004C23.4001 11.669 23.6687 11.4004 24.0001 11.4004C24.3315 11.4004 24.6001 11.669 24.6001 12.0004V12.6004H28.2001V12.0004C28.2001 11.669 28.4687 11.4004 28.8001 11.4004C29.1315 11.4004 29.4001 11.669 29.4001 12.0004V12.6004H33.0001V12.0004C33.0001 11.669 33.2687 11.4004 33.6001 11.4004C33.9315 11.4004 34.2001 11.669 34.2001 12.0004V12.6004H38.4001V35.4004H9.6001V12.6004H13.8001V12.0004ZM29.4001 13.8004H33.0001V14.4004C33.0001 14.7318 33.2687 15.0004 33.6001 15.0004C33.9315 15.0004 34.2001 14.7318 34.2001 14.4004V13.8004H37.2001V17.4004H10.8001V13.8004H13.8001V14.4004C13.8001 14.7318 14.0687 15.0004 14.4001 15.0004C14.7315 15.0004 15.0001 14.7318 15.0001 14.4004V13.8004H18.6001V14.4004C18.6001 14.7318 18.8687 15.0004 19.2001 15.0004C19.5315 15.0004 19.8001 14.7318 19.8001 14.4004V13.8004H23.4001V14.4004C23.4001 14.7318 23.6687 15.0004 24.0001 15.0004C24.3315 15.0004 24.6001 14.7318 24.6001 14.4004V13.8004H28.2001V14.4004C28.2001 14.7318 28.4687 15.0004 28.8001 15.0004C29.1315 15.0004 29.4001 14.7318 29.4001 14.4004V13.8004ZM10.8001 18.6004V34.2004H37.2001V18.6004H10.8001Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s3_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4>Flexible schedule</h4><p>Complete your degree in 18–36 months as a part-time or full-time student.</p></div></div>
-        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s4_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M24.6649 23.8518L25.2002 23.334L25.7355 23.8518L26.4729 23.7475L26.6015 24.4811L27.2594 24.8301L26.9323 25.4992L27.2594 26.1683L26.6015 26.5173L26.4729 27.2509L25.7355 27.1466L25.2002 27.6644L24.6649 27.1466L23.9275 27.2509L23.7989 26.5173L23.141 26.1683L23.468 25.4992L23.141 24.8301L23.7989 24.4811L23.9275 23.7475L24.6649 23.8518Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0002 36.5992C17.0061 36.5992 16.2002 35.7933 16.2002 34.7992L16.2002 13.1992C16.2002 12.5239 15.977 11.9006 15.6004 11.3992H32.4002C33.3943 11.3992 34.2002 12.2051 34.2002 13.1992V31.7992H19.8002V34.7992C19.8002 35.7933 18.9943 36.5992 18.0002 36.5992ZM19.2002 16.1992H31.2002V14.9992H19.2002V16.1992ZM19.2002 19.1992H31.2002V17.9992H19.2002V19.1992ZM26.1482 22.5815L25.2002 21.6644L24.2522 22.5815L22.9461 22.3968L22.7183 23.696L21.5531 24.3142L22.1323 25.4992L21.5531 26.6842L22.7183 27.3025L22.9461 28.6016L24.2522 28.4169L25.2002 29.334L26.1482 28.4169L27.4542 28.6016L27.6821 27.3025L28.8473 26.6842L28.268 25.4992L28.8473 24.3142L27.6821 23.696L27.4542 22.3968L26.1482 22.5815Z" fill="white"/><path d="M11.4002 13.1992C11.4002 12.2051 12.2061 11.3992 13.2002 11.3992C14.1943 11.3992 15.0002 12.2051 15.0002 13.1992L15.0002 14.9992H11.4002L11.4002 13.1992Z" fill="white"/><path d="M21.0002 32.9992H35.4002V34.7992C35.4002 35.7933 34.5943 36.5992 33.6002 36.5992H20.4004C20.777 36.0978 21.0002 35.4746 21.0002 34.7992V32.9992Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.2002 13.1992C10.2002 11.5424 11.5433 10.1992 13.2002 10.1992H32.4002C34.0571 10.1992 35.4002 11.5424 35.4002 13.1992V31.7992H36.6002V34.7992C36.6002 36.4561 35.257 37.7992 33.6002 37.7992H18.0002C16.3433 37.7992 15.0002 36.4561 15.0002 34.7992L15.0002 16.1992H10.2002L10.2002 13.1992ZM16.2002 34.7992C16.2002 35.7933 17.0061 36.5992 18.0002 36.5992C18.9943 36.5992 19.8002 35.7933 19.8002 34.7992V31.7992H34.2002V13.1992C34.2002 12.2051 33.3943 11.3992 32.4002 11.3992H15.6004C15.977 11.9006 16.2002 12.5239 16.2002 13.1992L16.2002 34.7992ZM13.2002 11.3992C12.2061 11.3992 11.4002 12.2051 11.4002 13.1992L11.4002 14.9992H15.0002L15.0002 13.1992C15.0002 12.2051 14.1943 11.3992 13.2002 11.3992ZM35.4002 32.9992H21.0002V34.7992C21.0002 35.4746 20.777 36.0978 20.4004 36.5992H33.6002C34.5943 36.5992 35.4002 35.7933 35.4002 34.7992V32.9992ZM31.2002 16.1992H19.2002V14.9992H31.2002V16.1992ZM31.2002 19.1992H19.2002V17.9992H31.2002V19.1992ZM25.2002 21.6644L26.1482 22.5815L27.4542 22.3968L27.6821 23.696L28.8473 24.3142L28.268 25.4992L28.8473 26.6842L27.6821 27.3025L27.4542 28.6016L26.1482 28.4169L25.2002 29.334L24.2522 28.4169L22.9461 28.6016L22.7183 27.3025L21.5531 26.6842L22.1323 25.4992L21.5531 24.3142L22.7183 23.696L22.9461 22.3968L24.2522 22.5815L25.2002 21.6644ZM25.2002 23.334L24.6649 23.8518L23.9275 23.7475L23.7989 24.4811L23.141 24.8301L23.468 25.4992L23.141 26.1683L23.7989 26.5173L23.9275 27.2509L24.6649 27.1466L25.2002 27.6644L25.7355 27.1466L26.4729 27.2509L26.6015 26.5173L27.2594 26.1683L26.9323 25.4992L27.2594 24.8301L26.6015 24.4811L26.4729 23.7475L25.7355 23.8518L25.2002 23.334Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s4_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4>Same IU degree</h4><p>Your diploma is identical to those earned by on-campus graduates. Leverage the powerful IU alumni network and brand.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s1_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M17.4 11.8838V21.0004C17.4 24.6455 20.3549 27.6004 24 27.6004C27.6451 27.6004 30.6 24.6455 30.6 21.0004V11.8838C25.7 10.8392 22.3 10.8393 17.4 11.8838Z" fill="white"/><path d="M18 37.2004V35.4004H30V37.2004H18Z" fill="white"/><path d="M27 31.8004V34.2004H21V31.8004H27Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.3302 10.8147C25.8444 9.59561 22.1556 9.59562 16.6698 10.8147L16.2 10.9191V12.6004H12V20.4004C12 22.72 13.8804 24.6004 16.2 24.6004H17.0786C18.2922 26.9288 20.6463 28.5682 23.4 28.7777V30.6004H19.8V34.2004H16.8V38.4004H31.2V34.2004H28.2V30.6004H24.6V28.7777C27.3537 28.5682 29.7078 26.9288 30.9214 24.6004H31.8C34.1196 24.6004 36 22.72 36 20.4004V12.6004H31.8V10.9191L31.3302 10.8147ZM17.4 21.0004V11.8838C22.3 10.8393 25.7 10.8392 30.6 11.8838V21.0004C30.6 24.6455 27.6451 27.6004 24 27.6004C20.3549 27.6004 17.4 24.6455 17.4 21.0004ZM16.5762 23.4004H16.2C14.5431 23.4004 13.2 22.0572 13.2 20.4004V13.8004H16.2V21.0004C16.2 21.8378 16.3319 22.6443 16.5762 23.4004ZM31.8 23.4004H31.4238C31.6681 22.6443 31.8 21.8378 31.8 21.0004V13.8004H34.8V20.4004C34.8 22.0572 33.4569 23.4004 31.8 23.4004ZM18 35.4004V37.2004H30V35.4004H18ZM27 34.2004V31.8004H21V34.2004H27Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s1_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4 class="t-action-lg-strong">Top 20 national ranking</h4><p class="t-body-xs-regular">Consistently ranked among the nation’s best informatics programs, ensuring your degree is recognized by employers worldwide.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s2_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M21.0001 13.2C21.0001 11.5431 22.3432 10.2 24.0001 10.2C25.657 10.2 27.0001 11.5431 27.0001 13.2C27.0001 14.8569 25.657 16.2 24.0001 16.2C22.3432 16.2 21.0001 14.8569 21.0001 13.2Z" fill="white"/><path d="M31.2001 17.4C31.2001 16.4059 32.006 15.6 33.0001 15.6C33.9942 15.6 34.8001 16.4059 34.8001 17.4C34.8001 18.3941 33.9942 19.2 33.0001 19.2C32.006 19.2 31.2001 18.3941 31.2001 17.4Z" fill="white"/><path d="M13.2001 17.4C13.2001 16.4059 14.006 15.6 15.0001 15.6C15.9942 15.6 16.8001 16.4059 16.8001 17.4C16.8001 18.3941 15.9942 19.2 15.0001 19.2C14.006 19.2 13.2001 18.3941 13.2001 17.4Z" fill="white"/><path d="M34.2001 23.4H31.6663C31.7539 23.7859 31.8001 24.1876 31.8001 24.6V31.8H37.2001V26.4C37.2001 24.7431 35.857 23.4 34.2001 23.4Z" fill="white"/><path d="M13.8001 23.4H16.3339C16.2463 23.7859 16.2001 24.1876 16.2001 24.6V31.8H10.8001V26.4C10.8001 24.7431 12.1432 23.4 13.8001 23.4Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.6001 20.4C19.2805 20.4 17.4001 22.2804 17.4001 24.6V34.2H30.6001V24.6C30.6001 22.2804 28.7197 20.4 26.4001 20.4H21.6001ZM23.4001 28.8V23.4H24.6001V28.8H25.8001V24.6H27.0001V29.4L26.4001 30H24.6001V31.2H23.4001V30H21.6001L21.0001 29.4V24.6H22.2001V28.8H23.4001Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 9C21.6805 9 19.8001 10.8804 19.8001 13.2C19.8001 15.5196 21.6805 17.4 24.0001 17.4C26.3197 17.4 28.2001 15.5196 28.2001 13.2C28.2001 10.8804 26.3197 9 24.0001 9ZM21.0001 13.2C21.0001 11.5431 22.3432 10.2 24.0001 10.2C25.657 10.2 27.0001 11.5431 27.0001 13.2C27.0001 14.8569 25.657 16.2 24.0001 16.2C22.3432 16.2 21.0001 14.8569 21.0001 13.2Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M33.0001 14.4C31.3432 14.4 30.0001 15.7431 30.0001 17.4C30.0001 19.0569 31.3432 20.4 33.0001 20.4C34.657 20.4 36.0001 19.0569 36.0001 17.4C36.0001 15.7431 34.657 14.4 33.0001 14.4ZM31.2001 17.4C31.2001 16.4059 32.006 15.6 33.0001 15.6C33.9942 15.6 34.8001 16.4059 34.8001 17.4C34.8001 18.3941 33.9942 19.2 33.0001 19.2C32.006 19.2 31.2001 18.3941 31.2001 17.4Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 17.4C12.0001 15.7431 13.3432 14.4 15.0001 14.4C16.657 14.4 18.0001 15.7431 18.0001 17.4C18.0001 19.0569 16.657 20.4 15.0001 20.4C13.3432 20.4 12.0001 19.0569 12.0001 17.4ZM15.0001 15.6C14.006 15.6 13.2001 16.4059 13.2001 17.4C13.2001 18.3941 14.006 19.2 15.0001 19.2C15.9942 19.2 16.8001 18.3941 16.8001 17.4C16.8001 16.4059 15.9942 15.6 15.0001 15.6Z" fill="#990000"/><path d="M23.4001 28.8V23.4H24.6001V28.8H25.8001V24.6H27.0001V29.4L26.4001 30H24.6001V31.2H23.4001V30H21.6001L21.0001 29.4V24.6H22.2001V28.8H23.4001Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.2388 22.2H34.2001C36.5197 22.2 38.4001 24.0804 38.4001 26.4V33H31.8001V35.4H16.2001V33H9.6001V26.4C9.6001 24.0804 11.4805 22.2 13.8001 22.2H16.7614C17.645 20.4219 19.4799 19.2 21.6001 19.2H26.4001C28.5203 19.2 30.3552 20.4219 31.2388 22.2ZM31.6663 23.4H34.2001C35.857 23.4 37.2001 24.7431 37.2001 26.4V31.8H31.8001V24.6C31.8001 24.1876 31.7539 23.7859 31.6663 23.4ZM16.3339 23.4H13.8001C12.1432 23.4 10.8001 24.7431 10.8001 26.4V31.8H16.2001V24.6C16.2001 24.1876 16.2463 23.7859 16.3339 23.4ZM17.4001 24.6C17.4001 22.2804 19.2805 20.4 21.6001 20.4H26.4001C28.7197 20.4 30.6001 22.2804 30.6001 24.6V34.2H17.4001V24.6Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s2_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4 class="t-action-lg-strong">Expert faculty</h4><p class="t-body-xs-regular">Learn from seasoned professors who are active researchers and industry consultants, offering you the latest insights in the field.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s3_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M33.0001 13.8004H29.4001V14.4004C29.4001 14.7318 29.1315 15.0004 28.8001 15.0004C28.4687 15.0004 28.2001 14.7318 28.2001 14.4004V13.8004H24.6001V14.4004C24.6001 14.7318 24.3315 15.0004 24.0001 15.0004C23.6687 15.0004 23.4001 14.7318 23.4001 14.4004V13.8004H19.8001V14.4004C19.8001 14.7318 19.5315 15.0004 19.2001 15.0004C18.8687 15.0004 18.6001 14.7318 18.6001 14.4004V13.8004H15.0001V14.4004C15.0001 14.7318 14.7315 15.0004 14.4001 15.0004C14.0687 15.0004 13.8001 14.7318 13.8001 14.4004V13.8004H10.8001V17.4004H37.2001V13.8004H34.2001V14.4004C34.2001 14.7318 33.9315 15.0004 33.6001 15.0004C33.2687 15.0004 33.0001 14.7318 33.0001 14.4004V13.8004Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 34.2004V18.6004H37.2001V34.2004H10.8001ZM21.0001 22.2004C21.0001 22.8631 20.4628 23.4004 19.8001 23.4004C19.1374 23.4004 18.6001 22.8631 18.6001 22.2004C18.6001 21.5376 19.1374 21.0004 19.8001 21.0004C20.4628 21.0004 21.0001 21.5376 21.0001 22.2004ZM19.8001 27.6004C20.4628 27.6004 21.0001 27.0631 21.0001 26.4004C21.0001 25.7376 20.4628 25.2004 19.8001 25.2004C19.1374 25.2004 18.6001 25.7376 18.6001 26.4004C18.6001 27.0631 19.1374 27.6004 19.8001 27.6004ZM19.8001 31.8004C20.4628 31.8004 21.0001 31.2631 21.0001 30.6004C21.0001 29.9377 20.4628 29.4004 19.8001 29.4004C19.1374 29.4004 18.6001 29.9377 18.6001 30.6004C18.6001 31.2631 19.1374 31.8004 19.8001 31.8004ZM24.0001 23.4004C24.6628 23.4004 25.2001 22.8631 25.2001 22.2004C25.2001 21.5376 24.6628 21.0004 24.0001 21.0004C23.3374 21.0004 22.8001 21.5376 22.8001 22.2004C22.8001 22.8631 23.3374 23.4004 24.0001 23.4004ZM24.0001 27.6004C24.6628 27.6004 25.2001 27.0631 25.2001 26.4004C25.2001 25.7376 24.6628 25.2004 24.0001 25.2004C23.3374 25.2004 22.8001 25.7376 22.8001 26.4004C22.8001 27.0631 23.3374 27.6004 24.0001 27.6004ZM24.0001 31.8004C24.6628 31.8004 25.2001 31.2631 25.2001 30.6004C25.2001 29.9377 24.6628 29.4004 24.0001 29.4004C23.3374 29.4004 22.8001 29.9377 22.8001 30.6004C22.8001 31.2631 23.3374 31.8004 24.0001 31.8004ZM28.2001 23.4004C28.8628 23.4004 29.4001 22.8631 29.4001 22.2004C29.4001 21.5376 28.8628 21.0004 28.2001 21.0004C27.5374 21.0004 27.0001 21.5376 27.0001 22.2004C27.0001 22.8631 27.5374 23.4004 28.2001 23.4004ZM28.2001 27.6004C28.8628 27.6004 29.4001 27.0631 29.4001 26.4004C29.4001 25.7376 28.8628 25.2004 28.2001 25.2004C27.5374 25.2004 27.0001 25.7376 27.0001 26.4004C27.0001 27.0631 27.5374 27.6004 28.2001 27.6004ZM32.4001 23.4004C33.0628 23.4004 33.6001 22.8631 33.6001 22.2004C33.6001 21.5376 33.0628 21.0004 32.4001 21.0004C31.7374 21.0004 31.2001 21.5376 31.2001 22.2004C31.2001 22.8631 31.7374 23.4004 32.4001 23.4004ZM32.4001 27.6004C33.0628 27.6004 33.6001 27.0631 33.6001 26.4004C33.6001 25.7376 33.0628 25.2004 32.4001 25.2004C31.7374 25.2004 31.2001 25.7376 31.2001 26.4004C31.2001 27.0631 31.7374 27.6004 32.4001 27.6004ZM15.6001 27.6004C16.2628 27.6004 16.8001 27.0631 16.8001 26.4004C16.8001 25.7376 16.2628 25.2004 15.6001 25.2004C14.9374 25.2004 14.4001 25.7376 14.4001 26.4004C14.4001 27.0631 14.9374 27.6004 15.6001 27.6004ZM15.6001 31.8004C16.2628 31.8004 16.8001 31.2631 16.8001 30.6004C16.8001 29.9377 16.2628 29.4004 15.6001 29.4004C14.9374 29.4004 14.4001 29.9377 14.4001 30.6004C14.4001 31.2631 14.9374 31.8004 15.6001 31.8004Z" fill="white"/><path d="M21.0001 22.2004C21.0001 22.8631 20.4628 23.4004 19.8001 23.4004C19.1374 23.4004 18.6001 22.8631 18.6001 22.2004C18.6001 21.5376 19.1374 21.0004 19.8001 21.0004C20.4628 21.0004 21.0001 21.5376 21.0001 22.2004Z" fill="#990000"/><path d="M19.8001 27.6004C20.4628 27.6004 21.0001 27.0631 21.0001 26.4004C21.0001 25.7376 20.4628 25.2004 19.8001 25.2004C19.1374 25.2004 18.6001 25.7376 18.6001 26.4004C18.6001 27.0631 19.1374 27.6004 19.8001 27.6004Z" fill="#990000"/><path d="M21.0001 30.6004C21.0001 31.2631 20.4628 31.8004 19.8001 31.8004C19.1374 31.8004 18.6001 31.2631 18.6001 30.6004C18.6001 29.9377 19.1374 29.4004 19.8001 29.4004C20.4628 29.4004 21.0001 29.9377 21.0001 30.6004Z" fill="#990000"/><path d="M24.0001 23.4004C24.6628 23.4004 25.2001 22.8631 25.2001 22.2004C25.2001 21.5376 24.6628 21.0004 24.0001 21.0004C23.3374 21.0004 22.8001 21.5376 22.8001 22.2004C22.8001 22.8631 23.3374 23.4004 24.0001 23.4004Z" fill="#990000"/><path d="M25.2001 26.4004C25.2001 27.0631 24.6628 27.6004 24.0001 27.6004C23.3374 27.6004 22.8001 27.0631 22.8001 26.4004C22.8001 25.7376 23.3374 25.2004 24.0001 25.2004C24.6628 25.2004 25.2001 25.7376 25.2001 26.4004Z" fill="#990000"/><path d="M24.0001 31.8004C24.6628 31.8004 25.2001 31.2631 25.2001 30.6004C25.2001 29.9377 24.6628 29.4004 24.0001 29.4004C23.3374 29.4004 22.8001 29.9377 22.8001 30.6004C22.8001 31.2631 23.3374 31.8004 24.0001 31.8004Z" fill="#990000"/><path d="M29.4001 22.2004C29.4001 22.8631 28.8628 23.4004 28.2001 23.4004C27.5374 23.4004 27.0001 22.8631 27.0001 22.2004C27.0001 21.5376 27.5374 21.0004 28.2001 21.0004C28.8628 21.0004 29.4001 21.5376 29.4001 22.2004Z" fill="#990000"/><path d="M28.2001 27.6004C28.8628 27.6004 29.4001 27.0631 29.4001 26.4004C29.4001 25.7376 28.8628 25.2004 28.2001 25.2004C27.5374 25.2004 27.0001 25.7376 27.0001 26.4004C27.0001 27.0631 27.5374 27.6004 28.2001 27.6004Z" fill="#990000"/><path d="M33.6001 22.2004C33.6001 22.8631 33.0628 23.4004 32.4001 23.4004C31.7374 23.4004 31.2001 22.8631 31.2001 22.2004C31.2001 21.5376 31.7374 21.0004 32.4001 21.0004C33.0628 21.0004 33.6001 21.5376 33.6001 22.2004Z" fill="#990000"/><path d="M32.4001 27.6004C33.0628 27.6004 33.6001 27.0631 33.6001 26.4004C33.6001 25.7376 33.0628 25.2004 32.4001 25.2004C31.7374 25.2004 31.2001 25.7376 31.2001 26.4004C31.2001 27.0631 31.7374 27.6004 32.4001 27.6004Z" fill="#990000"/><path d="M16.8001 26.4004C16.8001 27.0631 16.2628 27.6004 15.6001 27.6004C14.9374 27.6004 14.4001 27.0631 14.4001 26.4004C14.4001 25.7376 14.9374 25.2004 15.6001 25.2004C16.2628 25.2004 16.8001 25.7376 16.8001 26.4004Z" fill="#990000"/><path d="M15.6001 31.8004C16.2628 31.8004 16.8001 31.2631 16.8001 30.6004C16.8001 29.9377 16.2628 29.4004 15.6001 29.4004C14.9374 29.4004 14.4001 29.9377 14.4001 30.6004C14.4001 31.2631 14.9374 31.8004 15.6001 31.8004Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M13.8001 12.0004C13.8001 11.669 14.0687 11.4004 14.4001 11.4004C14.7315 11.4004 15.0001 11.669 15.0001 12.0004V12.6004H18.6001V12.0004C18.6001 11.669 18.8687 11.4004 19.2001 11.4004C19.5315 11.4004 19.8001 11.669 19.8001 12.0004V12.6004H23.4001V12.0004C23.4001 11.669 23.6687 11.4004 24.0001 11.4004C24.3315 11.4004 24.6001 11.669 24.6001 12.0004V12.6004H28.2001V12.0004C28.2001 11.669 28.4687 11.4004 28.8001 11.4004C29.1315 11.4004 29.4001 11.669 29.4001 12.0004V12.6004H33.0001V12.0004C33.0001 11.669 33.2687 11.4004 33.6001 11.4004C33.9315 11.4004 34.2001 11.669 34.2001 12.0004V12.6004H38.4001V35.4004H9.6001V12.6004H13.8001V12.0004ZM29.4001 13.8004H33.0001V14.4004C33.0001 14.7318 33.2687 15.0004 33.6001 15.0004C33.9315 15.0004 34.2001 14.7318 34.2001 14.4004V13.8004H37.2001V17.4004H10.8001V13.8004H13.8001V14.4004C13.8001 14.7318 14.0687 15.0004 14.4001 15.0004C14.7315 15.0004 15.0001 14.7318 15.0001 14.4004V13.8004H18.6001V14.4004C18.6001 14.7318 18.8687 15.0004 19.2001 15.0004C19.5315 15.0004 19.8001 14.7318 19.8001 14.4004V13.8004H23.4001V14.4004C23.4001 14.7318 23.6687 15.0004 24.0001 15.0004C24.3315 15.0004 24.6001 14.7318 24.6001 14.4004V13.8004H28.2001V14.4004C28.2001 14.7318 28.4687 15.0004 28.8001 15.0004C29.1315 15.0004 29.4001 14.7318 29.4001 14.4004V13.8004ZM10.8001 18.6004V34.2004H37.2001V18.6004H10.8001Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s3_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4 class="t-action-lg-strong">Flexible schedule</h4><p class="t-body-xs-regular">Complete your degree in 18–36 months as a part-time or full-time student.</p></div></div>
+        <div class="hl"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s4_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M24.6649 23.8518L25.2002 23.334L25.7355 23.8518L26.4729 23.7475L26.6015 24.4811L27.2594 24.8301L26.9323 25.4992L27.2594 26.1683L26.6015 26.5173L26.4729 27.2509L25.7355 27.1466L25.2002 27.6644L24.6649 27.1466L23.9275 27.2509L23.7989 26.5173L23.141 26.1683L23.468 25.4992L23.141 24.8301L23.7989 24.4811L23.9275 23.7475L24.6649 23.8518Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18.0002 36.5992C17.0061 36.5992 16.2002 35.7933 16.2002 34.7992L16.2002 13.1992C16.2002 12.5239 15.977 11.9006 15.6004 11.3992H32.4002C33.3943 11.3992 34.2002 12.2051 34.2002 13.1992V31.7992H19.8002V34.7992C19.8002 35.7933 18.9943 36.5992 18.0002 36.5992ZM19.2002 16.1992H31.2002V14.9992H19.2002V16.1992ZM19.2002 19.1992H31.2002V17.9992H19.2002V19.1992ZM26.1482 22.5815L25.2002 21.6644L24.2522 22.5815L22.9461 22.3968L22.7183 23.696L21.5531 24.3142L22.1323 25.4992L21.5531 26.6842L22.7183 27.3025L22.9461 28.6016L24.2522 28.4169L25.2002 29.334L26.1482 28.4169L27.4542 28.6016L27.6821 27.3025L28.8473 26.6842L28.268 25.4992L28.8473 24.3142L27.6821 23.696L27.4542 22.3968L26.1482 22.5815Z" fill="white"/><path d="M11.4002 13.1992C11.4002 12.2051 12.2061 11.3992 13.2002 11.3992C14.1943 11.3992 15.0002 12.2051 15.0002 13.1992L15.0002 14.9992H11.4002L11.4002 13.1992Z" fill="white"/><path d="M21.0002 32.9992H35.4002V34.7992C35.4002 35.7933 34.5943 36.5992 33.6002 36.5992H20.4004C20.777 36.0978 21.0002 35.4746 21.0002 34.7992V32.9992Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.2002 13.1992C10.2002 11.5424 11.5433 10.1992 13.2002 10.1992H32.4002C34.0571 10.1992 35.4002 11.5424 35.4002 13.1992V31.7992H36.6002V34.7992C36.6002 36.4561 35.257 37.7992 33.6002 37.7992H18.0002C16.3433 37.7992 15.0002 36.4561 15.0002 34.7992L15.0002 16.1992H10.2002L10.2002 13.1992ZM16.2002 34.7992C16.2002 35.7933 17.0061 36.5992 18.0002 36.5992C18.9943 36.5992 19.8002 35.7933 19.8002 34.7992V31.7992H34.2002V13.1992C34.2002 12.2051 33.3943 11.3992 32.4002 11.3992H15.6004C15.977 11.9006 16.2002 12.5239 16.2002 13.1992L16.2002 34.7992ZM13.2002 11.3992C12.2061 11.3992 11.4002 12.2051 11.4002 13.1992L11.4002 14.9992H15.0002L15.0002 13.1992C15.0002 12.2051 14.1943 11.3992 13.2002 11.3992ZM35.4002 32.9992H21.0002V34.7992C21.0002 35.4746 20.777 36.0978 20.4004 36.5992H33.6002C34.5943 36.5992 35.4002 35.7933 35.4002 34.7992V32.9992ZM31.2002 16.1992H19.2002V14.9992H31.2002V16.1992ZM31.2002 19.1992H19.2002V17.9992H31.2002V19.1992ZM25.2002 21.6644L26.1482 22.5815L27.4542 22.3968L27.6821 23.696L28.8473 24.3142L28.268 25.4992L28.8473 26.6842L27.6821 27.3025L27.4542 28.6016L26.1482 28.4169L25.2002 29.334L24.2522 28.4169L22.9461 28.6016L22.7183 27.3025L21.5531 26.6842L22.1323 25.4992L21.5531 24.3142L22.7183 23.696L22.9461 22.3968L24.2522 22.5815L25.2002 21.6644ZM25.2002 23.334L24.6649 23.8518L23.9275 23.7475L23.7989 24.4811L23.141 24.8301L23.468 25.4992L23.141 26.1683L23.7989 26.5173L23.9275 27.2509L24.6649 27.1466L25.2002 27.6644L25.7355 27.1466L26.4729 27.2509L26.6015 26.5173L27.2594 26.1683L26.9323 25.4992L27.2594 24.8301L26.6015 24.4811L26.4729 23.7475L25.7355 23.8518L25.2002 23.334Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s4_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><div><h4 class="t-action-lg-strong">Same IU degree</h4><p class="t-body-xs-regular">Your diploma is identical to those earned by on-campus graduates. Leverage the powerful IU alumni network and brand.</p></div></div>
       </div>
     </section>
 
     <section id="requirements" aria-labelledby="req-h">
-      <h2 id="req-h">Degree requirements</h2>
-      <p class="lead">To earn your B.S. in Informatics, you’ll need to <strong>complete 120 semester credit hours</strong>. Here’s a detailed breakdown of the required course structure and some core courses.</p>
+      <h2 class="t-heading-2xl-strong" id="req-h">Degree requirements</h2>
+      <p class="lead t-body-base-regular">To earn your B.S. in Informatics, you’ll need to <strong>complete 120 semester credit hours</strong>. Here’s a detailed breakdown of the required course structure and some core courses.</p>
       <details class="disclosure">
-        <summary><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg>HLC dual-credit standards for instructors</summary>
-        <div class="body">Instructors teaching dual-credit courses meet the Higher Learning Commission’s faculty qualification standards: a master’s degree in the discipline, or a master’s degree in another field plus at least 18 graduate credit hours in the discipline. (Sample copy.)</div>
+        <summary class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M6.263 15.146 12.31 8 6.263.854 4.737 2.146 9.69 8l-4.953 5.854 1.526 1.292Z"/></svg>HLC dual-credit standards for instructors</summary>
+        <div class="body t-body-sm-regular">Instructors teaching dual-credit courses meet the Higher Learning Commission’s faculty qualification standards: a master’s degree in the discipline, or a master’s degree in another field plus at least 18 graduate credit hours in the discipline. (Sample copy.)</div>
       </details>
-      <h3>Required courses</h3>
+      <h3 class="t-heading-xl-strong">Required courses</h3>
       <div class="courses">
-        <div class="course"><span class="badge">36 credit hours</span><p>Informatics core courses</p></div>
-        <div class="course"><span class="badge">15–18 credit hours</span><p>Cognate courses</p></div>
-        <div class="course"><span class="badge">30–42 credit hours</span><p>General education courses</p></div>
-        <div class="course"><span class="badge">9 credit hours</span><p>Informatics electives</p></div>
-        <div class="course"><span class="badge">2–27 credit hours</span><p>General electives</p></div>
+        <div class="course"><span class="badge t-heading-xs-strong">36 credit hours</span><p class="t-action-lg-strong">Informatics core courses</p></div>
+        <div class="course"><span class="badge t-heading-xs-strong">15–18 credit hours</span><p class="t-action-lg-strong">Cognate courses</p></div>
+        <div class="course"><span class="badge t-heading-xs-strong">30–42 credit hours</span><p class="t-action-lg-strong">General education courses</p></div>
+        <div class="course"><span class="badge t-heading-xs-strong">9 credit hours</span><p class="t-action-lg-strong">Informatics electives</p></div>
+        <div class="course"><span class="badge t-heading-xs-strong">2–27 credit hours</span><p class="t-action-lg-strong">General electives</p></div>
       </div>
-      <a class="text-link" href="https://bulletins.iu.edu/" target="_blank" rel="noopener">See full course list <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg><span class="sr-only">(opens in a new tab)</span></a>
+      <a class="text-link t-action-lg-strong" href="https://bulletins.iu.edu/" target="_blank" rel="noopener">See full course list <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg><span class="sr-only">(opens in a new tab)</span></a>
     </section>
 
     <section id="takeaways" aria-labelledby="kt-h">
-      <h2 id="kt-h">Key takeaways</h2>
+      <h2 class="t-heading-2xl-strong" id="kt-h">Key takeaways</h2>
       <ul class="takeaways">
-        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Core focus</h4><p>The curriculum connects people, information, and technology to solve problems in areas like healthcare, privacy, and security.</p></div></li>
-        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Practical skills</h4><p id="skills-sentence"></p></div></li>
-        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Specializations &amp; concentrations</h4><p>Choose a concentration that matches your interests and career goals such as:</p>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Core focus</h4><p class="t-body-base-regular">The curriculum connects people, information, and technology to solve problems in areas like healthcare, privacy, and security.</p></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Practical skills</h4><p class="t-body-base-regular" id="skills-sentence"></p></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Specializations &amp; concentrations</h4><p class="t-body-base-regular">Choose a concentration that matches your interests and career goals such as:</p>
           <ul class="sublist">
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Business</h5><p>Learn the foundational principles of economics, management, and marketing to lead organizations and drive global commerce.</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Health Information Management</h5><p>Master the systems and technologies necessary to manage and secure patient health data, bridging healthcare and information technology.</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Legal Informatics</h5><p>Explore the intersection of law and technology, using computational methods to solve legal problems, manage information, and streamline judicial processes.</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Sustainability</h5><p>Gain the knowledge to develop and implement practices that balance environmental, social, and economic needs for a resilient future.</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Enterprise Resource Planning</h5><p>Focus on integrating and optimizing a company’s core business processes—like finance, HR, and supply chain—using comprehensive software systems.</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Business</h5><p class="t-body-xs-regular">Learn the foundational principles of economics, management, and marketing to lead organizations and drive global commerce.</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Health Information Management</h5><p class="t-body-xs-regular">Master the systems and technologies necessary to manage and secure patient health data, bridging healthcare and information technology.</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Legal Informatics</h5><p class="t-body-xs-regular">Explore the intersection of law and technology, using computational methods to solve legal problems, manage information, and streamline judicial processes.</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Sustainability</h5><p class="t-body-xs-regular">Gain the knowledge to develop and implement practices that balance environmental, social, and economic needs for a resilient future.</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Enterprise Resource Planning</h5><p class="t-body-xs-regular">Focus on integrating and optimizing a company’s core business processes—like finance, HR, and supply chain—using comprehensive software systems.</p></li>
           </ul></div></li>
-        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Career pathways</h4><p>The degree prepares graduates for diverse career opportunities, including:</p>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Career pathways</h4><p class="t-body-base-regular">The degree prepares graduates for diverse career opportunities, including:</p>
           <ul class="sublist">
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>User Experience Designer</h5><p>A user experience designer creates intuitive and engaging digital experiences by researching user needs and designing user-friendly interfaces.</p><p class="salary">$85k – $130k</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Digital Library Specialist</h5><p>A digital library specialist curates and manages digital resources, ensuring easy access to information while supporting users in navigating technology and data.</p><p class="salary">$90k – $160k</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Network Manager</h5><p>A network manager oversees the design, implementation, and maintenance of an organization’s computer networks, ensuring optimal performance and security.</p><p class="salary">$75k – $140k</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Web Developer</h5><p>A web developer creates and maintains websites, ensuring they are user-friendly, visually appealing, and function smoothly across various devices.</p><p class="salary">$85k – $130k</p></li>
-            <li><h5><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Information Architect</h5><p>An information architect designs and organizes information systems to enhance user experience and ensure efficient data flow within an organization.</p><p class="salary">$90k – $160k</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>User Experience Designer</h5><p class="t-body-xs-regular">A user experience designer creates intuitive and engaging digital experiences by researching user needs and designing user-friendly interfaces.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Digital Library Specialist</h5><p class="t-body-xs-regular">A digital library specialist curates and manages digital resources, ensuring easy access to information while supporting users in navigating technology and data.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Network Manager</h5><p class="t-body-xs-regular">A network manager oversees the design, implementation, and maintenance of an organization’s computer networks, ensuring optimal performance and security.</p><p class="salary t-body-xs-regular">$75k – $140k</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Web Developer</h5><p class="t-body-xs-regular">A web developer creates and maintains websites, ensuring they are user-friendly, visually appealing, and function smoothly across various devices.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
+            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Information Architect</h5><p class="t-body-xs-regular">An information architect designs and organizes information systems to enhance user experience and ensure efficient data flow within an organization.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
           </ul></div></li>
-        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4>Experiential learning</h4><p><span id="exp-sentence"></span> Those accepted into IU Online benefit from comprehensive personalized <a href="#advisors">support services</a>.</p></div></li>
+        <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Experiential learning</h4><p class="t-body-base-regular"><span id="exp-sentence"></span> Those accepted into IU Online benefit from comprehensive personalized <a href="#advisors">support services</a>.</p></div></li>
       </ul>
     </section>
 
     <section id="finances" aria-labelledby="fin-h">
-      <h2 id="fin-h">Plan your finances</h2>
-      <span class="badge badge--dark"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg>Program qualifies for aid</span>
-      <p class="lead" style="margin-top:32px">Program cost can vary by campus, resident status, and type of program. Use the resources below to get accurate cost estimates for your specific situation. International students, please check with the <a href="#finances" style="color:var(--crimson)">international student admissions office</a> at your IU campus for more information about cost and financial aid.</p>
+      <h2 class="t-heading-2xl-strong" id="fin-h">Plan your finances</h2>
+      <span class="badge badge--strong t-heading-xs-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg>Program qualifies for aid</span>
+      <p class="lead t-body-base-regular" style="margin-top:var(--spacing-32)">Program cost can vary by campus, resident status, and type of program. Use the resources below to get accurate cost estimates for your specific situation. International students, please check with the <a href="#finances">international student admissions office</a> at your IU campus for more information about cost and financial aid.</p>
       <ul class="quick-links">
-        <li><a href="https://bursar.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Campus tuition &amp; fee breakdown</a></li>
-        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Net price &amp; cost calculator</a></li>
-        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Financial aid options</a></li>
-        <li><div class="ql"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2v12h16V2H0Zm2 2.023V4h12v.023L8 7.356 2 4.023ZM2 6.31l6 3.333 6-3.333V12H2V6.31Z"/></svg>Questions about cost?</div><p class="ql-sub">Email Student Financial Services at <a href="mailto:iuosfs@iu.edu">iuosfs@iu.edu</a></p></li>
+        <li><a href="https://bursar.iu.edu/" target="_blank" rel="noopener" class="t-action-xl-strong-fixed"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Campus tuition &amp; fee breakdown</a></li>
+        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener" class="t-action-xl-strong-fixed"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Net price &amp; cost calculator</a></li>
+        <li><a href="https://studentcentral.iu.edu/" target="_blank" rel="noopener" class="t-action-xl-strong-fixed"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Financial aid options</a></li>
+        <li><div class="ql t-action-xl-strong-fixed"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2v12h16V2H0Zm2 2.023V4h12v.023L8 7.356 2 4.023ZM2 6.31l6 3.333 6-3.333V12H2V6.31Z"/></svg>Questions about cost?</div><p class="ql-sub t-body-base-regular">Email Student Financial Services at <a href="mailto:iuosfs@iu.edu">iuosfs@iu.edu</a></p></li>
       </ul>
     </section>
   </div>
 
   <aside class="sidebar" aria-label="Important details">
     <div class="details-card">
-      <header><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g clip-path="url(#s5_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M11.9998 33.6008V30.0008H35.9998V33.6008H11.9998Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5998 26.4008C15.5998 27.3228 15.2532 28.1639 14.6831 28.8008H33.3165C32.7464 28.1639 32.3998 27.3228 32.3998 26.4008V19.8008C32.3998 15.1616 28.639 11.4008 23.9998 11.4008C19.3606 11.4008 15.5998 15.1616 15.5998 19.8008V26.4008ZM23.9998 15.0008C21.1832 15.0008 19.1998 16.9841 19.1998 19.8008H17.9998C17.9998 16.3214 20.5204 13.8008 23.9998 13.8008V15.0008Z" fill="white"/><path d="M25.1998 10.2751V10.2008C25.1998 9.53804 24.6625 9.00078 23.9998 9.00078C23.3371 9.00078 22.7998 9.53804 22.7998 10.2008V10.2751C23.1929 10.226 23.5934 10.2008 23.9998 10.2008C24.4062 10.2008 24.8067 10.226 25.1998 10.2751Z" fill="white"/><path d="M19.1998 19.8008C19.1998 16.9841 21.1832 15.0008 23.9998 15.0008V13.8008C20.5204 13.8008 17.9998 16.3214 17.9998 19.8008H19.1998Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.5998 10.2008C21.5998 8.8753 22.6743 7.80078 23.9998 7.80078C25.3253 7.80078 26.3998 8.8753 26.3998 10.2008V10.5032C30.5403 11.5689 33.5998 15.3276 33.5998 19.8008V26.4008C33.5998 27.7263 34.6743 28.8008 35.9998 28.8008H37.1998V34.8008H26.3242C26.0578 35.8359 25.1181 36.6008 23.9998 36.6008C22.8815 36.6008 21.9418 35.8359 21.6754 34.8008H10.7998V28.8008H11.9998C13.3253 28.8008 14.3998 27.7263 14.3998 26.4008V19.8008C14.3998 15.3276 17.4593 11.5689 21.5998 10.5032V10.2008ZM11.9998 30.0008V33.6008H35.9998V30.0008H11.9998ZM14.6831 28.8008C15.2532 28.1639 15.5998 27.3228 15.5998 26.4008V19.8008C15.5998 15.1616 19.3606 11.4008 23.9998 11.4008C28.639 11.4008 32.3998 15.1616 32.3998 19.8008V26.4008C32.3998 27.3228 32.7464 28.1639 33.3165 28.8008H14.6831ZM25.1998 10.2008V10.2751C24.8067 10.226 24.4062 10.2008 23.9998 10.2008C23.5934 10.2008 23.1929 10.226 22.7998 10.2751V10.2008C22.7998 9.53804 23.3371 9.00078 23.9998 9.00078C24.6625 9.00078 25.1998 9.53804 25.1998 10.2008Z" fill="#990000"/></g></g></g></g></g><defs><clipPath id="s5_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><h2>Important details</h2></header>
+      <header><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g clip-path="url(#s5_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path d="M11.9998 33.6008V30.0008H35.9998V33.6008H11.9998Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M15.5998 26.4008C15.5998 27.3228 15.2532 28.1639 14.6831 28.8008H33.3165C32.7464 28.1639 32.3998 27.3228 32.3998 26.4008V19.8008C32.3998 15.1616 28.639 11.4008 23.9998 11.4008C19.3606 11.4008 15.5998 15.1616 15.5998 19.8008V26.4008ZM23.9998 15.0008C21.1832 15.0008 19.1998 16.9841 19.1998 19.8008H17.9998C17.9998 16.3214 20.5204 13.8008 23.9998 13.8008V15.0008Z" fill="white"/><path d="M25.1998 10.2751V10.2008C25.1998 9.53804 24.6625 9.00078 23.9998 9.00078C23.3371 9.00078 22.7998 9.53804 22.7998 10.2008V10.2751C23.1929 10.226 23.5934 10.2008 23.9998 10.2008C24.4062 10.2008 24.8067 10.226 25.1998 10.2751Z" fill="white"/><path d="M19.1998 19.8008C19.1998 16.9841 21.1832 15.0008 23.9998 15.0008V13.8008C20.5204 13.8008 17.9998 16.3214 17.9998 19.8008H19.1998Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21.5998 10.2008C21.5998 8.8753 22.6743 7.80078 23.9998 7.80078C25.3253 7.80078 26.3998 8.8753 26.3998 10.2008V10.5032C30.5403 11.5689 33.5998 15.3276 33.5998 19.8008V26.4008C33.5998 27.7263 34.6743 28.8008 35.9998 28.8008H37.1998V34.8008H26.3242C26.0578 35.8359 25.1181 36.6008 23.9998 36.6008C22.8815 36.6008 21.9418 35.8359 21.6754 34.8008H10.7998V28.8008H11.9998C13.3253 28.8008 14.3998 27.7263 14.3998 26.4008V19.8008C14.3998 15.3276 17.4593 11.5689 21.5998 10.5032V10.2008ZM11.9998 30.0008V33.6008H35.9998V30.0008H11.9998ZM14.6831 28.8008C15.2532 28.1639 15.5998 27.3228 15.5998 26.4008V19.8008C15.5998 15.1616 19.3606 11.4008 23.9998 11.4008C28.639 11.4008 32.3998 15.1616 32.3998 19.8008V26.4008C32.3998 27.3228 32.7464 28.1639 33.3165 28.8008H14.6831ZM25.1998 10.2008V10.2751C24.8067 10.226 24.4062 10.2008 23.9998 10.2008C23.5934 10.2008 23.1929 10.226 22.7998 10.2751V10.2008C22.7998 9.53804 23.3371 9.00078 23.9998 9.00078C24.6625 9.00078 25.1998 9.53804 25.1998 10.2008Z" fill="#990000"/></g></g></g></g></g><defs><clipPath id="s5_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><h2 class="t-heading-lg-strong">Important details</h2></header>
       <div class="grp">
-        <h3>Entry requirements</h3>
-        <ul class="sq-list"><li>Bachelor’s degree in CS or related field</li><li>GPA 3.0 or higher</li><li>GRE scores (recommended)</li><li>2 letters of recommendation</li><li>Personal statement</li><li>Resume/CV</li></ul>
-        <h4>International students</h4>
-        <ul class="sq-list small"><li>Must pay a $65 application fee per campus</li><li>Must submit official transcripts, proof of English proficiency, and other required documents listed by each campus.</li></ul>
+        <h3 class="t-heading-md-strong">Entry requirements</h3>
+        <ul class="sq-list t-body-sm-regular"><li>Bachelor’s degree in CS or related field</li><li>GPA 3.0 or higher</li><li>GRE scores (recommended)</li><li>2 letters of recommendation</li><li>Personal statement</li><li>Resume/CV</li></ul>
+        <h4 class="t-heading-sm-strong">International students</h4>
+        <ul class="sq-list t-body-xs-regular"><li>Must pay a $65 application fee per campus</li><li>Must submit official transcripts, proof of English proficiency, and other required documents listed by each campus.</li></ul>
       </div>
-      <div class="grp"><h3>Transferable credits</h3>
-        <p class="kv"><span><strong>Associate degree:</strong> may be transferable</span><span><strong>2-year college:</strong> up to 64 credits</span><span><strong>4-year college:</strong> up to 90 credits</span></p></div>
-      <div class="grp"><h3>Application deadline</h3>
-        <p class="kv"><span><strong>Final:</strong> Mar 15, 2026</span><span><strong>Earliest:</strong> Jan 15, 2026</span><span><strong>Note:</strong> always confirm the exact time zone on the official application portal or confirm with the admissions office.</span></p></div>
-      <div class="grp"><h3>Start date</h3>
-        <p class="kv"><span><strong>Start:</strong> August 2026</span><span><strong>Earliest:</strong> Spring admission available</span></p></div>
+      <div class="grp"><h3 class="t-heading-md-strong">Transferable credits</h3>
+        <p class="kv t-body-sm-regular"><span><strong>Associate degree:</strong> may be transferable</span><span><strong>2-year college:</strong> up to 64 credits</span><span><strong>4-year college:</strong> up to 90 credits</span></p></div>
+      <div class="grp"><h3 class="t-heading-md-strong">Application deadline</h3>
+        <p class="kv t-body-sm-regular"><span><strong>Final:</strong> Mar 15, 2026</span><span><strong>Earliest:</strong> Jan 15, 2026</span><span><strong>Note:</strong> always confirm the exact time zone on the official application portal or confirm with the admissions office.</span></p></div>
+      <div class="grp"><h3 class="t-heading-md-strong">Start date</h3>
+        <p class="kv t-body-sm-regular"><span><strong>Start:</strong> August 2026</span><span><strong>Earliest:</strong> Spring admission available</span></p></div>
     </div>
     <button class="compare-card" type="button" data-open-drawer aria-haspopup="dialog">
       <span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g clip-path="url(#s6_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM27.3121 15.4854L31.4295 19.7996L27.3121 24.1139L26.444 23.2854L29.1981 20.3996H16.8001V19.1996H29.1981L26.444 16.3139L27.3121 15.4854ZM20.6881 23.8854L16.5707 28.1996L20.6881 32.5139L21.5562 31.6854L18.8021 28.7996H31.2001V27.5996H18.8021L21.5562 24.7139L20.6881 23.8854Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M20.6881 23.8854L16.5707 28.1996L20.6881 32.5139L21.5562 31.6854L18.8021 28.7996H31.2001V27.5996H18.8021L21.5562 24.7139L20.6881 23.8854Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M27.3121 15.4854L31.4295 19.7996L27.3121 24.1139L26.444 23.2854L29.1981 20.3996H16.8001V19.1996H29.1981L26.444 16.3139L27.3121 15.4854Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996ZM9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996Z" fill="#990000"/></g></g></g></g></g><defs><clipPath id="s6_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span>
-      <span class="eyebrow">Program comparison</span>
-      <span class="title">See how IU degrees stack up <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></span>
-      <span class="desc">Compare annual tuition, program length, admission criteria, and employment rates and more to find your best fit.</span>
+      <span class="eyebrow t-tag-sm-regular">Program comparison</span>
+      <span class="title t-action-lg-strong">See how IU degrees stack up <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></span>
+      <span class="desc t-body-xs-regular">Compare annual tuition, program length, admission criteria, and employment rates and more to find your best fit.</span>
     </button>
   </aside>
 </div>
 
 <section class="stats" aria-label="Program by the numbers">
   <div class="wrap">
-    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s7_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M31.9999 16.0008C36.1304 16.0008 39.8952 17.5659 42.7339 20.1355L41.0343 21.835C38.6321 19.6986 35.4676 18.4008 31.9999 18.4008C24.4888 18.4008 18.3999 24.4897 18.3999 32.0008C18.3999 39.5119 24.4888 45.6008 31.9999 45.6008C39.511 45.6008 45.5999 39.5119 45.5999 32.0008C45.5999 28.5331 44.3021 25.3686 42.1657 22.9664L43.8652 21.2668C46.4348 24.1055 47.9999 27.8703 47.9999 32.0008C47.9999 40.8373 40.8365 48.0008 31.9999 48.0008C23.1633 48.0008 15.9999 40.8373 15.9999 32.0008C15.9999 23.1642 23.1633 16.0008 31.9999 16.0008Z" fill="white"/><path d="M31.9999 20.0008C35.0257 20.0008 37.7899 21.1207 39.9007 22.9686L38.199 24.6703C36.5264 23.2545 34.3629 22.4008 31.9999 22.4008C26.698 22.4008 22.3999 26.6988 22.3999 32.0008C22.3999 37.3027 26.698 41.6008 31.9999 41.6008C37.3018 41.6008 41.5999 37.3027 41.5999 32.0008C41.5999 29.6378 40.7462 27.4743 39.3304 25.8017L41.0321 24.1C42.88 26.2107 43.9999 28.975 43.9999 32.0008C43.9999 38.6282 38.6273 44.0008 31.9999 44.0008C25.3725 44.0008 19.9999 38.6282 19.9999 32.0008C19.9999 25.3734 25.3725 20.0008 31.9999 20.0008Z" fill="white"/><path d="M31.9999 24.0008C33.9209 24.0008 35.6838 24.6779 37.0629 25.8064L35.3536 27.5157C34.4188 26.8155 33.2578 26.4008 31.9999 26.4008C28.9071 26.4008 26.3999 28.908 26.3999 32.0008C26.3999 35.0936 28.9071 37.6008 31.9999 37.6008C35.0927 37.6008 37.5999 35.0936 37.5999 32.0008C37.5999 30.7429 37.1852 29.5819 36.485 28.6471L38.1943 26.9378C39.3228 28.3169 39.9999 30.0798 39.9999 32.0008C39.9999 36.4191 36.4182 40.0008 31.9999 40.0008C27.5816 40.0008 23.9999 36.4191 23.9999 32.0008C23.9999 27.5825 27.5816 24.0008 31.9999 24.0008Z" fill="white"/><path d="M31.9999 28.0008C32.8152 28.0008 33.5735 28.2447 34.2058 28.6635L31.4342 31.4351L32.5656 32.5665L35.3372 29.7949C35.756 30.4272 35.9999 31.1855 35.9999 32.0008C35.9999 34.2099 34.209 36.0008 31.9999 36.0008C29.7908 36.0008 27.9999 34.2099 27.9999 32.0008C27.9999 29.7916 29.7908 28.0008 31.9999 28.0008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M45.5999 12.8008V17.2694L43.8665 19.0028C40.7373 16.1443 36.5722 14.4008 31.9999 14.4008C22.2797 14.4008 14.3999 22.2806 14.3999 32.0008C14.3999 41.721 22.2797 49.6008 31.9999 49.6008C41.7201 49.6008 49.5999 41.721 49.5999 32.0008C49.5999 27.4285 47.8564 23.2634 44.9979 20.1342L46.7313 18.4008H51.1999V16.8008H47.1999V12.8008H45.5999ZM42.7339 20.1355C39.8952 17.5659 36.1304 16.0008 31.9999 16.0008C23.1633 16.0008 15.9999 23.1642 15.9999 32.0008C15.9999 40.8373 23.1633 48.0008 31.9999 48.0008C40.8365 48.0008 47.9999 40.8373 47.9999 32.0008C47.9999 27.8703 46.4348 24.1055 43.8652 21.2668L42.1657 22.9664C44.3021 25.3686 45.5999 28.5331 45.5999 32.0008C45.5999 39.5119 39.511 45.6008 31.9999 45.6008C24.4888 45.6008 18.3999 39.5119 18.3999 32.0008C18.3999 24.4897 24.4888 18.4008 31.9999 18.4008C35.4676 18.4008 38.6321 19.6986 41.0343 21.835L42.7339 20.1355ZM39.9007 22.9686C37.7899 21.1207 35.0257 20.0008 31.9999 20.0008C25.3725 20.0008 19.9999 25.3734 19.9999 32.0008C19.9999 38.6282 25.3725 44.0008 31.9999 44.0008C38.6273 44.0008 43.9999 38.6282 43.9999 32.0008C43.9999 28.975 42.88 26.2107 41.0321 24.1L39.3304 25.8017C40.7462 27.4743 41.5999 29.6378 41.5999 32.0008C41.5999 37.3027 37.3018 41.6008 31.9999 41.6008C26.698 41.6008 22.3999 37.3027 22.3999 32.0008C22.3999 26.6988 26.698 22.4008 31.9999 22.4008C34.3629 22.4008 36.5264 23.2545 38.199 24.6703L39.9007 22.9686ZM37.0629 25.8064C35.6838 24.6779 33.9209 24.0008 31.9999 24.0008C27.5816 24.0008 23.9999 27.5825 23.9999 32.0008C23.9999 36.4191 27.5816 40.0008 31.9999 40.0008C36.4182 40.0008 39.9999 36.4191 39.9999 32.0008C39.9999 30.0798 39.3228 28.3169 38.1943 26.9378L36.485 28.6471C37.1852 29.5819 37.5999 30.7429 37.5999 32.0008C37.5999 35.0936 35.0927 37.6008 31.9999 37.6008C28.9071 37.6008 26.3999 35.0936 26.3999 32.0008C26.3999 28.908 28.9071 26.4008 31.9999 26.4008C33.2578 26.4008 34.4188 26.8155 35.3536 27.5157L37.0629 25.8064ZM34.2058 28.6635C33.5735 28.2447 32.8152 28.0008 31.9999 28.0008C29.7908 28.0008 27.9999 29.7916 27.9999 32.0008C27.9999 34.2099 29.7908 36.0008 31.9999 36.0008C34.209 36.0008 35.9999 34.2099 35.9999 32.0008C35.9999 31.1855 35.756 30.4272 35.3372 29.7949L32.5656 32.5665L31.4342 31.4351L34.2058 28.6635Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s7_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num">500+</span><span class="lbl">IU tech alumni working in top industry companies worldwide</span></div>
-    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s8_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M44.2787 29.6369L48.1097 27.199L31.9998 16.9473L15.8899 27.199L31.9998 37.4508L42.9121 30.5066C42.3206 29.0367 40.8813 27.999 39.1998 27.999H31.9998V26.399H39.1998C41.4486 26.399 43.3878 27.7246 44.2787 29.6369Z" fill="white"/><path d="M43.1998 38.7461V32.22L31.9998 39.3473L20.7998 32.22V38.7461L31.9998 45.4661L43.1998 38.7461Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.9998 15.0508L51.0899 27.199L44.7998 31.2018V45.8131C45.278 46.0897 45.5998 46.6068 45.5998 47.199C45.5998 48.0827 44.8835 48.799 43.9998 48.799C43.1161 48.799 42.3998 48.0827 42.3998 47.199C42.3998 46.6068 42.7215 46.0897 43.1998 45.8131V40.612L31.9998 47.332L19.1998 39.652V31.2018L12.9097 27.199L31.9998 15.0508ZM48.1097 27.199L44.2787 29.6369C43.3878 27.7246 41.4486 26.399 39.1998 26.399H31.9998V27.999H39.1998C40.8813 27.999 42.3206 29.0367 42.9121 30.5066L31.9998 37.4508L15.8899 27.199L31.9998 16.9473L48.1097 27.199ZM43.1998 32.22V38.7461L31.9998 45.4661L20.7998 38.7461V32.22L31.9998 39.3473L43.1998 32.22Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s8_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num">95%</span><span class="lbl">Employment rate for Informatics graduates within 6 months</span></div>
-    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s9_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M21.5998 27.6008C21.5998 25.6126 23.2116 24.0008 25.1998 24.0008H31.1998V31.2008H25.1998C23.2116 31.2008 21.5998 29.589 21.5998 27.6008Z" fill="white"/><path d="M32.7998 40.0008V32.8008H38.7998C40.788 32.8008 42.3998 34.4126 42.3998 36.4008C42.3998 38.389 40.788 40.0008 38.7998 40.0008H32.7998Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.3998 32.0008C14.3998 22.2806 22.2796 14.4008 31.9998 14.4008C41.72 14.4008 49.5998 22.2806 49.5998 32.0008C49.5998 41.721 41.72 49.6008 31.9998 49.6008C22.2796 49.6008 14.3998 41.721 14.3998 32.0008ZM25.1998 22.4008H31.1998V20.0008H32.7998V22.4008H39.1998C40.9671 22.4008 42.3998 23.8335 42.3998 25.6008H40.7998C40.7998 24.7171 40.0835 24.0008 39.1998 24.0008H32.7998V31.2008H38.7998C41.6717 31.2008 43.9998 33.5289 43.9998 36.4008C43.9998 39.2727 41.6717 41.6008 38.7998 41.6008H32.7998V44.0008H31.1998V41.6008H24.6931C22.9258 41.6008 21.4931 40.1681 21.4931 38.4008H23.0931C23.0931 39.2844 23.8095 40.0008 24.6931 40.0008H31.1998V32.8008H25.1998C22.3279 32.8008 19.9998 30.4727 19.9998 27.6008C19.9998 24.7289 22.3279 22.4008 25.1998 22.4008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.1998 22.4008H25.1998C22.3279 22.4008 19.9998 24.7289 19.9998 27.6008C19.9998 30.4727 22.3279 32.8008 25.1998 32.8008H31.1998V40.0008H24.6931C23.8095 40.0008 23.0931 39.2844 23.0931 38.4008H21.4931C21.4931 40.1681 22.9258 41.6008 24.6931 41.6008H31.1998V44.0008H32.7998V41.6008H38.7998C41.6717 41.6008 43.9998 39.2727 43.9998 36.4008C43.9998 33.5289 41.6717 31.2008 38.7998 31.2008H32.7998V24.0008H39.1998C40.0835 24.0008 40.7998 24.7171 40.7998 25.6008H42.3998C42.3998 23.8335 40.9671 22.4008 39.1998 22.4008H32.7998V20.0008H31.1998V22.4008ZM25.1998 24.0008C23.2116 24.0008 21.5998 25.6126 21.5998 27.6008C21.5998 29.589 23.2116 31.2008 25.1998 31.2008H31.1998V24.0008H25.1998ZM32.7998 32.8008V40.0008H38.7998C40.788 40.0008 42.3998 38.389 42.3998 36.4008C42.3998 34.4126 40.788 32.8008 38.7998 32.8008H32.7998Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7998 32.0008C12.7998 21.3969 21.3959 12.8008 31.9998 12.8008C42.6037 12.8008 51.1998 21.3969 51.1998 32.0008C51.1998 42.6046 42.6037 51.2008 31.9998 51.2008C21.3959 51.2008 12.7998 42.6046 12.7998 32.0008ZM31.9998 14.4008C22.2796 14.4008 14.3998 22.2806 14.3998 32.0008C14.3998 41.721 22.2796 49.6008 31.9998 49.6008C41.72 49.6008 49.5998 41.721 49.5998 32.0008C49.5998 22.2806 41.72 14.4008 31.9998 14.4008Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s9_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num">$85,000</span><span class="lbl">Average starting salary for program graduates</span></div>
-    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s10_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M25.3423 19.3837C26.9606 16.5206 29.0303 14.8037 31.1998 14.4634V31.2008H22.4097C22.5248 26.5541 23.6372 22.4005 25.3423 19.3837Z" fill="white"/><path d="M23.9494 18.5964C22.089 21.8879 20.9244 26.322 20.8092 31.2008H14.4177C14.7498 23.7761 19.6822 17.5484 26.433 15.2993C25.5008 16.2081 24.6664 17.3279 23.9494 18.5964Z" fill="white"/><path d="M20.8092 32.8008H14.4177C14.7498 40.2255 19.6822 46.4532 26.433 48.7023C25.5008 47.7935 24.6664 46.6736 23.9494 45.4052C22.089 42.1137 20.9244 37.6796 20.8092 32.8008Z" fill="white"/><path d="M31.1998 32.8008H22.4097C22.5248 37.4475 23.6372 41.6011 25.3423 44.6179C26.9606 47.4809 29.0303 49.1979 31.1998 49.5381V32.8008Z" fill="white"/><path d="M38.6573 44.6179C37.039 47.4809 34.9694 49.1979 32.7998 49.5381V32.8008H41.5899C41.4748 37.4475 40.3624 41.6011 38.6573 44.6179Z" fill="white"/><path d="M40.0502 45.4052C41.9106 42.1137 43.0752 37.6796 43.1904 32.8008H49.5819C49.2498 40.2255 44.3174 46.4532 37.5666 48.7023C38.4988 47.7935 39.3332 46.6736 40.0502 45.4052Z" fill="white"/><path d="M43.1904 31.2008H49.5819C49.2498 23.7761 44.3174 17.5484 37.5666 15.2993C38.4988 16.2081 39.3332 17.3279 40.0502 18.5964C41.9106 21.8879 43.0752 26.322 43.1904 31.2008Z" fill="white"/><path d="M32.7998 31.2008H41.5899C41.4748 26.5541 40.3624 22.4005 38.6573 19.3837C37.039 16.5206 34.9694 14.8037 32.7998 14.4634V31.2008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M51.1998 32.0008C51.1998 42.6046 42.6037 51.2008 31.9998 51.2008C21.3959 51.2008 12.7998 42.6046 12.7998 32.0008C12.7998 21.3969 21.3959 12.8008 31.9998 12.8008C42.6037 12.8008 51.1998 21.3969 51.1998 32.0008ZM31.1998 14.4634C29.0303 14.8037 26.9606 16.5206 25.3423 19.3837C23.6372 22.4005 22.5248 26.5541 22.4097 31.2008H31.1998V14.4634ZM20.8092 31.2008C20.9244 26.322 22.089 21.8879 23.9494 18.5964C24.6664 17.3279 25.5008 16.2081 26.433 15.2993C19.6822 17.5484 14.7498 23.7761 14.4177 31.2008H20.8092ZM14.4177 32.8008H20.8092C20.9244 37.6796 22.089 42.1137 23.9494 45.4052C24.6664 46.6736 25.5008 47.7935 26.433 48.7023C19.6822 46.4532 14.7498 40.2255 14.4177 32.8008ZM22.4097 32.8008H31.1998V49.5381C29.0303 49.1979 26.9606 47.4809 25.3423 44.6179C23.6372 41.6011 22.5248 37.4475 22.4097 32.8008ZM32.7998 49.5381C34.9694 49.1979 37.039 47.4809 38.6573 44.6179C40.3624 41.6011 41.4748 37.4475 41.5899 32.8008H32.7998V49.5381ZM43.1904 32.8008C43.0752 37.6796 41.9106 42.1137 40.0502 45.4052C39.3332 46.6736 38.4988 47.7935 37.5666 48.7023C44.3174 46.4532 49.2498 40.2255 49.5819 32.8008H43.1904ZM49.5819 31.2008H43.1904C43.0752 26.322 41.9106 21.8879 40.0502 18.5964C39.3332 17.3279 38.4988 16.2081 37.5666 15.2993C44.3174 17.5484 49.2498 23.7761 49.5819 31.2008ZM41.5899 31.2008H32.7998V14.4634C34.9694 14.8037 37.039 16.5206 38.6573 19.3837C40.3624 22.4005 41.4748 26.5541 41.5899 31.2008Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s10_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num">100%</span><span class="lbl">Online coursework with global access from anywhere</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s7_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M31.9999 16.0008C36.1304 16.0008 39.8952 17.5659 42.7339 20.1355L41.0343 21.835C38.6321 19.6986 35.4676 18.4008 31.9999 18.4008C24.4888 18.4008 18.3999 24.4897 18.3999 32.0008C18.3999 39.5119 24.4888 45.6008 31.9999 45.6008C39.511 45.6008 45.5999 39.5119 45.5999 32.0008C45.5999 28.5331 44.3021 25.3686 42.1657 22.9664L43.8652 21.2668C46.4348 24.1055 47.9999 27.8703 47.9999 32.0008C47.9999 40.8373 40.8365 48.0008 31.9999 48.0008C23.1633 48.0008 15.9999 40.8373 15.9999 32.0008C15.9999 23.1642 23.1633 16.0008 31.9999 16.0008Z" fill="white"/><path d="M31.9999 20.0008C35.0257 20.0008 37.7899 21.1207 39.9007 22.9686L38.199 24.6703C36.5264 23.2545 34.3629 22.4008 31.9999 22.4008C26.698 22.4008 22.3999 26.6988 22.3999 32.0008C22.3999 37.3027 26.698 41.6008 31.9999 41.6008C37.3018 41.6008 41.5999 37.3027 41.5999 32.0008C41.5999 29.6378 40.7462 27.4743 39.3304 25.8017L41.0321 24.1C42.88 26.2107 43.9999 28.975 43.9999 32.0008C43.9999 38.6282 38.6273 44.0008 31.9999 44.0008C25.3725 44.0008 19.9999 38.6282 19.9999 32.0008C19.9999 25.3734 25.3725 20.0008 31.9999 20.0008Z" fill="white"/><path d="M31.9999 24.0008C33.9209 24.0008 35.6838 24.6779 37.0629 25.8064L35.3536 27.5157C34.4188 26.8155 33.2578 26.4008 31.9999 26.4008C28.9071 26.4008 26.3999 28.908 26.3999 32.0008C26.3999 35.0936 28.9071 37.6008 31.9999 37.6008C35.0927 37.6008 37.5999 35.0936 37.5999 32.0008C37.5999 30.7429 37.1852 29.5819 36.485 28.6471L38.1943 26.9378C39.3228 28.3169 39.9999 30.0798 39.9999 32.0008C39.9999 36.4191 36.4182 40.0008 31.9999 40.0008C27.5816 40.0008 23.9999 36.4191 23.9999 32.0008C23.9999 27.5825 27.5816 24.0008 31.9999 24.0008Z" fill="white"/><path d="M31.9999 28.0008C32.8152 28.0008 33.5735 28.2447 34.2058 28.6635L31.4342 31.4351L32.5656 32.5665L35.3372 29.7949C35.756 30.4272 35.9999 31.1855 35.9999 32.0008C35.9999 34.2099 34.209 36.0008 31.9999 36.0008C29.7908 36.0008 27.9999 34.2099 27.9999 32.0008C27.9999 29.7916 29.7908 28.0008 31.9999 28.0008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M45.5999 12.8008V17.2694L43.8665 19.0028C40.7373 16.1443 36.5722 14.4008 31.9999 14.4008C22.2797 14.4008 14.3999 22.2806 14.3999 32.0008C14.3999 41.721 22.2797 49.6008 31.9999 49.6008C41.7201 49.6008 49.5999 41.721 49.5999 32.0008C49.5999 27.4285 47.8564 23.2634 44.9979 20.1342L46.7313 18.4008H51.1999V16.8008H47.1999V12.8008H45.5999ZM42.7339 20.1355C39.8952 17.5659 36.1304 16.0008 31.9999 16.0008C23.1633 16.0008 15.9999 23.1642 15.9999 32.0008C15.9999 40.8373 23.1633 48.0008 31.9999 48.0008C40.8365 48.0008 47.9999 40.8373 47.9999 32.0008C47.9999 27.8703 46.4348 24.1055 43.8652 21.2668L42.1657 22.9664C44.3021 25.3686 45.5999 28.5331 45.5999 32.0008C45.5999 39.5119 39.511 45.6008 31.9999 45.6008C24.4888 45.6008 18.3999 39.5119 18.3999 32.0008C18.3999 24.4897 24.4888 18.4008 31.9999 18.4008C35.4676 18.4008 38.6321 19.6986 41.0343 21.835L42.7339 20.1355ZM39.9007 22.9686C37.7899 21.1207 35.0257 20.0008 31.9999 20.0008C25.3725 20.0008 19.9999 25.3734 19.9999 32.0008C19.9999 38.6282 25.3725 44.0008 31.9999 44.0008C38.6273 44.0008 43.9999 38.6282 43.9999 32.0008C43.9999 28.975 42.88 26.2107 41.0321 24.1L39.3304 25.8017C40.7462 27.4743 41.5999 29.6378 41.5999 32.0008C41.5999 37.3027 37.3018 41.6008 31.9999 41.6008C26.698 41.6008 22.3999 37.3027 22.3999 32.0008C22.3999 26.6988 26.698 22.4008 31.9999 22.4008C34.3629 22.4008 36.5264 23.2545 38.199 24.6703L39.9007 22.9686ZM37.0629 25.8064C35.6838 24.6779 33.9209 24.0008 31.9999 24.0008C27.5816 24.0008 23.9999 27.5825 23.9999 32.0008C23.9999 36.4191 27.5816 40.0008 31.9999 40.0008C36.4182 40.0008 39.9999 36.4191 39.9999 32.0008C39.9999 30.0798 39.3228 28.3169 38.1943 26.9378L36.485 28.6471C37.1852 29.5819 37.5999 30.7429 37.5999 32.0008C37.5999 35.0936 35.0927 37.6008 31.9999 37.6008C28.9071 37.6008 26.3999 35.0936 26.3999 32.0008C26.3999 28.908 28.9071 26.4008 31.9999 26.4008C33.2578 26.4008 34.4188 26.8155 35.3536 27.5157L37.0629 25.8064ZM34.2058 28.6635C33.5735 28.2447 32.8152 28.0008 31.9999 28.0008C29.7908 28.0008 27.9999 29.7916 27.9999 32.0008C27.9999 34.2099 29.7908 36.0008 31.9999 36.0008C34.209 36.0008 35.9999 34.2099 35.9999 32.0008C35.9999 31.1855 35.756 30.4272 35.3372 29.7949L32.5656 32.5665L31.4342 31.4351L34.2058 28.6635Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s7_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num t-component-number-strong">500+</span><span class="lbl t-tag-lg-regular">IU tech alumni working in top industry companies worldwide</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s8_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M44.2787 29.6369L48.1097 27.199L31.9998 16.9473L15.8899 27.199L31.9998 37.4508L42.9121 30.5066C42.3206 29.0367 40.8813 27.999 39.1998 27.999H31.9998V26.399H39.1998C41.4486 26.399 43.3878 27.7246 44.2787 29.6369Z" fill="white"/><path d="M43.1998 38.7461V32.22L31.9998 39.3473L20.7998 32.22V38.7461L31.9998 45.4661L43.1998 38.7461Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.9998 15.0508L51.0899 27.199L44.7998 31.2018V45.8131C45.278 46.0897 45.5998 46.6068 45.5998 47.199C45.5998 48.0827 44.8835 48.799 43.9998 48.799C43.1161 48.799 42.3998 48.0827 42.3998 47.199C42.3998 46.6068 42.7215 46.0897 43.1998 45.8131V40.612L31.9998 47.332L19.1998 39.652V31.2018L12.9097 27.199L31.9998 15.0508ZM48.1097 27.199L44.2787 29.6369C43.3878 27.7246 41.4486 26.399 39.1998 26.399H31.9998V27.999H39.1998C40.8813 27.999 42.3206 29.0367 42.9121 30.5066L31.9998 37.4508L15.8899 27.199L31.9998 16.9473L48.1097 27.199ZM43.1998 32.22V38.7461L31.9998 45.4661L20.7998 38.7461V32.22L31.9998 39.3473L43.1998 32.22Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s8_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num t-component-number-strong">95%</span><span class="lbl t-tag-lg-regular">Employment rate for Informatics graduates within 6 months</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s9_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M21.5998 27.6008C21.5998 25.6126 23.2116 24.0008 25.1998 24.0008H31.1998V31.2008H25.1998C23.2116 31.2008 21.5998 29.589 21.5998 27.6008Z" fill="white"/><path d="M32.7998 40.0008V32.8008H38.7998C40.788 32.8008 42.3998 34.4126 42.3998 36.4008C42.3998 38.389 40.788 40.0008 38.7998 40.0008H32.7998Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.3998 32.0008C14.3998 22.2806 22.2796 14.4008 31.9998 14.4008C41.72 14.4008 49.5998 22.2806 49.5998 32.0008C49.5998 41.721 41.72 49.6008 31.9998 49.6008C22.2796 49.6008 14.3998 41.721 14.3998 32.0008ZM25.1998 22.4008H31.1998V20.0008H32.7998V22.4008H39.1998C40.9671 22.4008 42.3998 23.8335 42.3998 25.6008H40.7998C40.7998 24.7171 40.0835 24.0008 39.1998 24.0008H32.7998V31.2008H38.7998C41.6717 31.2008 43.9998 33.5289 43.9998 36.4008C43.9998 39.2727 41.6717 41.6008 38.7998 41.6008H32.7998V44.0008H31.1998V41.6008H24.6931C22.9258 41.6008 21.4931 40.1681 21.4931 38.4008H23.0931C23.0931 39.2844 23.8095 40.0008 24.6931 40.0008H31.1998V32.8008H25.1998C22.3279 32.8008 19.9998 30.4727 19.9998 27.6008C19.9998 24.7289 22.3279 22.4008 25.1998 22.4008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M31.1998 22.4008H25.1998C22.3279 22.4008 19.9998 24.7289 19.9998 27.6008C19.9998 30.4727 22.3279 32.8008 25.1998 32.8008H31.1998V40.0008H24.6931C23.8095 40.0008 23.0931 39.2844 23.0931 38.4008H21.4931C21.4931 40.1681 22.9258 41.6008 24.6931 41.6008H31.1998V44.0008H32.7998V41.6008H38.7998C41.6717 41.6008 43.9998 39.2727 43.9998 36.4008C43.9998 33.5289 41.6717 31.2008 38.7998 31.2008H32.7998V24.0008H39.1998C40.0835 24.0008 40.7998 24.7171 40.7998 25.6008H42.3998C42.3998 23.8335 40.9671 22.4008 39.1998 22.4008H32.7998V20.0008H31.1998V22.4008ZM25.1998 24.0008C23.2116 24.0008 21.5998 25.6126 21.5998 27.6008C21.5998 29.589 23.2116 31.2008 25.1998 31.2008H31.1998V24.0008H25.1998ZM32.7998 32.8008V40.0008H38.7998C40.788 40.0008 42.3998 38.389 42.3998 36.4008C42.3998 34.4126 40.788 32.8008 38.7998 32.8008H32.7998Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7998 32.0008C12.7998 21.3969 21.3959 12.8008 31.9998 12.8008C42.6037 12.8008 51.1998 21.3969 51.1998 32.0008C51.1998 42.6046 42.6037 51.2008 31.9998 51.2008C21.3959 51.2008 12.7998 42.6046 12.7998 32.0008ZM31.9998 14.4008C22.2796 14.4008 14.3998 22.2806 14.3998 32.0008C14.3998 41.721 22.2796 49.6008 31.9998 49.6008C41.72 49.6008 49.5998 41.721 49.5998 32.0008C49.5998 22.2806 41.72 14.4008 31.9998 14.4008Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s9_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num t-component-number-strong">$85,000</span><span class="lbl t-tag-lg-regular">Average starting salary for program graduates</span></div>
+    <div class="stat"><span class="sticker sticker--64"><svg aria-hidden="true" focusable="false" width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s10_clip0_747_19155)"><circle cx="32" cy="32" r="32" fill="#EFDFC8"/><g><path d="M25.3423 19.3837C26.9606 16.5206 29.0303 14.8037 31.1998 14.4634V31.2008H22.4097C22.5248 26.5541 23.6372 22.4005 25.3423 19.3837Z" fill="white"/><path d="M23.9494 18.5964C22.089 21.8879 20.9244 26.322 20.8092 31.2008H14.4177C14.7498 23.7761 19.6822 17.5484 26.433 15.2993C25.5008 16.2081 24.6664 17.3279 23.9494 18.5964Z" fill="white"/><path d="M20.8092 32.8008H14.4177C14.7498 40.2255 19.6822 46.4532 26.433 48.7023C25.5008 47.7935 24.6664 46.6736 23.9494 45.4052C22.089 42.1137 20.9244 37.6796 20.8092 32.8008Z" fill="white"/><path d="M31.1998 32.8008H22.4097C22.5248 37.4475 23.6372 41.6011 25.3423 44.6179C26.9606 47.4809 29.0303 49.1979 31.1998 49.5381V32.8008Z" fill="white"/><path d="M38.6573 44.6179C37.039 47.4809 34.9694 49.1979 32.7998 49.5381V32.8008H41.5899C41.4748 37.4475 40.3624 41.6011 38.6573 44.6179Z" fill="white"/><path d="M40.0502 45.4052C41.9106 42.1137 43.0752 37.6796 43.1904 32.8008H49.5819C49.2498 40.2255 44.3174 46.4532 37.5666 48.7023C38.4988 47.7935 39.3332 46.6736 40.0502 45.4052Z" fill="white"/><path d="M43.1904 31.2008H49.5819C49.2498 23.7761 44.3174 17.5484 37.5666 15.2993C38.4988 16.2081 39.3332 17.3279 40.0502 18.5964C41.9106 21.8879 43.0752 26.322 43.1904 31.2008Z" fill="white"/><path d="M32.7998 31.2008H41.5899C41.4748 26.5541 40.3624 22.4005 38.6573 19.3837C37.039 16.5206 34.9694 14.8037 32.7998 14.4634V31.2008Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M51.1998 32.0008C51.1998 42.6046 42.6037 51.2008 31.9998 51.2008C21.3959 51.2008 12.7998 42.6046 12.7998 32.0008C12.7998 21.3969 21.3959 12.8008 31.9998 12.8008C42.6037 12.8008 51.1998 21.3969 51.1998 32.0008ZM31.1998 14.4634C29.0303 14.8037 26.9606 16.5206 25.3423 19.3837C23.6372 22.4005 22.5248 26.5541 22.4097 31.2008H31.1998V14.4634ZM20.8092 31.2008C20.9244 26.322 22.089 21.8879 23.9494 18.5964C24.6664 17.3279 25.5008 16.2081 26.433 15.2993C19.6822 17.5484 14.7498 23.7761 14.4177 31.2008H20.8092ZM14.4177 32.8008H20.8092C20.9244 37.6796 22.089 42.1137 23.9494 45.4052C24.6664 46.6736 25.5008 47.7935 26.433 48.7023C19.6822 46.4532 14.7498 40.2255 14.4177 32.8008ZM22.4097 32.8008H31.1998V49.5381C29.0303 49.1979 26.9606 47.4809 25.3423 44.6179C23.6372 41.6011 22.5248 37.4475 22.4097 32.8008ZM32.7998 49.5381C34.9694 49.1979 37.039 47.4809 38.6573 44.6179C40.3624 41.6011 41.4748 37.4475 41.5899 32.8008H32.7998V49.5381ZM43.1904 32.8008C43.0752 37.6796 41.9106 42.1137 40.0502 45.4052C39.3332 46.6736 38.4988 47.7935 37.5666 48.7023C44.3174 46.4532 49.2498 40.2255 49.5819 32.8008H43.1904ZM49.5819 31.2008H43.1904C43.0752 26.322 41.9106 21.8879 40.0502 18.5964C39.3332 17.3279 38.4988 16.2081 37.5666 15.2993C44.3174 17.5484 49.2498 23.7761 49.5819 31.2008ZM41.5899 31.2008H32.7998V14.4634C34.9694 14.8037 37.039 16.5206 38.6573 19.3837C40.3624 22.4005 41.4748 26.5541 41.5899 31.2008Z" fill="#990000"/></g></g></g></g></g></g><defs><clipPath id="s10_clip0_747_19155"><rect width="64" height="64" fill="white"/></clipPath></defs></svg></span><span class="num t-component-number-strong">100%</span><span class="lbl t-tag-lg-regular">Online coursework with global access from anywhere</span></div>
   </div>
 </section>
 
 <section class="quote wrap" aria-label="Student testimonial">
   <figure>
-    <svg width="78" height="58" viewBox="0 0 78 58" fill="none" stroke="#990000" stroke-width="2" aria-hidden="true"><path d="M1 57V22L9 1h12l-6 21h8v35H1zM41 57V22L49 1h12l-6 21h8v35H41z"/></svg>
-    <blockquote>IU Online offered so many resources, so many personal contacts, all at my fingertips. Even though I was going to school online, I felt I was part of the bigger context of Indiana University.</blockquote>
-    <figcaption><b>Claire Parks</b>IU Online Student</figcaption>
+    <svg width="78" height="58" viewBox="0 0 78 58" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M1 57V22L9 1h12l-6 21h8v35H1zM41 57V22L49 1h12l-6 21h8v35H41z"/></svg>
+    <blockquote class="t-editorial-md-regular">IU Online offered so many resources, so many personal contacts, all at my fingertips. Even though I was going to school online, I felt I was part of the bigger context of Indiana University.</blockquote>
+    <figcaption><b class="t-body-sm-strong">Claire Parks</b><span class="t-body-base-regular">IU Online Student</span></figcaption>
   </figure>
 </section>
 
@@ -552,11 +541,11 @@ body.drawer-open .drawer{transform:none;visibility:visible}
   <div class="contact-grid" id="contact-grid"></div>
   <div class="callout" id="apply">
     <span class="sticker sticker--80"><svg aria-hidden="true" focusable="false" width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g clip-path="url(#s11_clip0_747_19155)"><circle cx="40" cy="40" r="40" fill="#EFDFC8"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24 61V19H56V61H24ZM39 36V25H41V36H44V27H46V37L45 38H41V41H39V38H35L34 37V27H36V36H39ZM30 50H50V48H30V50ZM50 55H30V53H50V55Z" fill="white"/><g><path d="M50 50H30V48H50V50Z" fill="#990000"/><path d="M30 55H50V53H30V55Z" fill="#990000"/><path d="M39 36V25H41V36H44V27H46V37L45 38H41V41H39V38H35L34 37V27H36V36H39Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22 17H58V63H22V17ZM24 19V61H56V19H24Z" fill="#990000"/></g></g></g></g></g><defs><clipPath id="s11_clip0_747_19155"><rect width="80" height="80" fill="white"/></clipPath></defs></svg></span>
-    <h2>Apply to the Informatics program</h2>
-    <p>Embark on your exciting journey today by applying to our degree program, where you can unlock your potential and shape your future!</p>
+    <h2 class="t-display-sm-strong">Apply to the Informatics program</h2>
+    <p class="t-body-base-regular">Embark on your exciting journey today by applying to our degree program, where you can unlock your potential and shape your future!</p>
     <div class="btns">
-      <a class="btn btn--outline" href="https://admissions.indiana.edu/apply/" target="_blank" rel="noopener">Apply now <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
-      <a class="btn btn--outline" href="#top">Explore related programs <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+      <a class="btn btn--outline t-action-lg-strong" href="https://admissions.indiana.edu/apply/" target="_blank" rel="noopener">Apply now <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
+      <a class="btn btn--outline t-action-lg-strong" href="#top">Explore related programs <svg aria-hidden="true" focusable="false" class=" arrow"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></a>
     </div>
   </div>
 </section>
@@ -567,7 +556,7 @@ body.drawer-open .drawer{transform:none;visibility:visible}
     <a href="#" aria-label="Bluesky"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg></a><a href="#" aria-label="Facebook"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a><a href="#" aria-label="Instagram"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.5h4V21H3V9.5Zm6.5 0h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4V9.5Z"/></svg></a><a href="#" aria-label="YouTube"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a><a href="#" aria-label="X"><svg aria-hidden="true" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"/></svg></a>
   </div>
   <hr>
-  <div class="wrap bottom">
+  <div class="wrap bottom t-action-sm-regular">
     <span aria-hidden="true"><svg aria-hidden="true" width="22" height="27" viewBox="0 0 27 34" fill="#fff"><path d="M18 4.5V7H20V21.5H16V2.5H18V0H9V2.5H11V21.5H7V7H9V4.5H0V7H2V23.5L5.5 27H11V30.5H9V34H18V30.5H16V27H21.5L25 23.5V7H27V4.5H18Z"/></svg></span>
     <a href="https://accessibility.iu.edu/">Accessibility</a>
     <a href="https://collegescorecard.ed.gov/">College Scorecard</a>
@@ -581,9 +570,9 @@ body.drawer-open .drawer{transform:none;visibility:visible}
 <div class="scrim" data-close-drawer></div>
 <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" id="drawer">
   <div class="drawer-head">
-    <h2 id="drawer-title">Program comparison</h2>
-    <div class="count" id="drawer-count" aria-live="polite"></div>
-    <button class="add-btn" id="add-btn" aria-expanded="false" aria-controls="picker">Add another program</button>
+    <h2 class="t-heading-2xl-strong" id="drawer-title">Program comparison</h2>
+    <div class="count t-tag-lg-regular" id="drawer-count" aria-live="polite"></div>
+    <button class="add-btn t-action-sm-strong" id="add-btn" aria-expanded="false" aria-controls="picker">Add another program</button>
     <div class="picker" id="picker"></div>
     <button class="drawer-close" data-close-drawer aria-label="Close program comparison"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button>
   </div>
@@ -593,7 +582,7 @@ body.drawer-open .drawer{transform:none;visibility:visible}
     <div class="rows" id="rows"></div>
   </div>
 </div>
-<div class="toast" id="toast" role="status"></div>
+<div class="toast t-body-xs-regular" id="toast" role="status"></div>
 
 <script>
 /* ---------- Template-driven sentences (match the CMS spec) ---------- */
@@ -609,7 +598,7 @@ const NAV=[['Degrees',0],['Get Started',1],['Current Students',0],['Cost & Aid',
 const navList=document.getElementById('nav-list');
 NAV.forEach(([label,menu])=>{
   const li=document.createElement('li');li.className='nav-item';
-  li.innerHTML=`<button ${menu?'aria-expanded="false"':''} ${label==='Degrees'?'aria-current="true"':''}>${label}${menu?' <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg>':''}</button>${menu?`<ul class="nav-menu">${['Overview','Popular links','Browse all'].map(s=>`<li><a href="#top">${s}</a></li>`).join('')}</ul>`:''}`;
+  li.innerHTML=`<button class="${label==='Degrees'?'t-action-sm-strong':'t-action-sm-regular'}" ${menu?'aria-expanded="false"':''} ${label==='Degrees'?'aria-current="true"':''}>${label}${menu?' <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg>':''}</button>${menu?`<ul class="nav-menu">${['Overview','Popular links','Browse all'].map(s=>`<li><a class="t-action-sm-regular" href="#top">${s}</a></li>`).join('')}</ul>`:''}`;
   navList.appendChild(li);
 });
 navList.addEventListener('click',e=>{const b=e.target.closest('.nav-item>button');if(!b)return;const open=b.getAttribute('aria-expanded')==='true';navList.querySelectorAll('.nav-item>button[aria-expanded]').forEach(x=>x.setAttribute('aria-expanded','false'));if(b.hasAttribute('aria-expanded'))b.setAttribute('aria-expanded',String(!open));});
@@ -639,17 +628,17 @@ const ADVISORS=[
 document.getElementById('contact-grid').innerHTML=ADVISORS.map((a,i)=>{
   const initials=a.name.replace('Dr. ','').split(' ').map(s=>s[0]).join('');
   return `<article class="contact">
-    <div class="avatar"><img src="${a.img}" alt="" onerror="this.replaceWith('${initials}')"></div>
-    <div class="dept">${a.dept}</div><h3>${a.name}</h3><p class="role">${a.role}</p>
-    <div class="lines">
+    <div class="avatar t-component-avatar-80"><img src="${a.img}" alt="" onerror="this.replaceWith('${initials}')"></div>
+    <div class="dept t-tag-sm-regular">${a.dept}</div><h3 class="t-heading-md-strong">${a.name}</h3><p class="role t-body-base-regular">${a.role}</p>
+    <div class="lines t-action-lg-regular">
       <a href="mailto:${a.email}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2v12h16V2H0Zm2 2.023V4h12v.023L8 7.356 2 4.023ZM2 6.31l6 3.333 6-3.333V12H2V6.31Z"/></svg>${a.email}</a>
       <a href="tel:${a.phone.replace(/\D/g,'')}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1h1l1.5 5L5 7c0 2 2 4 4 4l1-1.5 5 1.5v1a3 3 0 0 1-3 3C5 15 1 10 1 4a3 3 0 0 1 3-3Z"/></svg>${a.phone}</a>
-      <div><button class="hours-btn" aria-expanded="false" aria-controls="hours-${i}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9 7.586V4H7v4.414l2.5 2.5L10.914 9.5 9 7.586Z"/><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z"/></svg>Hours <span class="chev"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg></span></button>
-      <div class="hours" id="hours-${i}">${a.hours.join('<br>')}</div></div>
+      <div><button class="hours-btn t-action-lg-strong" aria-expanded="false" aria-controls="hours-${i}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M9 7.586V4H7v4.414l2.5 2.5L10.914 9.5 9 7.586Z"/><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2 8a6 6 0 1 1 12 0A6 6 0 0 1 2 8Z"/></svg>Hours <span class="chev"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m15.146 6.263-1.292-1.526L8 9.69 2.146 4.737.854 6.263 8 12.31l7.146-6.047Z"/></svg></span></button>
+      <div class="hours t-body-xs-regular" id="hours-${i}">${a.hours.join('<br>')}</div></div>
     </div>
-    <p class="help">Can help with:</p>
-    <div class="chips">${a.topics.map(t=>`<span class="badge">${t}</span>`).join('')}</div>
-    <a class="btn btn--small" href="#" data-toast="Prototype: this would open ${a.name.split(' ').slice(-2).join(' ')}’s booking page.">Schedule a consultation</a>
+    <p class="help t-tag-sm-regular">Can help with:</p>
+    <div class="chips">${a.topics.map(t=>`<span class="badge t-heading-xs-strong">${t}</span>`).join('')}</div>
+    <a class="btn btn--small t-action-sm-strong" href="#" data-toast="Prototype: this would open ${a.name.split(' ').slice(-2).join(' ')}’s booking page.">Schedule a consultation</a>
   </article>`;}).join('');
 document.addEventListener('click',e=>{
   const h=e.target.closest('.hours-btn');
@@ -684,18 +673,18 @@ function render(){
   const ps=picked.map(k=>({k,...PROGRAMS[k]}));
   document.getElementById('drawer-count').textContent=`Showing ${ps.length} program${ps.length===1?'':'s'}`;
   const add=document.getElementById('add-btn');add.disabled=ps.length>=MAX;add.title=ps.length>=MAX?`Compare up to ${MAX} programs. Remove one to add another.`:'';
-  document.getElementById('picked').innerHTML=ps.length?ps.map(p=>`<div class="pick"><h3>${p.name}</h3><a class="see" href="#" data-toast="Prototype: this would open the ${p.name} program page.">See details</a><button class="rm" data-remove="${p.k}" aria-label="Remove ${p.name}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button></div>`).join(''):`<div class="picks-empty">No programs selected. Use “Add another program” to start comparing.</div>`;
+  document.getElementById('picked').innerHTML=ps.length?ps.map(p=>`<div class="pick"><h3 class="t-action-sm-strong">${p.name}</h3><a class="see t-action-sm-strong" href="#" data-toast="Prototype: this would open the ${p.name} program page.">See details</a><button class="rm" data-remove="${p.k}" aria-label="Remove ${p.name}"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="m3.5 2.086 4.5 4.5 4.5-4.5L13.914 3.5 9.414 8l4.5 4.5-1.414 1.414-4.5-4.5-4.5 4.5L2.086 12.5l4.5-4.5-4.5-4.5L3.5 2.086Z"/></svg></button></div>`).join(''):`<div class="picks-empty t-body-sm-regular">No programs selected. Use “Add another program” to start comparing.</div>`;
   const best=document.getElementById('best');
   if(ps.length>=2){
     const cheap=ps.reduce((a,b)=>b.tuition<a.tuition?b:a), fast=ps.reduce((a,b)=>b.months<a.months?b:a);
-    best.innerHTML=`<div class="best-card green"><span class="sticker"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s12_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#DFF9D2"/><g><path d="M16.2001 20.6996C16.2001 19.2084 17.4089 17.9996 18.9001 17.9996H23.4001V23.3996H18.9001C17.4089 23.3996 16.2001 22.1908 16.2001 20.6996Z" fill="white"/><path d="M24.6001 29.9996V24.5996H29.1001C30.5913 24.5996 31.8001 25.8084 31.8001 27.2996C31.8001 28.7908 30.5913 29.9996 29.1001 29.9996H24.6001Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM18.9001 16.7996H23.4001V14.9996H24.6001V16.7996H29.4001C30.7256 16.7996 31.8001 17.8741 31.8001 19.1996H30.6001C30.6001 18.5369 30.0628 17.9996 29.4001 17.9996H24.6001V23.3996H29.1001C31.254 23.3996 33.0001 25.1457 33.0001 27.2996C33.0001 29.4535 31.254 31.1996 29.1001 31.1996H24.6001V32.9996H23.4001V31.1996H18.5201C17.1946 31.1996 16.1201 30.1251 16.1201 28.7996H17.3201C17.3201 29.4623 17.8574 29.9996 18.5201 29.9996H23.4001V24.5996H18.9001C16.7462 24.5996 15.0001 22.8535 15.0001 20.6996C15.0001 18.5457 16.7462 16.7996 18.9001 16.7996Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M23.4001 16.7996H18.9001C16.7462 16.7996 15.0001 18.5457 15.0001 20.6996C15.0001 22.8535 16.7462 24.5996 18.9001 24.5996H23.4001V29.9996H18.5201C17.8574 29.9996 17.3201 29.4623 17.3201 28.7996H16.1201C16.1201 30.1251 17.1946 31.1996 18.5201 31.1996H23.4001V32.9996H24.6001V31.1996H29.1001C31.254 31.1996 33.0001 29.4535 33.0001 27.2996C33.0001 25.1457 31.254 23.3996 29.1001 23.3996H24.6001V17.9996H29.4001C30.0628 17.9996 30.6001 18.5369 30.6001 19.1996H31.8001C31.8001 17.8741 30.7256 16.7996 29.4001 16.7996H24.6001V14.9996H23.4001V16.7996ZM18.9001 17.9996C17.4089 17.9996 16.2001 19.2084 16.2001 20.6996C16.2001 22.1908 17.4089 23.3996 18.9001 23.3996H23.4001V17.9996H18.9001ZM24.6001 24.5996V29.9996H29.1001C30.5913 29.9996 31.8001 28.7908 31.8001 27.2996C31.8001 25.8084 30.5913 24.5996 29.1001 24.5996H24.6001Z" fill="#13650B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996ZM24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996Z" fill="#13650B"/></g></g></g></g></g></g><defs><clipPath id="s12_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><b>Most affordable</b><span class="name">${cheap.name}</span><span class="pill">${money(cheap.tuition)} per year</span></div>
-    <div class="best-card blue"><span class="sticker"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s13_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#D9EEFC"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 13.7996C18.3668 13.7996 13.8001 18.3663 13.8001 23.9996C13.8001 29.6329 18.3668 34.1996 24.0001 34.1996C29.6334 34.1996 34.2001 29.6329 34.2001 23.9996C34.2001 18.3663 29.6334 13.7996 24.0001 13.7996ZM27.4244 26.5753L24.6001 23.7511V16.1996H23.4001V24.2481L26.5758 27.4239L27.4244 26.5753ZM18.0516 18.8996L18.9001 18.0511L19.7486 18.8996L18.9001 19.7481L18.0516 18.8996ZM29.1001 18.0511L29.9486 18.8996L29.1001 19.7482L28.2516 18.8996L29.1001 18.0511ZM30.6001 23.3996H31.8001V24.5996H30.6001V23.3996ZM16.2001 23.3996H17.4001V24.5996H16.2001V23.3996ZM24.6001 30.5996V31.7996H23.4001V30.5996H24.6001ZM18.9001 28.2511L19.7486 29.0996L18.9001 29.9482L18.0516 29.0996L18.9001 28.2511ZM29.1001 28.2511L29.9486 29.0996L29.1001 29.9482L28.2516 29.0996L29.1001 28.2511Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM12.6001 23.9996C12.6001 17.7036 17.7041 12.5996 24.0001 12.5996C30.2961 12.5996 35.4001 17.7036 35.4001 23.9996C35.4001 30.2957 30.2961 35.3996 24.0001 35.3996C17.7041 35.3996 12.6001 30.2957 12.6001 23.9996Z" fill="white"/><path d="M24.6001 23.7511L27.4244 26.5753L26.5758 27.4239L23.4001 24.2481V16.1996H24.6001V23.7511Z" fill="#004F9E"/><path d="M18.9001 18.0511L18.0516 18.8996L18.9001 19.7481L19.7486 18.8996L18.9001 18.0511Z" fill="#004F9E"/><path d="M29.1001 18.0511L29.9486 18.8996L29.1001 19.7482L28.2516 18.8996L29.1001 18.0511Z" fill="#004F9E"/><path d="M31.8001 23.3996H30.6001V24.5996H31.8001V23.3996Z" fill="#004F9E"/><path d="M16.2001 23.3996H17.4001V24.5996H16.2001V23.3996Z" fill="#004F9E"/><path d="M24.6001 31.7996V30.5996H23.4001V31.7996H24.6001Z" fill="#004F9E"/><path d="M18.9001 28.2511L19.7486 29.0996L18.9001 29.9482L18.0516 29.0996L18.9001 28.2511Z" fill="#004F9E"/><path d="M29.9486 29.0996L29.1001 28.2511L28.2516 29.0996L29.1001 29.9482L29.9486 29.0996Z" fill="#004F9E"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.6001 23.9996C12.6001 17.7036 17.7041 12.5996 24.0001 12.5996C30.2961 12.5996 35.4001 17.7036 35.4001 23.9996C35.4001 30.2957 30.2961 35.3996 24.0001 35.3996C17.7041 35.3996 12.6001 30.2957 12.6001 23.9996ZM24.0001 13.7996C18.3668 13.7996 13.8001 18.3663 13.8001 23.9996C13.8001 29.6329 18.3668 34.1996 24.0001 34.1996C29.6334 34.1996 34.2001 29.6329 34.2001 23.9996C34.2001 18.3663 29.6334 13.7996 24.0001 13.7996Z" fill="#004F9E"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996ZM24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996Z" fill="#004F9E"/></g></g></g></g></g></g><defs><clipPath id="s13_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><b>Shortest duration</b><span class="name">${fast.name}</span><span class="pill">${dur(fast.months)}</span></div>`;best.style.display='';
+    best.innerHTML=`<div class="best-card green"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s12_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#DFF9D2"/><g><path d="M16.2001 20.6996C16.2001 19.2084 17.4089 17.9996 18.9001 17.9996H23.4001V23.3996H18.9001C17.4089 23.3996 16.2001 22.1908 16.2001 20.6996Z" fill="white"/><path d="M24.6001 29.9996V24.5996H29.1001C30.5913 24.5996 31.8001 25.8084 31.8001 27.2996C31.8001 28.7908 30.5913 29.9996 29.1001 29.9996H24.6001Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM18.9001 16.7996H23.4001V14.9996H24.6001V16.7996H29.4001C30.7256 16.7996 31.8001 17.8741 31.8001 19.1996H30.6001C30.6001 18.5369 30.0628 17.9996 29.4001 17.9996H24.6001V23.3996H29.1001C31.254 23.3996 33.0001 25.1457 33.0001 27.2996C33.0001 29.4535 31.254 31.1996 29.1001 31.1996H24.6001V32.9996H23.4001V31.1996H18.5201C17.1946 31.1996 16.1201 30.1251 16.1201 28.7996H17.3201C17.3201 29.4623 17.8574 29.9996 18.5201 29.9996H23.4001V24.5996H18.9001C16.7462 24.5996 15.0001 22.8535 15.0001 20.6996C15.0001 18.5457 16.7462 16.7996 18.9001 16.7996Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M23.4001 16.7996H18.9001C16.7462 16.7996 15.0001 18.5457 15.0001 20.6996C15.0001 22.8535 16.7462 24.5996 18.9001 24.5996H23.4001V29.9996H18.5201C17.8574 29.9996 17.3201 29.4623 17.3201 28.7996H16.1201C16.1201 30.1251 17.1946 31.1996 18.5201 31.1996H23.4001V32.9996H24.6001V31.1996H29.1001C31.254 31.1996 33.0001 29.4535 33.0001 27.2996C33.0001 25.1457 31.254 23.3996 29.1001 23.3996H24.6001V17.9996H29.4001C30.0628 17.9996 30.6001 18.5369 30.6001 19.1996H31.8001C31.8001 17.8741 30.7256 16.7996 29.4001 16.7996H24.6001V14.9996H23.4001V16.7996ZM18.9001 17.9996C17.4089 17.9996 16.2001 19.2084 16.2001 20.6996C16.2001 22.1908 17.4089 23.3996 18.9001 23.3996H23.4001V17.9996H18.9001ZM24.6001 24.5996V29.9996H29.1001C30.5913 29.9996 31.8001 28.7908 31.8001 27.2996C31.8001 25.8084 30.5913 24.5996 29.1001 24.5996H24.6001Z" fill="#13650B"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996ZM24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996Z" fill="#13650B"/></g></g></g></g></g></g><defs><clipPath id="s12_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><b class="t-heading-xs-strong">Most affordable</b><span class="name t-body-sm-regular">${cheap.name}</span><span class="pill t-heading-xs-strong">${money(cheap.tuition)} per year</span></div>
+    <div class="best-card blue"><span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g><g clip-path="url(#s13_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#D9EEFC"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 13.7996C18.3668 13.7996 13.8001 18.3663 13.8001 23.9996C13.8001 29.6329 18.3668 34.1996 24.0001 34.1996C29.6334 34.1996 34.2001 29.6329 34.2001 23.9996C34.2001 18.3663 29.6334 13.7996 24.0001 13.7996ZM27.4244 26.5753L24.6001 23.7511V16.1996H23.4001V24.2481L26.5758 27.4239L27.4244 26.5753ZM18.0516 18.8996L18.9001 18.0511L19.7486 18.8996L18.9001 19.7481L18.0516 18.8996ZM29.1001 18.0511L29.9486 18.8996L29.1001 19.7482L28.2516 18.8996L29.1001 18.0511ZM30.6001 23.3996H31.8001V24.5996H30.6001V23.3996ZM16.2001 23.3996H17.4001V24.5996H16.2001V23.3996ZM24.6001 30.5996V31.7996H23.4001V30.5996H24.6001ZM18.9001 28.2511L19.7486 29.0996L18.9001 29.9482L18.0516 29.0996L18.9001 28.2511ZM29.1001 28.2511L29.9486 29.0996L29.1001 29.9482L28.2516 29.0996L29.1001 28.2511Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM12.6001 23.9996C12.6001 17.7036 17.7041 12.5996 24.0001 12.5996C30.2961 12.5996 35.4001 17.7036 35.4001 23.9996C35.4001 30.2957 30.2961 35.3996 24.0001 35.3996C17.7041 35.3996 12.6001 30.2957 12.6001 23.9996Z" fill="white"/><path d="M24.6001 23.7511L27.4244 26.5753L26.5758 27.4239L23.4001 24.2481V16.1996H24.6001V23.7511Z" fill="#004F9E"/><path d="M18.9001 18.0511L18.0516 18.8996L18.9001 19.7481L19.7486 18.8996L18.9001 18.0511Z" fill="#004F9E"/><path d="M29.1001 18.0511L29.9486 18.8996L29.1001 19.7482L28.2516 18.8996L29.1001 18.0511Z" fill="#004F9E"/><path d="M31.8001 23.3996H30.6001V24.5996H31.8001V23.3996Z" fill="#004F9E"/><path d="M16.2001 23.3996H17.4001V24.5996H16.2001V23.3996Z" fill="#004F9E"/><path d="M24.6001 31.7996V30.5996H23.4001V31.7996H24.6001Z" fill="#004F9E"/><path d="M18.9001 28.2511L19.7486 29.0996L18.9001 29.9482L18.0516 29.0996L18.9001 28.2511Z" fill="#004F9E"/><path d="M29.9486 29.0996L29.1001 28.2511L28.2516 29.0996L29.1001 29.9482L29.9486 29.0996Z" fill="#004F9E"/><path fill-rule="evenodd" clip-rule="evenodd" d="M12.6001 23.9996C12.6001 17.7036 17.7041 12.5996 24.0001 12.5996C30.2961 12.5996 35.4001 17.7036 35.4001 23.9996C35.4001 30.2957 30.2961 35.3996 24.0001 35.3996C17.7041 35.3996 12.6001 30.2957 12.6001 23.9996ZM24.0001 13.7996C18.3668 13.7996 13.8001 18.3663 13.8001 23.9996C13.8001 29.6329 18.3668 34.1996 24.0001 34.1996C29.6334 34.1996 34.2001 29.6329 34.2001 23.9996C34.2001 18.3663 29.6334 13.7996 24.0001 13.7996Z" fill="#004F9E"/><path fill-rule="evenodd" clip-rule="evenodd" d="M9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996ZM24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996Z" fill="#004F9E"/></g></g></g></g></g></g><defs><clipPath id="s13_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span><b class="t-heading-xs-strong">Shortest duration</b><span class="name t-body-sm-regular">${fast.name}</span><span class="pill t-heading-xs-strong">${dur(fast.months)}</span></div>`;best.style.display='';
   } else best.style.display='none';
   document.getElementById('rows').innerHTML=ps.length?ROWS.map(([label,fmt,key,dir])=>{
     let winner=null;if(key&&ps.length>=2){const vals=ps.map(p=>p[key]);const target=dir==='min'?Math.min(...vals):Math.max(...vals);if(vals.filter(v=>v===target).length===1)winner=target;}
-    return `<div class="row"><h3>${label}</h3>${ps.map(p=>`<p><b>${p.name}:</b> ${fmt(p)}${winner!==null&&p[key]===winner?`<span class="win">${dir==='min'?'Lowest':'Highest'}</span>`:''}</p>`).join('')}</div>`;}).join(''):'';
+    return `<div class="row"><h3 class="t-heading-md-strong">${label}</h3>${ps.map(p=>`<p class="t-body-sm-regular"><b>${p.name}:</b> ${fmt(p)}${winner!==null&&p[key]===winner?`<span class="win t-heading-2xs-strong">${dir==='min'?'Lowest':'Highest'}</span>`:''}</p>`).join('')}</div>`;}).join(''):'';
   const avail=Object.keys(PROGRAMS).filter(k=>!picked.includes(k));
-  document.getElementById('picker').innerHTML=`<p>Choose a program</p>`+avail.map(k=>`<button data-add="${k}">${PROGRAMS[k].name}</button>`).join('');
+  document.getElementById('picker').innerHTML=`<p class="t-tag-sm-regular">Choose a program</p>`+avail.map(k=>`<button class="t-action-sm-regular" data-add="${k}">${PROGRAMS[k].name}</button>`).join('');
 }
 const drawer=document.getElementById('drawer');let lastFocus=null;
 function openDrawer(){lastFocus=document.activeElement;document.body.classList.add('drawer-open');render();setTimeout(()=>drawer.querySelector('.drawer-close').focus(),50);}
