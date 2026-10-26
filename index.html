@@ -38,8 +38,6 @@ strong,b{font-weight:var(--font-weight-600);color:var(--text-strong)}
 
 /* Buttons */
 .btn{display:inline-flex;align-items:center;gap:var(--spacing-8);min-height:var(--component-button-height-lg);padding:0 var(--spacing-16);border:1px solid transparent;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
-.btn svg{transition:transform .15s}
-.btn:hover svg.arrow{transform:translateX(3px)}
 .btn--primary{background:var(--background-brand);color:var(--text-on-brand)}
 .btn--primary:hover{background:var(--color-brand-extra-dark)}
 .btn--form{background:var(--component-button-form-background);color:var(--text-inverse)}
@@ -83,8 +81,7 @@ strong,b{font-weight:var(--font-weight-600);color:var(--text-strong)}
 .toc li{border-top:1px solid var(--border-default)}
 .toc a{display:flex;align-items:center;gap:var(--spacing-8);height:47px;text-decoration:none;color:var(--text-strong)}
 .toc a:hover{color:var(--text-brand)}
-.toc a svg{width:12px;height:12px;transition:transform .15s}
-.toc a:hover svg{transform:translateY(2px)}
+.toc a svg{width:12px;height:12px}
 .rfi{margin-top:104px;background:var(--background-raised);box-shadow:var(--shadow-md)}
 .rfi-head{background:var(--background-brand);color:var(--text-on-brand);padding:var(--spacing-24) var(--spacing-32) 26px;display:flex;justify-content:space-between;gap:var(--spacing-24)}
 .rfi-head h2{max-width:340px}
@@ -145,12 +142,15 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 .text-link{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-link);text-decoration:none;margin-top:var(--spacing-32)}
 .text-link:hover{text-decoration:underline}
 .takeaways{list-style:none;margin:0;padding:0}
-.takeaway{display:grid;grid-template-columns:32px 1fr;gap:var(--spacing-12) 28px;border-top:1px solid var(--border-default);padding:28px var(--spacing-16)}
+.takeaway{display:grid;grid-template-columns:32px 1fr;gap:var(--spacing-12);border-top:1px solid var(--border-default);padding:28px var(--spacing-16)}
 .check{width:32px;height:32px;border-radius:50%;background:var(--component-list-hub-check-background);color:var(--component-list-hub-icon);display:grid;place-items:center}
 .takeaway h4{margin:var(--spacing-4) 0 var(--spacing-12);color:var(--text-strong)}
 .takeaway a{color:var(--text-link)}
 .sublist{list-style:none;margin:var(--spacing-20) 0 0 var(--spacing-20);padding:0;display:grid;gap:var(--spacing-20)}
-.sublist h5{margin:0 0 var(--spacing-4);display:flex;align-items:center;gap:var(--spacing-8);color:var(--text-strong)}
+.sublist h5{margin:0 0 var(--spacing-4)}
+.sublist h5 a{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-strong);text-decoration:none;transition:color .15s}
+.sublist h5 a:hover{color:var(--text-brand)}
+.sublist h5 a:hover svg{color:var(--icon-brand)}
 .sublist h5 svg{width:12px;height:12px}
 .sublist p{margin:0 0 0 var(--spacing-20)}
 .sublist .salary{margin-top:var(--spacing-8)}
@@ -175,11 +175,9 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 .sq-list li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;background:var(--icon-brand)}
 .kv{display:grid;gap:var(--spacing-8)}
 .compare-card{margin-top:var(--spacing-40);background:var(--background-brand);color:var(--text-on-brand);padding:var(--spacing-16) var(--spacing-16) var(--spacing-20);display:block;width:100%;text-align:left;border:0}
-.compare-card:hover{background:var(--color-brand-extra-dark)}
 .compare-card .eyebrow{display:block;margin:var(--spacing-12) 0 var(--spacing-4)}
 .compare-card .title{display:flex;justify-content:space-between;align-items:center}
-.compare-card .title svg{transition:transform .15s}
-.compare-card:hover .title svg{transform:translateX(3px)}
+.compare-card:hover .title span{text-decoration:underline;text-underline-offset:3px}
 .compare-card .desc{display:block;margin-top:var(--spacing-12)}
 
 /* Stats */
@@ -191,13 +189,13 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 .stat .lbl{display:block;max-width:320px}
 
 /* Quote */
-.quote{padding-top:var(--spacing-96);padding-bottom:var(--spacing-96)}
+.quote{padding-top:var(--spacing-96);padding-bottom:0}
 .quote figure{max-width:860px;color:var(--text-brand)}
 .quote blockquote{margin:var(--spacing-24) 0 var(--spacing-32)}
 .quote figcaption b{display:block;color:var(--text-brand)}
 
 /* Contacts */
-.contacts{padding-top:var(--spacing-64)}
+.contacts{padding-top:var(--spacing-96)}
 .contact-grid{display:grid;grid-template-columns:440px 440px;gap:var(--spacing-24)}
 .contact{background:var(--background-raised);box-shadow:var(--shadow-sm);padding:var(--spacing-32)}
 .avatar{width:80px;height:80px;border-radius:50%;background:var(--color-base-extra-light);overflow:hidden;display:grid;place-items:center;color:var(--text-default);margin-bottom:var(--spacing-24)}
@@ -463,19 +461,19 @@ body.drawer-open .drawer{transform:none;visibility:visible}
         <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Practical skills</h4><p class="t-body-base-regular" id="skills-sentence"></p></div></li>
         <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Specializations &amp; concentrations</h4><p class="t-body-base-regular">Choose a concentration that matches your interests and career goals such as:</p>
           <ul class="sublist">
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Business</h5><p class="t-body-xs-regular">Learn the foundational principles of economics, management, and marketing to lead organizations and drive global commerce.</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Health Information Management</h5><p class="t-body-xs-regular">Master the systems and technologies necessary to manage and secure patient health data, bridging healthcare and information technology.</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Legal Informatics</h5><p class="t-body-xs-regular">Explore the intersection of law and technology, using computational methods to solve legal problems, manage information, and streamline judicial processes.</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Sustainability</h5><p class="t-body-xs-regular">Gain the knowledge to develop and implement practices that balance environmental, social, and economic needs for a resilient future.</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Enterprise Resource Planning</h5><p class="t-body-xs-regular">Focus on integrating and optimizing a company’s core business processes—like finance, HR, and supply chain—using comprehensive software systems.</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Business page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Business</a></h5><p class="t-body-xs-regular">Learn the foundational principles of economics, management, and marketing to lead organizations and drive global commerce.</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Health Information Management page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Health Information Management</a></h5><p class="t-body-xs-regular">Master the systems and technologies necessary to manage and secure patient health data, bridging healthcare and information technology.</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Legal Informatics page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Legal Informatics</a></h5><p class="t-body-xs-regular">Explore the intersection of law and technology, using computational methods to solve legal problems, manage information, and streamline judicial processes.</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Sustainability page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Sustainability</a></h5><p class="t-body-xs-regular">Gain the knowledge to develop and implement practices that balance environmental, social, and economic needs for a resilient future.</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Enterprise Resource Planning page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Enterprise Resource Planning</a></h5><p class="t-body-xs-regular">Focus on integrating and optimizing a company’s core business processes—like finance, HR, and supply chain—using comprehensive software systems.</p></li>
           </ul></div></li>
         <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Career pathways</h4><p class="t-body-base-regular">The degree prepares graduates for diverse career opportunities, including:</p>
           <ul class="sublist">
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>User Experience Designer</h5><p class="t-body-xs-regular">A user experience designer creates intuitive and engaging digital experiences by researching user needs and designing user-friendly interfaces.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Digital Library Specialist</h5><p class="t-body-xs-regular">A digital library specialist curates and manages digital resources, ensuring easy access to information while supporting users in navigating technology and data.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Network Manager</h5><p class="t-body-xs-regular">A network manager oversees the design, implementation, and maintenance of an organization’s computer networks, ensuring optimal performance and security.</p><p class="salary t-body-xs-regular">$75k – $140k</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Web Developer</h5><p class="t-body-xs-regular">A web developer creates and maintains websites, ensuring they are user-friendly, visually appealing, and function smoothly across various devices.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
-            <li><h5 class="t-action-lg-strong"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Information Architect</h5><p class="t-body-xs-regular">An information architect designs and organizes information systems to enhance user experience and ensure efficient data flow within an organization.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the User Experience Designer page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>User Experience Designer</a></h5><p class="t-body-xs-regular">A user experience designer creates intuitive and engaging digital experiences by researching user needs and designing user-friendly interfaces.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Digital Library Specialist page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Digital Library Specialist</a></h5><p class="t-body-xs-regular">A digital library specialist curates and manages digital resources, ensuring easy access to information while supporting users in navigating technology and data.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Network Manager page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Network Manager</a></h5><p class="t-body-xs-regular">A network manager oversees the design, implementation, and maintenance of an organization’s computer networks, ensuring optimal performance and security.</p><p class="salary t-body-xs-regular">$75k – $140k</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Web Developer page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Web Developer</a></h5><p class="t-body-xs-regular">A web developer creates and maintains websites, ensuring they are user-friendly, visually appealing, and function smoothly across various devices.</p><p class="salary t-body-xs-regular">$85k – $130k</p></li>
+            <li><h5 class="t-action-lg-strong"><a href="#" data-toast="Prototype: this would open the Information Architect page."><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M10.586 4H4V2h10v10h-2V5.414l-8.293 8.293-1.414-1.414L10.586 4Z"/></svg>Information Architect</a></h5><p class="t-body-xs-regular">An information architect designs and organizes information systems to enhance user experience and ensure efficient data flow within an organization.</p><p class="salary t-body-xs-regular">$90k – $160k</p></li>
           </ul></div></li>
         <li class="takeaway"><span class="check"><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="m14.914 4-9.47 9.47L1.09 8.393 2.608 7.09l2.948 3.44L13.5 2.585 14.914 4Z"/></svg></span><div><h4 class="t-action-xl-strong-fixed">Experiential learning</h4><p class="t-body-base-regular"><span id="exp-sentence"></span> Those accepted into IU Online benefit from comprehensive personalized <a href="#advisors">support services</a>.</p></div></li>
       </ul>
@@ -513,7 +511,7 @@ body.drawer-open .drawer{transform:none;visibility:visible}
     <button class="compare-card" type="button" data-open-drawer aria-haspopup="dialog">
       <span class="sticker sticker--48"><svg aria-hidden="true" focusable="false" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g><g><g><g clip-path="url(#s6_clip0_747_19155)"><circle cx="24" cy="24" r="24" fill="#EFDFC8"/><g><path fill-rule="evenodd" clip-rule="evenodd" d="M10.8001 23.9996C10.8001 16.7095 16.7099 10.7996 24.0001 10.7996C31.2903 10.7996 37.2001 16.7095 37.2001 23.9996C37.2001 31.2898 31.2903 37.1996 24.0001 37.1996C16.7099 37.1996 10.8001 31.2898 10.8001 23.9996ZM27.3121 15.4854L31.4295 19.7996L27.3121 24.1139L26.444 23.2854L29.1981 20.3996H16.8001V19.1996H29.1981L26.444 16.3139L27.3121 15.4854ZM20.6881 23.8854L16.5707 28.1996L20.6881 32.5139L21.5562 31.6854L18.8021 28.7996H31.2001V27.5996H18.8021L21.5562 24.7139L20.6881 23.8854Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M20.6881 23.8854L16.5707 28.1996L20.6881 32.5139L21.5562 31.6854L18.8021 28.7996H31.2001V27.5996H18.8021L21.5562 24.7139L20.6881 23.8854Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M27.3121 15.4854L31.4295 19.7996L27.3121 24.1139L26.444 23.2854L29.1981 20.3996H16.8001V19.1996H29.1981L26.444 16.3139L27.3121 15.4854Z" fill="#990000"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.0001 10.7996C16.7099 10.7996 10.8001 16.7095 10.8001 23.9996C10.8001 31.2898 16.7099 37.1996 24.0001 37.1996C31.2903 37.1996 37.2001 31.2898 37.2001 23.9996C37.2001 16.7095 31.2903 10.7996 24.0001 10.7996ZM9.6001 23.9996C9.6001 16.0467 16.0472 9.59961 24.0001 9.59961C31.953 9.59961 38.4001 16.0467 38.4001 23.9996C38.4001 31.9525 31.953 38.3996 24.0001 38.3996C16.0472 38.3996 9.6001 31.9525 9.6001 23.9996Z" fill="#990000"/></g></g></g></g></g><defs><clipPath id="s6_clip0_747_19155"><rect width="48" height="48" fill="white"/></clipPath></defs></svg></span>
       <span class="eyebrow t-tag-sm-regular">Program comparison</span>
-      <span class="title t-action-lg-strong">See how IU degrees stack up <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></span>
+      <span class="title t-action-lg-strong"><span>See how IU degrees stack up</span><svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M1 7h10.844L7.737 2.146 9.263.854 15.31 8l-6.047 7.146-1.526-1.292L11.844 9H1V7Z"/></svg></span>
       <span class="desc t-body-xs-regular">Compare annual tuition, program length, admission criteria, and employment rates and more to find your best fit.</span>
     </button>
   </aside>
