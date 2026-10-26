@@ -39,13 +39,17 @@ strong,b{font-weight:var(--font-weight-600);color:var(--text-strong)}
 /* Buttons */
 .btn{display:inline-flex;align-items:center;gap:var(--spacing-8);min-height:var(--component-button-height-lg);padding:0 var(--spacing-16);border:1px solid transparent;text-decoration:none;transition:background .15s,color .15s,border-color .15s}
 .btn--primary{background:var(--background-brand);color:var(--text-on-brand)}
-.btn--primary:hover{background:var(--color-brand-extra-dark)}
+.btn--primary:hover{background:var(--background-accent)}
+.btn--primary:active{background:var(--background-accent);box-shadow:inset 0 0 0 2px var(--border-on-brand-alt),0 0 0 2px var(--component-button-form-border-hover)}
 .btn--form{background:var(--component-button-form-background);color:var(--text-inverse)}
 .btn--form:hover{background:var(--component-button-form-background-hover)}
+.btn--form:active{background:var(--component-button-form-background-hover);box-shadow:inset 0 0 0 2px var(--border-on-brand-alt),0 0 0 2px var(--component-button-form-border-hover)}
 .btn--outline{border-color:var(--border-accent);color:var(--text-brand);background:transparent}
-.btn--outline:hover{background:var(--background-brand);color:var(--text-on-brand)}
+.btn--outline:hover{border-color:var(--border-accent-strong);color:var(--text-brand-strong)}
+.btn--outline:hover svg{color:var(--icon-accent-strong)}
 .btn--small{min-height:var(--component-button-height-md);padding:0 var(--spacing-12);border-color:var(--component-button-form-border);color:var(--component-button-form-text);background:var(--background-default)}
-.btn--small:hover{background:var(--component-button-form-background);color:var(--text-inverse)}
+.btn--small:hover{border-color:var(--component-button-form-border-hover);color:var(--component-button-form-text-hover)}
+.btn--small:active{background:var(--background-strong);box-shadow:inset 0 0 0 2px var(--border-on-brand-alt),0 0 0 2px var(--component-button-form-border-hover)}
 
 /* ---------- Header ---------- */
 .site-header{background:var(--background-tint)}
@@ -67,7 +71,8 @@ strong,b{font-weight:var(--font-weight-600);color:var(--text-strong)}
 .nav-menu a{display:block;padding:var(--spacing-8) var(--spacing-16);text-decoration:none}
 .nav-menu a:hover{background:var(--background-strong);color:var(--text-brand)}
 .icon-btn{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--border-strong);background:none;color:var(--icon-strong)}
-.icon-btn:hover{background:var(--background-inverse);color:var(--icon-inverse)}
+.icon-btn:hover{border-color:var(--component-button-form-border-hover);color:var(--component-button-form-text-hover)}
+.icon-btn:active{background:var(--background-strong)}
 .menu-toggle{display:none}
 
 /* ---------- Hero ---------- */
@@ -140,7 +145,8 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 .course .badge{margin-bottom:var(--spacing-12)}
 .course p{color:var(--text-strong)}
 .text-link{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-link);text-decoration:none;margin-top:var(--spacing-32)}
-.text-link:hover{text-decoration:underline}
+.text-link:hover{color:var(--text-brand-strong)}
+.text-link:hover svg{color:var(--icon-accent-strong)}
 .takeaways{list-style:none;margin:0;padding:0}
 .takeaway{display:grid;grid-template-columns:32px 1fr;gap:var(--spacing-12);border-top:1px solid var(--border-default);padding:28px var(--spacing-16)}
 .check{width:32px;height:32px;border-radius:50%;background:var(--component-list-hub-check-background);color:var(--component-list-hub-icon);display:grid;place-items:center}
@@ -207,8 +213,9 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 .contact .lines{display:grid;gap:var(--spacing-12);margin-bottom:var(--spacing-24)}
 .contact .lines a{display:inline-flex;align-items:center;gap:var(--spacing-8);color:var(--text-link)}
 .contact .lines svg{color:var(--icon-strong)}
-.hours-btn{background:none;border:0;padding:0;color:var(--text-brand);display:inline-flex;align-items:center;gap:var(--spacing-8)}
+.hours-btn{background:none;border:0;border-bottom:2px solid transparent;padding:0;color:var(--text-brand);display:inline-flex;align-items:center;gap:var(--spacing-8)}
 .hours-btn svg{color:var(--icon-brand)}
+.hours-btn:hover{border-bottom-color:currentColor}
 .hours-btn .chev{transition:transform .2s;display:inline-flex}
 .hours-btn[aria-expanded=true] .chev{transform:rotate(180deg)}
 .hours{display:none;margin:var(--spacing-12) 0 0 var(--spacing-24)}
@@ -225,9 +232,9 @@ details.disclosure .body{padding:0 var(--spacing-16) var(--spacing-16) 36px}
 /* Footer */
 .site-footer{background:var(--background-brand);color:var(--text-on-brand)}
 .site-footer .social{display:flex;gap:var(--spacing-8);padding-top:var(--spacing-16);padding-bottom:var(--spacing-16)}
-.site-footer .social a{width:24px;height:24px;border-radius:50%;background:var(--color-brand-extra-dark);display:grid;place-items:center}
-.site-footer .social a:hover{background:var(--color-base-ultra-dark)}
-.site-footer .social svg{width:12px;height:12px;fill:var(--icon-inverse)}
+.site-footer .social a{width:24px;height:24px;border-radius:var(--border-radius-full);background:transparent;border:1px solid var(--border-on-brand);display:grid;place-items:center;transition:background .15s}
+.site-footer .social a:hover{background:var(--color-brand-dark)}
+.site-footer .social svg{width:12px;height:12px;fill:var(--color-brand-extra-light)}
 .site-footer hr{border:0;border-top:1px solid var(--border-on-brand);margin:0}
 .site-footer .bottom{display:flex;align-items:center;gap:var(--spacing-16);padding-top:var(--spacing-16);padding-bottom:var(--spacing-20);flex-wrap:wrap}
 .site-footer .bottom a{text-decoration:none}.site-footer .bottom a:hover{text-decoration:underline}
@@ -243,7 +250,8 @@ body.drawer-open .drawer{transform:none;visibility:visible}
 .drawer-head h2{color:var(--color-base-main);padding-right:var(--spacing-48)}
 .drawer-head .count{margin-top:var(--spacing-4);color:var(--color-base-body)}
 .drawer-close{position:absolute;top:var(--spacing-24);right:var(--spacing-24);width:40px;height:40px;border:1px solid var(--color-base-main);background:var(--background-default);color:var(--icon-strong);display:grid;place-items:center}
-.drawer-close:hover{background:var(--background-inverse);color:var(--icon-inverse)}
+.drawer-close:hover{border-color:var(--component-button-form-border-hover);color:var(--component-button-form-text-hover)}
+.drawer-close:active{background:var(--background-strong)}
 .add-btn{margin-top:var(--spacing-24);height:var(--component-button-height-md);padding:0 var(--spacing-12);display:inline-flex;align-items:center;gap:var(--spacing-8);cursor:default;background:var(--component-button-form-background);color:var(--text-on-brand-alt);border:1px solid var(--component-button-form-border)}
 .add-btn[disabled]{opacity:.5;cursor:not-allowed}
 .picker{display:none;position:absolute;left:var(--spacing-24);top:calc(100% + var(--spacing-4));z-index:3;width:360px;max-width:calc(100vw - 48px);background:var(--background-raised);color:var(--text-strong);box-shadow:var(--shadow-lg);border:1px solid var(--border-default)}
@@ -256,9 +264,9 @@ body.drawer-open .drawer{transform:none;visibility:visible}
 .pick{position:relative;border:1px solid var(--color-brand-light);background:var(--background-raised);padding:var(--spacing-16)}
 .pick h3{margin:0 var(--spacing-16) var(--spacing-8) 0;color:var(--text-strong)}
 .pick .rm{position:absolute;top:var(--spacing-4);right:var(--spacing-4);background:none;border:0;width:20px;height:20px;padding:0;display:grid;place-items:center;color:var(--icon-strong)}
-.pick .rm:hover{color:var(--icon-brand)}
+.pick .rm:hover{color:var(--component-button-form-text-hover)}
 .pick .see{display:inline-flex;align-items:center;height:var(--component-button-height-sm);padding:0 var(--spacing-8);border:1px solid var(--border-accent);color:var(--text-accent);text-decoration:none}
-.pick .see:hover{background:var(--background-brand);color:var(--text-on-brand)}
+.pick .see:hover{border-color:var(--border-accent-strong);color:var(--text-brand-strong)}
 .picks-empty{grid-column:1/-1;padding:var(--spacing-24);border:1px dashed var(--border-default);text-align:center}
 .best{display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-16);padding:0 var(--spacing-24) var(--spacing-40)}
 .best-card{padding:var(--spacing-16);border:1px solid;display:flex;flex-direction:column;gap:var(--spacing-4)}
@@ -509,7 +517,7 @@ body.drawer-open .drawer{transform:none;visibility:visible}
       <div class="grp"><h3 class="t-heading-md-strong">Transferable credits</h3>
         <p class="kv t-body-sm-regular"><span><strong>Associate degree:</strong> may be transferable</span><span><strong>2-year college:</strong> up to 64 credits</span><span><strong>4-year college:</strong> up to 90 credits</span></p></div>
       <div class="grp"><h3 class="t-heading-md-strong">Application deadline</h3>
-        <p class="kv t-body-sm-regular"><span><strong>Final:</strong> Mar 15, 2026</span><span><strong>Earliest:</strong> Jan 15, 2026</span><span><strong>Note:</strong> always confirm the exact time zone on the official application portal or confirm with the admissions office.</span></p></div>
+        <p class="kv t-body-sm-regular"><span><strong>Earliest:</strong> Jan 15, 2026</span><span><strong>Final:</strong> Mar 15, 2026</span><span><strong>Note:</strong> always confirm the exact time zone on the official application portal or confirm with the admissions office.</span></p></div>
       <div class="grp"><h3 class="t-heading-md-strong">Start date</h3>
         <p class="kv t-body-sm-regular"><span><strong>Start:</strong> August 2026</span><span><strong>Earliest:</strong> Spring admission available</span></p></div>
     </div>
